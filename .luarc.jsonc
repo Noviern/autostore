@@ -1,0 +1,16 @@
+{ // See https://luals.github.io/wiki/settings/
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "runtime.version": "Lua 5.1",
+  "hover.expandAlias": false,
+  "workspace.library": [
+    "C:/ArcheRage/Documents/Addon/x2/src"
+  ],
+  "diagnostics": {
+    "disable": [
+      "inject-field",
+      "undefined-field",
+      "need-check-nil",
+      "param-type-mismatch"
+    ]
+  }
+}
