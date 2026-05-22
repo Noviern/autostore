@@ -1,11 +1,16 @@
----Sets the view of the window.
 ---@param id string
----@param parent? "UIParent"|Widget
+---@param parent OptionalParent
 ---@return Window
+---@nodiscard
 function SetViewOfWindow(id, parent)
-  local window = UIParent:CreateWidget("window", id, parent or "UIParent")
+  local window
+  if parent and type(parent) ~= "string" then
+    window = parent:CreateChildWidget("window", id, 0, true)
+  else
+    window = UIParent:CreateWidget("window", id, parent or "UIParent")
+  end
+
   window:SetExtent(280, 180)
-  window:AddAnchor("CENTER", parent or "UIParent", 0, 0)
 
   local bg = window:CreateDrawable(TEXTURE_PATH.DEFAULT, "main_bg", "background")
   bg:AddAnchor("TOPLEFT", window, -5, -5)

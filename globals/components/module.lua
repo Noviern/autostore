@@ -1,0 +1,52 @@
+local MODULE_WINDOW = {
+  MARGIN  = 20,
+  SPACING = 10,
+}
+
+---@param id string
+---@param parent OptionalParent
+---@param title string
+---@param tooltip? string
+---@return EmptyWidget frame, Window|nil tooltipFrame
+---@nodiscard
+function CreateModule(id, parent, title, tooltip)
+  local frame
+  if parent and type(parent) ~= "string" then
+    frame = parent:CreateChildWidget("emptywidget", id, 0, true)
+  else
+    frame = UIParent:CreateWidget("emptywidget", id, "UIParent")
+    parent = frame:GetParent()
+  end
+
+  frame.background = CreateBackground(frame, TEXTURE_PATH.DEFAULT, "type02_new")
+  frame.background:SetTextureColor("default")
+
+  local titleTextbox = frame:CreateChildWidget("textbox", "titleTextbox", 0, true)
+  titleTextbox.style:SetColorByKey("title")
+  titleTextbox.style:SetFontSize(FONT_SIZE.LARGE)
+  titleTextbox.style:SetAlign(ALIGN_LEFT)
+  titleTextbox:SetHeight(45)
+  titleTextbox:SetInset(20, 0, 20, 0)
+  titleTextbox:AddAnchor("TOPLEFT", frame, 0, 0)
+  titleTextbox:AddAnchor("TOPRIGHT", frame, 0, 0)
+  titleTextbox:SetText(title)
+
+  local guide = titleTextbox:CreateChildWidget("emptywidget", "guide", 0, true)
+  guide.background = CreateBackground(guide, TEXTURE_PATH.HUD, "questionmark")
+  guide:SetExtent(20, 20)
+  guide:AddAnchor("RIGHT", titleTextbox, -MODULE_WINDOW.MARGIN, 0)
+
+  local tooltipFrame
+  if tooltip then
+    tooltipFrame = CreateTooltip(parent, guide, tooltip)
+  end
+
+  titleTextbox.background = CreateBackground(titleTextbox, TEXTURE_PATH.DEFAULT, "type02_new_half")
+  titleTextbox.background:SetTextureColor("default")
+
+  local contentFrame = frame:CreateChildWidget("emptywidget", "contentFrame", 0, true)
+  contentFrame:AddAnchor("TOPLEFT", titleTextbox, "BOTTOMLEFT", MODULE_WINDOW.MARGIN, MODULE_WINDOW.SPACING)
+  contentFrame:AddAnchor("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -MODULE_WINDOW.MARGIN, -MODULE_WINDOW.MARGIN)
+
+  return frame, tooltipFrame
+end

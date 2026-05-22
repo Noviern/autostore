@@ -4,4 +4,4 @@
 
 允许玩家在背包和存储之间转移物品，同时应用过滤器和搜索。
 
-![自动存放](https://i.imgur.com/H4yxJr6.png)
+![自动存放](https://i.imgur.com/yHb9c2H.png)

@@ -1,4 +1,3 @@
----Updates the dropdown Widgets control visibility.
 ---@param combobox Combobox
 ---@param viewLimit number
 local function UpdateDropdownControlVisibility(combobox, viewLimit)
@@ -59,7 +58,7 @@ local function OverrideComboboxMethods(combobox)
 
     local selectorButton = combobox.selectorBtn
     local width = selectorButton:GetWidth()
-    local height = COMBOBOX_INSET[2] + limit * 23 + COMBOBOX_INSET[4]
+    local height = EDITBOX_WITH_BUTTON_INSET[2] + limit * 23 + EDITBOX_WITH_BUTTON_INSET[4]
 
     ---Bug: SetHeight has no effect on the height of a dropdown.
     -- dropdown:SetHeight(height)
@@ -108,10 +107,10 @@ local function OverrideComboboxMethods(combobox)
   end
 end
 
----Creates a Combobox Widget.
 ---@param id string
----@param parent? Widget|string
+---@param parent OptionalParent
 ---@return Combobox
+---@nodiscard
 function CreateCombobox(id, parent)
   local combobox = SetViewOfCombobox(id, parent)
   OverrideComboboxMethods(combobox)

@@ -4,4 +4,4 @@
 
 Allows the player to transfer items between their inventory and storage while also applying a filter and search.
 
-![Auto Store](https://i.imgur.com/H4yxJr6.png)
+![Auto Store](https://i.imgur.com/yHb9c2H.png)

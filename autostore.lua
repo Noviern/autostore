@@ -1,4 +1,4 @@
----This overrides the default params of X2Bag.GetBagItemInfo so that badId
+---This overrides the default params of X2Bag.GetBagItemInfo so that bagId
 ---isnt needed to make it more inline with X2Coffer and X2Bank.
 local X2BagGetBagItemInfo = X2Bag.GetBagItemInfo
 
@@ -26,22 +26,8 @@ local MoveToEmptySlot = {
   [TRANSACTION_TYPE.WITHDRAW] = {
     [STORAGE_TYPE.COFFER] = function (slot) X2Coffer:MoveToEmptyBagSlot(slot) end,
     [STORAGE_TYPE.BANK]   = function (slot) X2Bank:MoveToEmptyBagSlot(slot) end
-  }
+  },
 }
-
-local function AttachTooltipBehavior(frame)
-  local guide   = frame.titleTextbox.guide ---@type EmptyWidget
-  local tooltip = frame.tooltipTextbox ---@type Textbox
-
-  guide:SetHandler("OnEnter", function ()
-    tooltip:Show(true)
-    tooltip:Raise()
-  end)
-
-  guide:SetHandler("OnLeave", function ()
-    tooltip:Show(false)
-  end)
-end
 
 ---@return Window
 ---@nodiscard
@@ -49,27 +35,38 @@ local function CreateAutoStoreWindow(id)
   local window = SetViewOfAutoStoreWindow(id)
   window:SetUILayer("system")
 
-  local contentFrame            = window.contentFrame
+  local contentFrame              = window.contentFrame
 
-  local storageOption           = {
+  local storageOption             = {
     frame = contentFrame.storageOptionFrame ---@type EmptyWidget
   }
 
-  storageOption.contentframe    = storageOption.frame.contentFrame ---@type EmptyWidget
-  storageOption.radioGroupFrame = storageOption.contentframe.radioGroupFrame ---@type RadioGroup
+  storageOption.contentframe      = storageOption.frame.contentFrame ---@type EmptyWidget
+  storageOption.radioGroupFrame   = storageOption.contentframe.radioGroupFrame ---@type RadioGroup
 
-  local filter                  = {
+  local filter                    = {
     frame = contentFrame.filterFrame, ---@type EmptyWidget
   }
 
-  filter.contentFrame           = filter.frame.contentFrame ---@type EmptyWidget
-  filter.checkbutton            = filter.contentFrame.filterCheckbutton ---@type CheckButton
-  filter.combobox               = filter.contentFrame.filterCombobox ---@type Combobox
-  filter.searchEditbox          = filter.contentFrame.searchEditbox ---@type X2Editbox
-  filter.startEditbox           = filter.contentFrame.startEditbox ---@type X2Editbox
-  filter.endEditbox             = filter.contentFrame.endEditbox ---@type X2Editbox
+  filter.contentFrame             = filter.frame.contentFrame ---@type EmptyWidget
+  filter.transferBoundCheckbutton = filter.contentFrame.transferBoundCheckbutton ---@type CheckButton
+  filter.resetButton              = filter.contentFrame.resetButton ---@type Button
+  filter.categoryFilterCombobox   = filter.contentFrame.categoryFilterCombobox ---@type Combobox
+  filter.searchEditbox            = filter.contentFrame.searchEditbox ---@type X2Editbox
+  filter.startEditbox             = filter.contentFrame.startEditbox ---@type X2Editbox
+  filter.endEditbox               = filter.contentFrame.endEditbox ---@type X2Editbox
+  filter.cooldownEditbox          = filter.contentFrame.cooldownEditbox ---@type X2Editbox
 
-  local filterKeys              = {}
+  filter.resetButton:SetHandler("OnClick", function ()
+    filter.transferBoundCheckbutton:SetChecked(false)
+    filter.categoryFilterCombobox.dropdown:Select(0)
+    filter.searchEditbox:SetText("")
+    filter.startEditbox:SetText("")
+    filter.endEditbox:SetText("")
+    filter.cooldownEditbox:SetText("")
+  end)
+
+  local filterKeys = {}
 
   for key, _ in pairs(locale.addon.filter) do
     table.insert(filterKeys, key)
@@ -79,10 +76,10 @@ local function CreateAutoStoreWindow(id)
   table.insert(filterKeys, 1, locale.addon.filterAll)
 
   for k, v in ipairs(filterKeys) do
-    filter.combobox.dropdown:AppendItem(v, k)
+    filter.categoryFilterCombobox.dropdown:AppendItem(v, k)
   end
 
-  filter.combobox.dropdown:Select(0)
+  filter.categoryFilterCombobox.dropdown:Select(0)
 
   local progressTextbox      = contentFrame.progressTextbox ---@type Textbox
 
@@ -131,9 +128,8 @@ local function CreateAutoStoreWindow(id)
     source.currentSlot           = source.startSlot
     source.endSlot               = tonumber(filter.endEditbox:GetText()) or source.storage:Capacity()
 
-    local transferBoundItems     = filter.checkbutton:GetChecked()
-
-    local selectedCategoryFilter = filter.combobox.selectorBtn:GetText()
+    local transferBoundItems     = filter.transferBoundCheckbutton:GetChecked()
+    local selectedCategoryFilter = filter.categoryFilterCombobox.selectorBtn:GetText()
 
     local categoryFilter
     if selectedCategoryFilter ~= locale.addon.filterAll then
@@ -155,7 +151,9 @@ local function CreateAutoStoreWindow(id)
         and not itemInfo.pinned
     end
 
-    local cooldown           = 200
+    local userCooldown       = tonumber(filter.cooldownEditbox:GetText()) or 0
+    local minimumCooldown    = 200
+    local cooldown           = userCooldown > minimumCooldown and userCooldown or minimumCooldown
     local timePassed         = cooldown
     local attemptedMove      = false
     local attemptFailedCount = 0
@@ -189,24 +187,29 @@ local function CreateAutoStoreWindow(id)
         attemptedMove = false
       end
 
+      local foundMatch     = false
       local foundNextMatch = false
 
       for i = source.currentSlot, source.endSlot do
         local itemInfo = source.storage:GetBagItemInfo(i)
 
         if itemMatchesFilter(itemInfo) then
-          foundNextMatch = true
-          attemptedMove  = true
+          if not foundMatch then
+            foundMatch    = true
+            attemptedMove = true
 
-          MoveToEmptySlot[type][option](i)
+            MoveToEmptySlot[type][option](i)
 
-          progressTextbox:SetText(string.format("%d - %d (x%d) - %d\n%s",
-            source.startSlot, i, attemptFailedCount, source.endSlot, itemInfo.name
-          ))
+            progressTextbox:SetText(string.format("%d - %d (x%d) - %d\n%s",
+              source.startSlot, i, attemptFailedCount, source.endSlot, itemInfo.name
+            ))
 
-          source.currentSlot = i + 1
-          timePassed = 0
-          break
+            timePassed = 0
+          elseif not foundNextMatch then
+            foundNextMatch     = true
+            source.currentSlot = i
+            break
+          end
         end
       end
 
@@ -217,8 +220,13 @@ local function CreateAutoStoreWindow(id)
     end)
   end
 
-  AttachTooltipBehavior(storageOption.frame)
-  AttachTooltipBehavior(filter.frame)
+  window:SetHandler("OnEvent", function ()
+    progressTextbox:SetText(locale.addon.autoSortDetected)
+  end)
+
+  window:RegisterEvent("BAG_TAB_SORTED")
+  window:RegisterEvent("COFFER_TAB_SORTED")
+  window:RegisterEvent("BANK_TAB_SORTED")
 
   transaction.depositButton:SetHandler("OnClick", function ()
     window:StartTransaction(TRANSACTION_TYPE.DEPOSIT)
@@ -246,6 +254,8 @@ local function ToggleAutoStoreWindow()
   autoStoreWindow:Show(not autoStoreWindow:IsVisible())
 end
 
+local BUTTON_OFFSET = { 20, 97 }
+
 local function CreateAutoStoreButton()
   local frame = UIParent:CreateWidget("window", "bagWatcher", "UIParent")
   frame:SetUILayer("hud")
@@ -256,17 +266,24 @@ local function CreateAutoStoreButton()
   button:AddAnchor("CENTER", frame, 0, 0)
   frame:SetExtent(button:GetWidth(), button:GetHeight())
 
+  local tooltipFrame = CreateTooltip(frame, button, locale.addon.title, false)
+  tooltipFrame:RemoveAllAnchors()
+  tooltipFrame:AddAnchor("BOTTOM", button, "TOP", 0, 0)
+
   local isHiding = false
 
   frame:SetHandler("OnUpdate", function ()
     local x, y, w, h, isVisible = ADDON:GetContentMainScriptPosVis(UIC_BAG)
 
     if isVisible then
-      frame:AddAnchor("TOPLEFT", "UIParent", x + 20, y + h - 97)
+      frame:AddAnchor("TOPLEFT", "UIParent", x + BUTTON_OFFSET[1], y + h - BUTTON_OFFSET[2])
       isHiding = false
     elseif not isHiding then
       frame:AddAnchor("TOPLEFT", "UIParent", "BOTTOMRIGHT", 100, 100)
       isHiding = true
+      if autoStoreWindow ~= nil and autoStoreWindow:IsVisible() and not isVisible then
+        autoStoreWindow:Show(isVisible)
+      end
     end
   end)
 

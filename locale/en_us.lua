@@ -1,5 +1,3 @@
-ADDON:ImportAPI(API.X2Locale)
-
 if locale == nil then
   locale = {}
 end
@@ -8,22 +6,32 @@ locale.addon = {
   title         = "Auto Store",
   storageModule = {
     title   = "Storage",
-    tooltip = "Select the storage chest from which items will either be deposited into or withdrawn from.",
+    tooltip =
+      "Select a storage location that is currently open to deposit or withdraw items from:\n" ..
+      "|bu◆;Storage Chest (includes pocket chests)|br\n" ..
+      "|bu◆;Warehouse|br\n",
     coffer  = X2Locale:LocalizeUiText(WINDOW_TITLE_TEXT, "coffer"),
     bank    = X2Locale:LocalizeUiText(WINDOW_TITLE_TEXT, "bank"),
   },
   filterModule  = {
     title       = "Filter",
     tooltip     =
-      "Items can be filtered by the valid category types for pocket chests and items can be searched for by the " ..
-      "category or name. Set a starting slot or ending slot number to determine where the item transferring should " ..
-      "begin and end.",
+      "Items can be filtered by:\n" ..
+      "|bu◆;Selecting a Pocket Chest filter|br\n" ..
+      "|bu◆;Searcing by name or category|br\n" ..
+      "|bu◆;Entering a start or end slot index|br\n\n" ..
+      "Items locked in their position will not be transfered.\n\n" ..
+      "Note: Using Auto-Sort does not update the slot indices. " ..
+      "This can cause items to be visually transfered in the incorrect order. " ..
+      "To fix this, close and reopen the storage location.",
     transfer    = "Transfer bound items",
     searchGuide = X2Locale:LocalizeUiText(COMMON_TEXT, "search_iteam"),
     startSlot   = "Start: 1",
     endSlot     = "End: 150",
+    cooldown     = "200ms",
   },
   inventoryFull = "|nr;Inventory or storage is full!|r",
+  autoSortDetected = "|nr;Auto-Sort detected!|r",
   transaction   = {
     deposit  = X2Locale:LocalizeUiText(INVEN_TEXT, "deposit"),
     withdraw = X2Locale:LocalizeUiText(INVEN_TEXT, "withdraw"),
@@ -34,6 +42,7 @@ locale.addon = {
     ["Costume Closet"] = {
       ["Costume"] = true,
       ["Daru Costume"] = true,
+      ["Cosmetic Materials"] = true,
 
       ["Synthesis Gear"] = true,
     },
@@ -270,7 +279,7 @@ locale.addon = {
 }
 
 -- function X2Locale:GetLocale()
--- -- return "fr"
--- -- return "ru"
--- -- return "zh_cn"
+-- return "fr"
+-- return "ru"
+-- return "zh_cn"
 -- end

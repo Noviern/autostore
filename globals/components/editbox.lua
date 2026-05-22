@@ -7,6 +7,7 @@ TEXT_COLOR = {
 EDITBOX_INSET = { 5, 5, 5, 5 }
 EDITBOX_GUIDE_INSET = { 7, 5, 5, 5 }
 EDITBOX_MULTILINE_GUIDE_INSET = { 10, 10, 15, 0 }
+EDITBOX_WITH_BUTTON_INSET = { 5, 5, 20, 5 }
 
 ---@param editbox Editboxbase|Button
 function AttachEditboxBehavior(editbox)
@@ -14,14 +15,11 @@ function AttachEditboxBehavior(editbox)
     enabled  = "editbox_df",
     disabled = "editbox_dis",
   }
-  local background = editbox:CreateDrawable(TEXTURE_PATH.DEFAULT, textureKeys.enabled, "background")
-  background:AddAnchor("TOPLEFT", editbox, 0, 0)
-  background:AddAnchor("BOTTOMRIGHT", editbox, 0, 0)
-  editbox.background = background
+  editbox.background = CreateBackground(editbox, TEXTURE_PATH.DEFAULT, textureKeys.enabled)
 
   function editbox:SetViewOfBackground(enabled)
     local textureKey = enabled and textureKeys.enabled or textureKeys.disabled
-    background:SetTextureInfo(textureKey)
+    editbox.background:SetTextureInfo(textureKey)
 
     local color = enabled and TEXT_COLOR.DEFAULT or TEXT_COLOR.GRAY
     self.style:SetColor(unpack(color))
@@ -53,17 +51,16 @@ function InitEditbox(editbox)
   editbox:UseSelectAllWhenFocused(true)
 end
 
----Creates a Multiline Editbox.
 ---@param id string
----@param parent? "UIParent"|Widget
+---@param parent OptionalParent
 ---@return EditboxMultiline
 ---@nodiscard
 function CreateMultilineEditbox(id, parent)
   local multilineEditbox
-  if parent then
+  if parent and type(parent) ~= "string" then
     multilineEditbox = parent:CreateChildWidget("editboxmultiline", id, 0, true)
   else
-    multilineEditbox = UIParent:CreateWidget("editboxmultiline", id, "UIParent")
+    multilineEditbox = UIParent:CreateWidget("editboxmultiline", id, parent or "UIParent")
   end
 
   CommonEditInit(multilineEditbox)
@@ -75,20 +72,57 @@ function CreateMultilineEditbox(id, parent)
   return multilineEditbox
 end
 
----Creates a Editbox.
 ---@param id string
----@param parent? "UIParent"|Widget
+---@param parent OptionalParent
 ---@return X2Editbox
 ---@nodiscard
 function CreateEditbox(id, parent)
   local editbox
-  if parent then
+  if parent and type(parent) ~= "string" then
     editbox = parent:CreateChildWidget("x2editbox", id, 0, true)
   else
-    editbox = UIParent:CreateWidget("x2editbox", id, "UIParent")
+    editbox = UIParent:CreateWidget("x2editbox", id, parent or "UIParent")
   end
 
   InitEditbox(editbox)
+
+  return editbox
+end
+
+---@param editbox X2Editbox
+function AttachCancelableEditboxBehavior(editbox)
+  local cancelButton = editbox:CreateChildWidget("button", "cancelButton", 0, true)
+  cancelButton:Show(false)
+  cancelButton:SetStyle("cancel_search_in_inventory")
+  cancelButton:AddAnchor("RIGHT", editbox, "RIGHT", -6, 0)
+  editbox.cancelButton = cancelButton
+
+  cancelButton:SetHandler("OnClick", function ()
+    editbox:SetText("")
+    cancelButton:Show(false)
+  end)
+
+  editbox:SetHandler("OnTextChanged", function (self)
+    cancelButton:Show(editbox:GetText() ~= "")
+  end)
+end
+
+---@TODO: this needs be more abstract, width maxtext digitmax etc should probably be in autostore_view.lua
+---@TODO: CreateCancelableEditbox?
+---@param id string
+---@param parent OptionalParent
+---@return X2Editbox
+---@nodiscard
+function CreateCancelableDigitEditbox(id, parent)
+  local editbox = CreateEditbox(id, parent)
+  editbox:SetDigit(true)
+  editbox:SetDigitEmpty(true)
+  editbox:SetDigitMax(150)
+  editbox:SetMaxTextLength(3)
+  editbox:SetWidth(86)
+  editbox:SetInset(unpack(EDITBOX_WITH_BUTTON_INSET))
+
+  AttachCancelableEditboxBehavior(editbox)
 
   return editbox
 end

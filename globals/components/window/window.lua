@@ -1,6 +1,5 @@
----Creates a window.
 ---@param id string
----@param parent? "UIParent"|Widget
+---@param parent OptionalParent
 ---@return Window
 ---@nodiscard
 function CreateWindow(id, parent)
@@ -9,6 +8,10 @@ function CreateWindow(id, parent)
   window:SetCloseOnEscape(true)
   window:SetAlphaAnimation(0, 1, .1, .1)
   window:SetStartAnimation(true, true)
+
+  window:SetHandler("OnScale", function (self)
+    CorrectWidgetScreenPos(window)
+  end)
 
   local titleBar = window.titleBar ---@type Window
   titleBar:EnableDrag(true)

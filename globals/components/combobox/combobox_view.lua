@@ -1,9 +1,7 @@
-COMBOBOX_INSET = { 5, 5, 20, 5 }
-
----Sets up the view of a Combobox Widget.
 ---@param id string
----@param parent? Widget|string
+---@param parent OptionalParent
 ---@return Combobox
+---@nodiscard
 function SetViewOfCombobox(id, parent)
   local combobox
   if parent then
@@ -13,6 +11,7 @@ function SetViewOfCombobox(id, parent)
   end
 
   InitEditbox(combobox.selector)
+  combobox.selector:SetInset(unpack(EDITBOX_WITH_BUTTON_INSET))
 
   local selectorButton = combobox.selectorBtn
   selectorButton.style:SetAlign(ALIGN_LEFT)
@@ -21,7 +20,7 @@ function SetViewOfCombobox(id, parent)
   selectorButton:SetHighlightTextColor(unpack(TEXT_COLOR.DEFAULT))
   selectorButton:SetPushedTextColor(unpack(TEXT_COLOR.DEFAULT))
   selectorButton:SetDisabledTextColor(unpack(TEXT_COLOR.GRAY))
-  selectorButton:SetInset(unpack(COMBOBOX_INSET))
+  selectorButton:SetInset(unpack(EDITBOX_WITH_BUTTON_INSET))
   AttachEditboxBehavior(selectorButton)
 
   local toggle = combobox.toggle
@@ -30,7 +29,7 @@ function SetViewOfCombobox(id, parent)
 
   local dropdown = combobox.dropdown
   dropdown.itemStyle:SetAlign(ALIGN_LEFT)
-  dropdown:SetInset(unpack(COMBOBOX_INSET))
+  dropdown:SetInset(unpack(EDITBOX_WITH_BUTTON_INSET))
   dropdown:SetOveredItemColor(0, 0.5, 1, 0.2)
   dropdown:SetSelectedItemColor(0, 0.3, 0.5, 0.3)
   dropdown:SetDefaultItemTextColor(unpack(TEXT_COLOR.DEFAULT))
@@ -38,10 +37,7 @@ function SetViewOfCombobox(id, parent)
   dropdown:SetSelectedItemTextColor(unpack(TEXT_COLOR.BLUE))
   dropdown:SetDisableItemTextColor(unpack(TEXT_COLOR.GRAY))
 
-  local dropdownBackground = dropdown:CreateDrawable(TEXTURE_PATH.DEFAULT, "editbox_df", "background")
-  dropdownBackground:AddAnchor("TOPLEFT", dropdown, 0, 0)
-  dropdownBackground:AddAnchor("BOTTOMRIGHT", dropdown, 0, 0)
-  dropdown.background = dropdownBackground
+  dropdown.background = CreateBackground(dropdown, TEXTURE_PATH.DEFAULT, "editbox_df")
 
   local upButton = dropdown.upBtn
   upButton:AddAnchor("TOPRIGHT", dropdown, -4, 8)
@@ -66,20 +62,7 @@ function SetViewOfCombobox(id, parent)
   local thumb = vslider.thumb
   thumb:SetWidth(20)
 
-  local thumbNormalBackground = thumb:CreateDrawable(TEXTURE_PATH.SCROLL, "thumb_df", "background")
-  thumbNormalBackground:AddAnchor("TOPLEFT", thumb, 0, 0)
-  thumbNormalBackground:AddAnchor("BOTTOMRIGHT", thumb, 0, 0)
-  thumb:SetNormalBackground(thumbNormalBackground)
-
-  local thumbHighlightBackground = thumb:CreateDrawable(TEXTURE_PATH.SCROLL, "thumb_ov", "background")
-  thumbHighlightBackground:AddAnchor("TOPLEFT", thumb, 0, 0)
-  thumbHighlightBackground:AddAnchor("BOTTOMRIGHT", thumb, 0, 0)
-  thumb:SetHighlightBackground(thumbHighlightBackground)
-
-  local thumbPushedBackground = thumb:CreateDrawable(TEXTURE_PATH.SCROLL, "thumb_on", "background")
-  thumbPushedBackground:AddAnchor("TOPLEFT", thumb, 0, 0)
-  thumbPushedBackground:AddAnchor("BOTTOMRIGHT", thumb, 0, 0)
-  thumb:SetPushedBackground(thumbPushedBackground)
+  SetViewOfButtonBackground(thumb, TEXTURE_PATH.SCROLL, "thumb")
 
   return combobox
 end

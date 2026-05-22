@@ -4,4 +4,4 @@
 
 Permet au joueur de transférer des objets entre son inventaire et le stockage tout en appliquant un filtre et une recherche.
 
-![Auto Stockage](https://i.imgur.com/H4yxJr6.png)
+![Auto Stockage](https://i.imgur.com/yHb9c2H.png)
