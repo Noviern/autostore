@@ -1,9 +1,10 @@
 ---@param id string
 ---@param parent OptionalParent
+---@param title string
 ---@return Window
 ---@nodiscard
-function CreateWindow(id, parent)
-  local window = SetViewOfWindow(id, parent)
+function CreateWindow(id, parent, title)
+  local window = SetViewOfWindow(id, parent, title)
   window:SetSounds("dialog_common")
   window:SetCloseOnEscape(true)
   window:SetAlphaAnimation(0, 1, .1, .1)

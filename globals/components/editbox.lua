@@ -8,6 +8,8 @@ EDITBOX_INSET = { 5, 5, 5, 5 }
 EDITBOX_GUIDE_INSET = { 7, 5, 5, 5 }
 EDITBOX_MULTILINE_GUIDE_INSET = { 10, 10, 15, 0 }
 EDITBOX_WITH_BUTTON_INSET = { 5, 5, 20, 5 }
+EDITBOX_WIDTH = 312
+EDITBOX_HEIGHT = 26
 
 ---@param editbox Editboxbase|Button
 function AttachEditboxBehavior(editbox)
@@ -35,7 +37,7 @@ local function CommonEditInit(editbox)
   editbox.style:SetSnap(true)
   editbox.style:SetShadow(false)
   editbox.guideTextStyle:SetColorByKey("guide_text_in_editbox")
-  editbox:SetHeight(26)
+  editbox:SetExtent(EDITBOX_WIDTH, EDITBOX_HEIGHT)
   editbox:SetCursorColorByColorKey("editbox_cursor_default")
   AttachEditboxBehavior(editbox)
 end
@@ -107,22 +109,12 @@ function AttachCancelableEditboxBehavior(editbox)
   end)
 end
 
----@TODO: this needs be more abstract, width maxtext digitmax etc should probably be in autostore_view.lua
----@TODO: CreateCancelableEditbox?
 ---@param id string
 ---@param parent OptionalParent
 ---@return X2Editbox
 ---@nodiscard
-function CreateCancelableDigitEditbox(id, parent)
+function CreateCancelableEditbox(id, parent)
   local editbox = CreateEditbox(id, parent)
-  editbox:SetDigit(true)
-  editbox:SetDigitEmpty(true)
-  editbox:SetDigitMax(150)
-  editbox:SetMaxTextLength(3)
-  editbox:SetWidth(86)
-  editbox:SetInset(unpack(EDITBOX_WITH_BUTTON_INSET))
-
   AttachCancelableEditboxBehavior(editbox)
-
   return editbox
 end

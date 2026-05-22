@@ -9,78 +9,46 @@ local WINDOW = {
 ---@nodiscard
 local function SetViewOfStorageOptionFrame(contentFrame)
   local storageLocale = locale.addon.storageModule
-  local frame, tooltipFrame = CreateModule(
+  local frame = CreateModule(
     "storageOptionFrame",
     contentFrame,
     storageLocale.title,
     storageLocale.tooltip
   )
 
-  local titleTextbox = frame.titleTextbox ---@type Textbox
-
   local storageOptionContentFrame = frame.contentFrame ---@type EmptyWidget
   local radioGroupFrame = storageOptionContentFrame:CreateChildWidget("radiogroup", "radioGroupFrame", 0, true)
   radioGroupFrame:AddAnchor("TOPLEFT", storageOptionContentFrame, 0, 0)
   radioGroupFrame:AddAnchor("TOPRIGHT", storageOptionContentFrame, 0, 0)
 
-  local height = 0
-
   local storageChestOptionFrame = CreateRadioItem(radioGroupFrame, STORAGE_TYPE.COFFER, storageLocale.coffer)
   storageChestOptionFrame:AddAnchor("TOPLEFT", radioGroupFrame, 0, 0)
-  height = height + storageChestOptionFrame:GetHeight()
 
   local warehouseOptionFrame = CreateRadioItem(radioGroupFrame, STORAGE_TYPE.BANK, storageLocale.bank)
   warehouseOptionFrame:AddAnchor("TOPLEFT", storageChestOptionFrame, "BOTTOMLEFT", 0, WINDOW.SPACING)
-  height = height + warehouseOptionFrame:GetHeight() + WINDOW.SPACING
 
   radioGroupFrame:Check(1)
 
-  radioGroupFrame:SetHeight(height)
-  frame:SetHeight(titleTextbox:GetHeight() + WINDOW.SPACING + height + WINDOW.MARGIN)
+  ResizeParentToFitBottomWidget(radioGroupFrame, warehouseOptionFrame)
+  ResizeParentToFitBottomWidget(frame, warehouseOptionFrame, WINDOW.MARGIN)
 
   return frame
 end
 
 ---@param id string
 ---@param parent OptionalParent
----@param text string
----@return CheckButton
+---@return X2Editbox
 ---@nodiscard
-local function SetViewOfCheckbutton(id, parent, text)
-  local checkbutton
-  if parent then
-    checkbutton = parent:CreateChildWidget("checkbutton", id, 0, true)
-  else
-    checkbutton = UIParent:CreateWidget("checkbutton", id, "UIParent")
-  end
+local function CreateFilterEditbox(id, parent)
+  local editbox = CreateCancelableEditbox(id, parent)
+  editbox:SetDigit(true)
+  editbox:SetDigitEmpty(true)
+  editbox:SetDigitMax(150)
+  editbox:SetMaxTextLength(3)
+  editbox:SetWidth(86)
+  editbox:SetInset(unpack(EDITBOX_WITH_BUTTON_INSET))
 
-  checkbutton:SetExtent(20, 20)
-  SetViewOfButtonBackground(checkbutton, TEXTURE_PATH.CHECK_BTN, "btn")
-
-  local checkedBackground = checkbutton:CreateDrawable(TEXTURE_PATH.CHECK_BTN, "btn_chk_df", "background")
-  checkedBackground:AddAnchor("TOPLEFT", checkbutton, 0, 0)
-  checkedBackground:AddAnchor("BOTTOMRIGHT", checkbutton, 0, 0)
-  checkbutton:SetCheckedBackground(checkedBackground)
-
-  local disabledCheckedBackground = checkbutton:CreateDrawable(TEXTURE_PATH.CHECK_BTN, "btn_chk_dis", "background")
-  disabledCheckedBackground:AddAnchor("TOPLEFT", checkbutton, 0, 0)
-  disabledCheckedBackground:AddAnchor("BOTTOMRIGHT", checkbutton, 0, 0)
-  checkbutton:SetDisabledCheckedBackground(disabledCheckedBackground)
-
-  local textbox = checkbutton:CreateChildWidget("textbox", "textbox", 0, true)
-  textbox:AddAnchor("LEFT", checkbutton, "RIGHT", WINDOW.SPACING, 0)
-  textbox:SetAutoResize(true)
-  textbox:SetAutoWordwrap(false)
-  textbox:SetHeight(20)
-  textbox.style:SetColorByKey("default")
-  textbox.style:SetAlign(ALIGN_LEFT)
-  textbox:SetText(text)
-
-  textbox:SetHandler("OnClick", function ()
-    checkbutton:SetChecked(not checkbutton:GetChecked(), true)
-  end)
-
-  return checkbutton
+  return editbox
 end
 
 ---@param contentFrame EmptyWidget
@@ -95,12 +63,9 @@ local function SetViewOfFilterFrame(contentFrame)
     filterLocale.tooltip
   )
 
-  local titleTextbox = frame.titleTextbox ---@type Textbox
   local filterContentframe = frame.contentFrame ---@type EmptyWidget
 
-  local height = 0
-
-  local transferBoundCheckbutton = SetViewOfCheckbutton(
+  local transferBoundCheckbutton = CreateCheckButtonWithTextbox(
     "transferBoundCheckbutton",
     filterContentframe,
     filterLocale.transfer
@@ -112,20 +77,17 @@ local function SetViewOfFilterFrame(contentFrame)
   SetViewOfButtonBackground(resetButton, BUTTON_TEXTURE_PATH.COMMON_RESET, "reset")
   resetButton:AddAnchor("TOPRIGHT", filterContentframe, 0, 0)
 
-  height = height + transferBoundCheckbutton:GetHeight()
 
   local categoryFilterCombobox = CreateCombobox("categoryFilterCombobox", filterContentframe)
   categoryFilterCombobox:AddAnchor("TOPLEFT", transferBoundCheckbutton, "BOTTOMLEFT", 0, WINDOW.SPACING)
   categoryFilterCombobox:AddAnchor("RIGHT", filterContentframe, 0, 0)
   categoryFilterCombobox:SetDropdownVisibleLimit(15)
-  height = height + categoryFilterCombobox:GetHeight() + WINDOW.SPACING
 
   local searchEditbox = CreateEditbox("searchEditbox", filterContentframe)
   AttachCancelableEditboxBehavior(searchEditbox)
   searchEditbox:AddAnchor("TOPLEFT", categoryFilterCombobox, "BOTTOMLEFT", 0, WINDOW.SPACING)
   searchEditbox:AddAnchor("TOPRIGHT", categoryFilterCombobox, "BOTTOMRIGHT", 0, WINDOW.SPACING)
   searchEditbox:SetGuideText(filterLocale.searchGuide)
-  height = height + searchEditbox:GetHeight() + WINDOW.SPACING
 
   local searchIcon = searchEditbox:CreateDrawable(TEXTURE_PATH.INVENTORY_DEFAULT, "search_icon", "overlay")
   searchIcon:AddAnchor("RIGHT", searchEditbox, -6, 0)
@@ -145,23 +107,21 @@ local function SetViewOfFilterFrame(contentFrame)
     searchIcon:Show(not visible)
   end)
 
-  local startEditbox = CreateCancelableDigitEditbox("startEditbox", filterContentframe)
+  local startEditbox = CreateFilterEditbox("startEditbox", filterContentframe)
   startEditbox:SetGuideText(filterLocale.startSlot)
   startEditbox:AddAnchor("TOPLEFT", searchEditbox, "BOTTOMLEFT", 0, WINDOW.SPACING)
 
-  local endEditbox = CreateCancelableDigitEditbox("endEditbox", filterContentframe)
+  local endEditbox = CreateFilterEditbox("endEditbox", filterContentframe)
   endEditbox:SetGuideText(filterLocale.endSlot)
   endEditbox:AddAnchor("LEFT", startEditbox, "RIGHT", 6, 0)
 
-  local cooldownEditbox = CreateCancelableDigitEditbox("cooldownEditbox", filterContentframe)
+  local cooldownEditbox = CreateFilterEditbox("cooldownEditbox", filterContentframe)
   cooldownEditbox:SetDigitMax(10000)
   cooldownEditbox:SetMaxTextLength(5)
   cooldownEditbox:SetGuideText(filterLocale.cooldown)
   cooldownEditbox:AddAnchor("LEFT", endEditbox, "RIGHT", 6, 0)
 
-  height = height + cooldownEditbox:GetHeight() + WINDOW.SPACING
-
-  frame:SetHeight(titleTextbox:GetHeight() + WINDOW.SPACING + height + WINDOW.MARGIN)
+  ResizeParentToFitBottomWidget(frame, cooldownEditbox, WINDOW.MARGIN)
 
   return frame
 end
@@ -204,14 +164,11 @@ local INVENTORY = {
 ---@return Window
 ---@nodiscard
 function SetViewOfAutoStoreWindow(id)
-  local window = CreateWindow(id)
+  local window = CreateWindow(id, nil, locale.addon.title)
   window:Show(true)
   window:Show(false) ---Fixes a anchoring bug.
   window:SetWidth(WINDOW.WIDTH)
   window:AddAnchor("RIGHT", -INVENTORY.OFFSET - INVENTORY.WIDTH - WINDOW.MARGIN, 0)
-
-  local titleBar = window.titleBar ---@type Window
-  titleBar:SetTitleText(locale.addon.title)
 
   local contentFrame = window.contentFrame ---@type EmptyWidget
 
@@ -240,14 +197,7 @@ function SetViewOfAutoStoreWindow(id)
   transactionFrame:AddAnchor("TOPLEFT", progressTextbox, "BOTTOMLEFT", 0, WINDOW.SPACING)
   transactionFrame:AddAnchor("TOPRIGHT", progressTextbox, "BOTTOMRIGHT", 0, WINDOW.SPACING)
 
-  local _, y1     = window:GetOffset()
-  local _, y2     = transactionFrame:GetOffset()
-  local h         = transactionFrame:GetHeight()
-  local minHeight = window:GetHeight()
-  local newHeight = y2 - y1 + h + WINDOW.MARGIN
-  local height    = math.max(minHeight, newHeight)
-
-  window:SetHeight(height)
+  ResizeParentToFitBottomWidget(window, transactionFrame, WINDOW.MARGIN)
 
   return window
 end

@@ -33,7 +33,7 @@ function CreateTooltip(parent, guide, tooltip, autoWrap)
   if autoWrap == false then
     tooltipTextbox:SetAutoWordwrap(autoWrap)
   else
-    tooltipFrame:SetWidth(parent:GetWidth() - TOOLTIP_INSET * 4) ---@TODO: the frame needs a width before settext
+    tooltipFrame:SetWidth(parent:GetWidth() - TOOLTIP_INSET * 4)
   end
 
   tooltipTextbox:AddAnchor("TOPLEFT", tooltipFrame, TOOLTIP_INSET, TOOLTIP_INSET)

@@ -1,8 +1,9 @@
 ---@param id string
 ---@param parent OptionalParent
+---@param title string
 ---@return Window
 ---@nodiscard
-function SetViewOfWindow(id, parent)
+function SetViewOfWindow(id, parent, title)
   local window
   if parent and type(parent) ~= "string" then
     window = parent:CreateChildWidget("window", id, 0, true)
@@ -28,6 +29,7 @@ function SetViewOfWindow(id, parent)
   titleBar:SetHeight(45)
   titleBar:AddAnchor("TOPLEFT", window, 0, 0)
   titleBar:AddAnchor("TOPRIGHT", window, 0, 0)
+  titleBar:SetTitleText(title)
 
   local closeButton = titleBar:CreateChildWidget("button", "closeButton", 0, true)
   closeButton:SetStyle("btn_close_default")

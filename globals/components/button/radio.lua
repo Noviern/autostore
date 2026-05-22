@@ -16,15 +16,7 @@ function CreateRadioItem(radioGroup, value, text)
   checkButton:SetExtent(textureData.extent[1], textureData.extent[2])
   checkButton:AddAnchor("CENTER", checkButton:GetParent(), -1, 0)
 
-  local textbox = radioItem:CreateChildWidget("textbox", "textbox", 0, true) ---@type Textbox
-  textbox.style:SetAlign(ALIGN_LEFT)
-  textbox.style:SetEllipsis(true)
-  textbox.style:SetColorByKey("default")
-  textbox:SetAutoResize(true)
-  textbox:SetAutoWordwrap(false)
-  textbox:SetHeight(20)
-  textbox:AddAnchor("LEFT", radioItem, "RIGHT", 10, 0)
-  textbox:SetText(text)
+  local textbox = CreateButtonTextbox(checkButton, text)
 
   textbox:SetHandler("OnClick", function ()
     radioGroup:Check(value)

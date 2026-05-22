@@ -1,16 +1,6 @@
 ---@param combobox Combobox
 ---@param viewLimit number
-local function UpdateDropdownControlVisibility(combobox, viewLimit)
-  local dropdown = combobox.dropdown
-  local max = dropdown:GetMaxTop()
-  local show = max > 0
-
-  dropdown.vslider:SetMinMaxValues(0, max)
-  dropdown.vslider:Show(show)
-
-  dropdown.upBtn:Show(show)
-  dropdown.downBtn:Show(show)
-
+local function UpdateComboboxControlVisibility(combobox, viewLimit)
   local showToggle = viewLimit > 0
   combobox.toggle:Show(showToggle)
 end
@@ -63,46 +53,57 @@ local function OverrideComboboxMethods(combobox)
     ---Bug: SetHeight has no effect on the height of a dropdown.
     -- dropdown:SetHeight(height)
     dropdown:SetExtent(width, height)
-    UpdateDropdownControlVisibility(combobox, limit)
+    UpdateScrollListboxControlVisibility(dropdown)
+    UpdateComboboxControlVisibility(combobox, limit)
   end
 
-  ---Overrides the default Combobox:Insert so that UpdateDropdownControlVisibility
+  ---Overrides the default Combobox:Insert so that UpdateComboboxControlVisibility
   ---is called afterwards.
   local ComboboxInsert = combobox.Insert
 
   function combobox:Insert(...)
     local result = ComboboxInsert(self, ...)
-    UpdateDropdownControlVisibility(combobox, viewLimit)
+    UpdateComboboxControlVisibility(combobox, viewLimit)
     return result
   end
 
-  ---Overrides the default Dropdown:AppendItem so that UpdateDropdownControlVisibility
+  ---Overrides the default Dropdown:AppendItem so that UpdateComboboxControlVisibility
   ---is called afterwards.
   local DropdownAppendItem = dropdown.AppendItem
 
   function dropdown:AppendItem(...)
     local result = DropdownAppendItem(self, ...)
-    UpdateDropdownControlVisibility(combobox, viewLimit)
+    UpdateComboboxControlVisibility(combobox, viewLimit)
     return result
   end
 
-  ---Overrides the default Dropdown:AppendItemByTable so that UpdateDropdownControlVisibility
+  ---Overrides the default Dropdown:AppendItemByTable so that UpdateComboboxControlVisibility
   ---is called afterwards.
   local DropdownAppendItemByTable = dropdown.AppendItemByTable
 
   function dropdown:AppendItemByTable(...)
     local result = DropdownAppendItemByTable(self, ...)
-    UpdateDropdownControlVisibility(combobox, viewLimit)
+    UpdateComboboxControlVisibility(combobox, viewLimit)
     return result
   end
 
-  ---Overrides the default Dropdown:SetItemTrees so that UpdateDropdownControlVisibility
+  ---Overrides the default Dropdown:SetItem so that UpdateComboboxControlVisibility
+  ---is called afterwards.
+  local DropdownSetItem = dropdown.SetItem
+
+  function dropdown:SetItem(...)
+    local result = DropdownSetItem(self, ...)
+    UpdateComboboxControlVisibility(combobox, viewLimit)
+    return result
+  end
+
+  ---Overrides the default Dropdown:SetItemTrees so that UpdateComboboxControlVisibility
   ---is called afterwards.
   local DropdownSetItemTrees = dropdown.SetItemTrees
 
   function dropdown:SetItemTrees(...)
     local result = DropdownSetItemTrees(self, ...)
-    UpdateDropdownControlVisibility(combobox, viewLimit)
+    UpdateComboboxControlVisibility(combobox, viewLimit)
     return result
   end
 end
@@ -115,21 +116,8 @@ function CreateCombobox(id, parent)
   local combobox = SetViewOfCombobox(id, parent)
   OverrideComboboxMethods(combobox)
 
-  combobox:SetExtent(312, 26)
+  combobox:SetExtent(EDITBOX_WIDTH, EDITBOX_HEIGHT)
   combobox:SetDropdownVisibleLimit(10)
-
-  local dropdown = combobox.dropdown
-  local vslider = dropdown.vslider
-
-  vslider:SetHandler("OnSliderChanged", function (self, value)
-    dropdown:SetTop(value)
-  end)
-
-  dropdown:SetHandler("OnWheelUp", function () vslider:Up(1) end)
-  dropdown:SetHandler("OnWheelDown", function () vslider:Down(1) end)
-
-  dropdown.upBtn:SetHandler("OnClick", function () vslider:Up(1) end)
-  dropdown.downBtn:SetHandler("OnClick", function () vslider:Down(1) end)
 
   return combobox
 end
