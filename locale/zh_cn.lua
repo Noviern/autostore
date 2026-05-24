@@ -16,6 +16,7 @@ if X2Locale:GetLocale() == "zh_cn" then
     "这可能导致物品在视觉上以错误顺序转移。" ..
     "要解决此问题，请关闭并重新打开存储界面。"
   locale.addon.filterModule.transfer  = "传输绑定物品"
+  locale.addon.filterModule.reset     = "重置过滤器"
   locale.addon.filterModule.startSlot = "起始：1"
   locale.addon.filterModule.endSlot   = "结束：150"
   locale.addon.filterModule.cooldown  = "200ms"

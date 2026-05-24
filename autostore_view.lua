@@ -1,9 +1,3 @@
-local WINDOW = {
-  WIDTH   = 350,
-  MARGIN  = 20,
-  SPACING = 10,
-}
-
 ---@param contentFrame EmptyWidget
 ---@return EmptyWidget
 ---@nodiscard
@@ -21,16 +15,16 @@ local function SetViewOfStorageOptionFrame(contentFrame)
   radioGroupFrame:AddAnchor("TOPLEFT", storageOptionContentFrame, 0, 0)
   radioGroupFrame:AddAnchor("TOPRIGHT", storageOptionContentFrame, 0, 0)
 
-  local storageChestOptionFrame = CreateRadioItem(radioGroupFrame, STORAGE_TYPE.COFFER, storageLocale.coffer)
+  local storageChestOptionFrame = CreateRadioItemWithTextbox(radioGroupFrame, STORAGE_TYPE.COFFER, storageLocale.coffer)
   storageChestOptionFrame:AddAnchor("TOPLEFT", radioGroupFrame, 0, 0)
 
-  local warehouseOptionFrame = CreateRadioItem(radioGroupFrame, STORAGE_TYPE.BANK, storageLocale.bank)
-  warehouseOptionFrame:AddAnchor("TOPLEFT", storageChestOptionFrame, "BOTTOMLEFT", 0, WINDOW.SPACING)
+  local warehouseOptionFrame = CreateRadioItemWithTextbox(radioGroupFrame, STORAGE_TYPE.BANK, storageLocale.bank)
+  warehouseOptionFrame:AddAnchor("TOPLEFT", storageChestOptionFrame, "BOTTOMLEFT", 0, COMMON.SPACING)
 
   radioGroupFrame:Check(1)
 
   ResizeParentToFitBottomWidget(radioGroupFrame, warehouseOptionFrame)
-  ResizeParentToFitBottomWidget(frame, warehouseOptionFrame, WINDOW.MARGIN)
+  ResizeParentToFitBottomWidget(frame, warehouseOptionFrame, COMMON.MARGIN)
 
   return frame
 end
@@ -46,7 +40,6 @@ local function CreateFilterEditbox(id, parent)
   editbox:SetDigitMax(150)
   editbox:SetMaxTextLength(3)
   editbox:SetWidth(86)
-  editbox:SetInset(unpack(EDITBOX_WITH_BUTTON_INSET))
 
   return editbox
 end
@@ -77,16 +70,19 @@ local function SetViewOfFilterFrame(contentFrame)
   SetViewOfButtonBackground(resetButton, BUTTON_TEXTURE_PATH.COMMON_RESET, "reset")
   resetButton:AddAnchor("TOPRIGHT", filterContentframe, 0, 0)
 
+  local resetButtonTooltip = CreateTooltip(contentFrame, resetButton, filterLocale.reset, false)
+  resetButtonTooltip:RemoveAllAnchors()
+  resetButtonTooltip:AddAnchor("BOTTOM", resetButton, "TOP", 0, 0)
 
   local categoryFilterCombobox = CreateCombobox("categoryFilterCombobox", filterContentframe)
-  categoryFilterCombobox:AddAnchor("TOPLEFT", transferBoundCheckbutton, "BOTTOMLEFT", 0, WINDOW.SPACING)
+  categoryFilterCombobox:AddAnchor("TOPLEFT", transferBoundCheckbutton, "BOTTOMLEFT", 0, COMMON.SPACING)
   categoryFilterCombobox:AddAnchor("RIGHT", filterContentframe, 0, 0)
   categoryFilterCombobox:SetDropdownVisibleLimit(15)
 
   local searchEditbox = CreateEditbox("searchEditbox", filterContentframe)
   AttachCancelableEditboxBehavior(searchEditbox)
-  searchEditbox:AddAnchor("TOPLEFT", categoryFilterCombobox, "BOTTOMLEFT", 0, WINDOW.SPACING)
-  searchEditbox:AddAnchor("TOPRIGHT", categoryFilterCombobox, "BOTTOMRIGHT", 0, WINDOW.SPACING)
+  searchEditbox:AddAnchor("TOPLEFT", categoryFilterCombobox, "BOTTOMLEFT", 0, COMMON.SPACING)
+  searchEditbox:AddAnchor("TOPRIGHT", categoryFilterCombobox, "BOTTOMRIGHT", 0, COMMON.SPACING)
   searchEditbox:SetGuideText(filterLocale.searchGuide)
 
   local searchIcon = searchEditbox:CreateDrawable(TEXTURE_PATH.INVENTORY_DEFAULT, "search_icon", "overlay")
@@ -109,7 +105,7 @@ local function SetViewOfFilterFrame(contentFrame)
 
   local startEditbox = CreateFilterEditbox("startEditbox", filterContentframe)
   startEditbox:SetGuideText(filterLocale.startSlot)
-  startEditbox:AddAnchor("TOPLEFT", searchEditbox, "BOTTOMLEFT", 0, WINDOW.SPACING)
+  startEditbox:AddAnchor("TOPLEFT", searchEditbox, "BOTTOMLEFT", 0, COMMON.SPACING)
 
   local endEditbox = CreateFilterEditbox("endEditbox", filterContentframe)
   endEditbox:SetGuideText(filterLocale.endSlot)
@@ -121,7 +117,7 @@ local function SetViewOfFilterFrame(contentFrame)
   cooldownEditbox:SetGuideText(filterLocale.cooldown)
   cooldownEditbox:AddAnchor("LEFT", endEditbox, "RIGHT", 6, 0)
 
-  ResizeParentToFitBottomWidget(frame, cooldownEditbox, WINDOW.MARGIN)
+  ResizeParentToFitBottomWidget(frame, cooldownEditbox, COMMON.MARGIN)
 
   return frame
 end
@@ -167,8 +163,8 @@ function SetViewOfAutoStoreWindow(id)
   local window = CreateWindow(id, nil, locale.addon.title)
   window:Show(true)
   window:Show(false) ---Fixes a anchoring bug.
-  window:SetWidth(WINDOW.WIDTH)
-  window:AddAnchor("RIGHT", -INVENTORY.OFFSET - INVENTORY.WIDTH - WINDOW.MARGIN, 0)
+  window:SetWidth(350)
+  window:AddAnchor("RIGHT", -INVENTORY.OFFSET - INVENTORY.WIDTH - COMMON.MARGIN, 0)
 
   local contentFrame = window.contentFrame ---@type EmptyWidget
 
@@ -177,8 +173,8 @@ function SetViewOfAutoStoreWindow(id)
   storageOptionFrame:AddAnchor("TOPRIGHT", contentFrame, 0, 0)
 
   local filterFrame = SetViewOfFilterFrame(contentFrame)
-  filterFrame:AddAnchor("TOPLEFT", storageOptionFrame, "BOTTOMLEFT", 0, WINDOW.SPACING)
-  filterFrame:AddAnchor("TOPRIGHT", storageOptionFrame, "BOTTOMRIGHT", 0, WINDOW.SPACING)
+  filterFrame:AddAnchor("TOPLEFT", storageOptionFrame, "BOTTOMLEFT", 0, COMMON.SPACING)
+  filterFrame:AddAnchor("TOPRIGHT", storageOptionFrame, "BOTTOMRIGHT", 0, COMMON.SPACING)
 
   local filterContentFrame = filterFrame.contentFrame
   local categoryFilterCombobox = filterContentFrame.categoryFilterCombobox ---@type Combobox
@@ -189,15 +185,15 @@ function SetViewOfAutoStoreWindow(id)
   progressTextbox.style:SetColorByKey("default")
   progressTextbox.style:SetFontSize(FONT_SIZE.DEFAULT)
   progressTextbox:SetAutoWordwrap(false)
-  progressTextbox:SetHeight(FONT_SIZE.DEFAULT * 2 + WINDOW.SPACING)
-  progressTextbox:AddAnchor("TOPLEFT", filterFrame, "BOTTOMLEFT", 0, WINDOW.SPACING)
-  progressTextbox:AddAnchor("TOPRIGHT", filterFrame, "BOTTOMRIGHT", 0, WINDOW.SPACING)
+  progressTextbox:SetHeight(FONT_SIZE.DEFAULT * 2 + COMMON.SPACING)
+  progressTextbox:AddAnchor("TOPLEFT", filterFrame, "BOTTOMLEFT", 0, COMMON.SPACING)
+  progressTextbox:AddAnchor("TOPRIGHT", filterFrame, "BOTTOMRIGHT", 0, COMMON.SPACING)
 
   local transactionFrame = SetViewOfTransactionFrame(contentFrame)
-  transactionFrame:AddAnchor("TOPLEFT", progressTextbox, "BOTTOMLEFT", 0, WINDOW.SPACING)
-  transactionFrame:AddAnchor("TOPRIGHT", progressTextbox, "BOTTOMRIGHT", 0, WINDOW.SPACING)
+  transactionFrame:AddAnchor("TOPLEFT", progressTextbox, "BOTTOMLEFT", 0, COMMON.SPACING)
+  transactionFrame:AddAnchor("TOPRIGHT", progressTextbox, "BOTTOMRIGHT", 0, COMMON.SPACING)
 
-  ResizeParentToFitBottomWidget(window, transactionFrame, WINDOW.MARGIN)
+  ResizeParentToFitBottomWidget(window, transactionFrame, COMMON.MARGIN)
 
   return window
 end

@@ -93,7 +93,7 @@ local function CreateAutoStoreWindow(id)
 
   ---@param enable boolean
   function window:EnableAutoStore(enable)
-    storageOption.radioGroupFrame:Enable(enable, true)
+    storageOption.contentframe:Enable(enable, true)
     filter.contentFrame:Enable(enable, true)
     transaction.depositButton:Enable(enable)
     transaction.withdrawButton:Enable(enable)

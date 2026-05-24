@@ -36,8 +36,8 @@ function SetViewOfWindow(id, parent, title)
   closeButton:AddAnchor("TOPRIGHT", closeButton:GetParent(), 3, -3)
 
   local contentFrame = window:CreateChildWidget("emptywidget", "contentFrame", 0, true)
-  contentFrame:AddAnchor("TOPLEFT", titleBar, "BOTTOMLEFT", 20, 0)
-  contentFrame:AddAnchor("BOTTOMRIGHT", window, "BOTTOMRIGHT", -20, -20)
+  contentFrame:AddAnchor("TOPLEFT", titleBar, "BOTTOMLEFT", COMMON.MARGIN, 0)
+  contentFrame:AddAnchor("BOTTOMRIGHT", window, "BOTTOMRIGHT", -COMMON.MARGIN, -COMMON.MARGIN)
 
   return window
 end

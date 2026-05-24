@@ -21,7 +21,7 @@ end
 ---@nodiscard
 function CreateButtonTextbox(button, text)
   local textbox = button:CreateChildWidget("textbox", "textbox", 0, true)
-  textbox:AddAnchor("LEFT", button, "RIGHT", 10, 0)
+  textbox:AddAnchor("LEFT", button, "RIGHT", COMMON.SPACING, 0)
   textbox:SetAutoResize(true)
   textbox:SetAutoWordwrap(false)
   textbox:SetHeight(20)

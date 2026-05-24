@@ -1,0 +1,4 @@
+COMMON = {
+  MARGIN  = 20,
+  SPACING = 10,
+}

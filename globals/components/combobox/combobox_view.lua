@@ -29,9 +29,10 @@ function SetViewOfCombobox(id, parent)
 
   local dropdown = combobox.dropdown
   InitListbox(dropdown)
-  InitScrollListbox(dropdown)
+  SetViewOffScroll(dropdown)
+  AttachScrollBehavior(dropdown)
   OverrideScrollListboxMethods(dropdown)
-  AttachScrollListboxBehavior(combobox.dropdown)
+  AttachScrollListboxBehavior(dropdown)
 
   dropdown.background = CreateBackground(dropdown, TEXTURE_PATH.DEFAULT, "editbox_df")
 

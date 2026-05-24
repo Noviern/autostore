@@ -27,34 +27,6 @@ function CreateListbox(id, parent)
   return listbox
 end
 
----@param listbox ScrollListbox
-function InitScrollListbox(listbox)
-  local upButton = listbox.upBtn
-  upButton:AddAnchor("TOPRIGHT", listbox, -4, 8)
-  upButton:SetExtent(20, 12)
-  upButton:SetStyle("slider_scroll_button_up")
-
-  local downButton = listbox.downBtn
-  downButton:AddAnchor("BOTTOMRIGHT", listbox, -4, -8)
-  downButton:SetExtent(20, 12)
-  downButton:SetStyle("slider_scroll_button_down")
-
-  local vslider = listbox.vslider
-  vslider:AddAnchor("TOPLEFT", upButton, "BOTTOMLEFT", 0, 0)
-  vslider:AddAnchor("BOTTOMRIGHT", downButton, "TOPRIGHT", 0, 0)
-
-  local vsliderBackground = vslider:CreateDrawable(TEXTURE_PATH.SCROLL, "scroll_frame_bg", "background")
-  vsliderBackground:SetTextureColor("default")
-  vsliderBackground:AddAnchor("TOPLEFT", vslider, 3, -9)
-  vsliderBackground:AddAnchor("BOTTOMRIGHT", vslider, -3, 9)
-  vslider.background = vsliderBackground
-
-  local thumb = vslider.thumb
-  thumb:SetWidth(20)
-
-  SetViewOfButtonBackground(thumb, TEXTURE_PATH.SCROLL, "thumb")
-end
-
 ---@param scrollListbox ScrollListbox
 function UpdateScrollListboxControlVisibility(scrollListbox)
   local max = scrollListbox:GetMaxTop()
@@ -67,60 +39,44 @@ function UpdateScrollListboxControlVisibility(scrollListbox)
   scrollListbox.downBtn:Show(show)
 end
 
----@param listbox Listbox
----@return ScrollListbox
-function CreateScrollForListbox(listbox)
-  listbox.downBtn = listbox:CreateChildWidget("button", "downBtn", 0, true)
-  listbox.upBtn = listbox:CreateChildWidget("button", "upBtn", 0, true)
-  listbox.vslider = listbox:CreateChildWidget("slider", "vslider", 0, true)
-  listbox.vslider.thumb = listbox.vslider:CreateChildWidget("button", "thumb", 0, true)
-
-  listbox.vslider:SetThumbButtonWidget(listbox.vslider.thumb)
-
-  ---@cast listbox ScrollListbox
-  InitScrollListbox(listbox)
-
-  return listbox
-end
-
 ---@param listbox ScrollListbox
 function OverrideScrollListboxMethods(listbox)
-  ---Overrides the default Dropdown:AppendItem so that UpdateScrollListboxControlVisibility
+  ---Overrides the default Listbox:AppendItem so that UpdateScrollListboxControlVisibility
   ---is called afterwards.
-  local DropdownAppendItem = listbox.AppendItem
+  local ListboxAppendItem = listbox.AppendItem
 
   function listbox:AppendItem(...)
-    local result = DropdownAppendItem(self, ...)
+    local result = ListboxAppendItem(self, ...)
     UpdateScrollListboxControlVisibility(listbox)
     return result
   end
 
-  ---Overrides the default Dropdown:AppendItemByTable so that UpdateScrollListboxControlVisibility
+  ---Overrides the default Listbox:AppendItemByTable so that UpdateScrollListboxControlVisibility
   ---is called afterwards.
-  local DropdownAppendItemByTable = listbox.AppendItemByTable
+  local ListboxAppendItemByTable = listbox.AppendItemByTable
 
   function listbox:AppendItemByTable(...)
-    local result = DropdownAppendItemByTable(self, ...)
+    local result = ListboxAppendItemByTable(self, ...)
     UpdateScrollListboxControlVisibility(listbox)
     return result
   end
 
-  ---Overrides the default Dropdown:SetItem so that UpdateScrollListboxControlVisibility
+  ---Overrides the default Listbox:SetItem so that UpdateScrollListboxControlVisibility
   ---is called afterwards.
-  local DropdownSetItem = listbox.SetItem
+  local ListboxSetItem = listbox.SetItem
 
   function listbox:SetItem(...)
-    local result = DropdownSetItem(self, ...)
+    local result = ListboxSetItem(self, ...)
     UpdateScrollListboxControlVisibility(listbox)
     return result
   end
 
-  ---Overrides the default Dropdown:SetItemTrees so that UpdateScrollListboxControlVisibility
+  ---Overrides the default Listbox:SetItemTrees so that UpdateScrollListboxControlVisibility
   ---is called afterwards.
-  local DropdownSetItemTrees = listbox.SetItemTrees
+  local ListboxSetItemTrees = listbox.SetItemTrees
 
   function listbox:SetItemTrees(...)
-    local result = DropdownSetItemTrees(self, ...)
+    local result = ListboxSetItemTrees(self, ...)
     UpdateScrollListboxControlVisibility(listbox)
     return result
   end
@@ -128,17 +84,9 @@ end
 
 ---@param scrollListbox ScrollListbox
 function AttachScrollListboxBehavior(scrollListbox)
-  local vslider = scrollListbox.vslider
-
-  vslider:SetHandler("OnSliderChanged", function (self, value)
+  scrollListbox.vslider:SetHandler("OnSliderChanged", function (self, value)
     scrollListbox:SetTop(value)
   end)
-
-  scrollListbox:SetHandler("OnWheelUp", function () vslider:Up(1) end)
-  scrollListbox:SetHandler("OnWheelDown", function () vslider:Down(1) end)
-
-  scrollListbox.upBtn:SetHandler("OnClick", function () vslider:Up(1) end)
-  scrollListbox.downBtn:SetHandler("OnClick", function () vslider:Down(1) end)
 end
 
 ---@param id string
@@ -147,9 +95,11 @@ end
 ---@nodiscard
 function CreateScrollListbox(id, parent)
   local listbox = CreateListbox(id, parent)
-  local scrollListbox = CreateScrollForListbox(listbox)
-  OverrideScrollListboxMethods(scrollListbox)
-  AttachScrollListboxBehavior(scrollListbox)
+  AttachScroll(listbox)
+  AttachScrollBehavior(listbox)
+  ---@cast listbox ScrollListbox
+  OverrideScrollListboxMethods(listbox)
+  AttachScrollListboxBehavior(listbox)
 
-  return scrollListbox
+  return listbox
 end

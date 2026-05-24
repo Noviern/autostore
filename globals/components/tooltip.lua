@@ -1,4 +1,4 @@
-local TOOLTIP_INSET = 10
+local TOOLTIP_INSET = { 10, 10, 10, 10 }
 
 ---@param widget Widget
 ---@param tooltipFrame Window
@@ -18,47 +18,51 @@ end
 ---@param tooltip string
 ---@param autoWrap? boolean
 ---@return Window
+---@nodiscard
 function CreateTooltip(parent, guide, tooltip, autoWrap)
   local tooltipCount = parent.tooltipFrame and #parent.tooltipFrame or 0
-  local tooltipFrame = parent:CreateChildWidget("window", "tooltipFrame", tooltipCount + 1, true)
-  tooltipFrame:SetUILayer("tooltip")
-  tooltipFrame:Show(false)
-  tooltipFrame:AddAnchor("TOPRIGHT", guide, "BOTTOMRIGHT", 0, 0)
+  local frame = parent:CreateChildWidget("window", "tooltipFrame", tooltipCount + 1, true)
+  frame:SetUILayer("tooltip")
+  frame:Show(false)
+  frame:AddAnchor("TOPRIGHT", guide, "BOTTOMRIGHT", 0, 0)
 
-  local tooltipTextbox = tooltipFrame:CreateChildWidget("textbox", "textbox", 0, true)
-  tooltipTextbox.style:SetAlign(ALIGN_TOP_LEFT)
-  tooltipTextbox.style:SetColorByKey("soft_brown")
-  tooltipTextbox:SetAutoResize(true)
+  local gametooltip = frame:CreateChildWidget("gametooltip", "gametooltip", 0, true)
+  gametooltip.style:SetAlign(ALIGN_TOP_LEFT)
+  gametooltip.style:SetColorByKey("soft_brown")
+  gametooltip:SetInset(unpack(TOOLTIP_INSET))
 
-  if autoWrap == false then
-    tooltipTextbox:SetAutoWordwrap(autoWrap)
-  else
-    tooltipFrame:SetWidth(parent:GetWidth() - TOOLTIP_INSET * 4)
+  autoWrap = autoWrap ~= false
+  local align = ALIGN_CENTER
+
+  gametooltip:SetAutoWordwrap(autoWrap)
+  if autoWrap then
+    frame:SetWidth(parent:GetWidth() - TOOLTIP_INSET[1] * 4)
+    align = ALIGN_TOP_LEFT
   end
 
-  tooltipTextbox:AddAnchor("TOPLEFT", tooltipFrame, TOOLTIP_INSET, TOOLTIP_INSET)
-  tooltipTextbox:AddAnchor("TOPRIGHT", tooltipFrame, -TOOLTIP_INSET, TOOLTIP_INSET)
+  gametooltip:AddAnchor("TOPLEFT", frame, 0, 0)
+  gametooltip:AddAnchor("TOPRIGHT", frame, 0, 0)
 
   ---Overrides the default Textbox:SetText so that it also sets the frames extents.
-  local TextboxSetText = tooltipTextbox.SetText
+  local GameTooltipAddLine = gametooltip.AddLine
 
-  function tooltipTextbox:SetText(text)
-    TextboxSetText(self, text)
+  function gametooltip:AddLine(...)
+    GameTooltipAddLine(self, ...)
 
-    if autoWrap == false then
-      tooltipFrame:SetWidth(tooltipTextbox:GetLongestLineWidth() + TOOLTIP_INSET * 2)
+    if not autoWrap then
+      frame:SetWidth(gametooltip.style:GetTextWidth(tooltip) + TOOLTIP_INSET[1] + TOOLTIP_INSET[3])
     end
 
-    tooltipFrame:SetHeight(tooltipTextbox:GetHeight() + TOOLTIP_INSET * 2)
+    frame:SetHeight(gametooltip:GetHeight())
   end
 
-  tooltipTextbox:SetText(tooltip)
+  gametooltip:AddLine(tooltip, FONT_PATH.DEFAULT, FONT_SIZE.DEFAULT, "left", align, 0)
 
-  local tooltipBackground = tooltipFrame:CreateDrawable(TEXTURE_PATH.HUD, "tooltip_bg", "background")
-  tooltipBackground:AddAnchor("TOPLEFT", tooltipFrame, -2, -0)
-  tooltipBackground:AddAnchor("BOTTOMRIGHT", tooltipFrame, 0, 0)
+  local background = frame:CreateDrawable(TEXTURE_PATH.HUD, "tooltip_bg", "background")
+  background:AddAnchor("TOPLEFT", frame, -2, 0)
+  background:AddAnchor("BOTTOMRIGHT", frame, 0, 0)
 
-  AttachTooltipBehavior(guide, tooltipFrame)
+  AttachTooltipBehavior(guide, frame)
 
-  return tooltipFrame
+  return frame
 end

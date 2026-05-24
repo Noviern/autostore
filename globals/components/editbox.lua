@@ -115,6 +115,7 @@ end
 ---@nodiscard
 function CreateCancelableEditbox(id, parent)
   local editbox = CreateEditbox(id, parent)
+  editbox:SetInset(unpack(EDITBOX_WITH_BUTTON_INSET))
   AttachCancelableEditboxBehavior(editbox)
   return editbox
 end

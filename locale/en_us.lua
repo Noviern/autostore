@@ -3,8 +3,8 @@ if locale == nil then
 end
 
 locale.addon = {
-  title         = "Auto Store",
-  storageModule = {
+  title            = "Auto Store",
+  storageModule    = {
     title   = "Storage",
     tooltip =
       "Select a storage location that is currently open to deposit or withdraw items from:\n" ..
@@ -13,7 +13,7 @@ locale.addon = {
     coffer  = X2Locale:LocalizeUiText(WINDOW_TITLE_TEXT, "coffer"),
     bank    = X2Locale:LocalizeUiText(WINDOW_TITLE_TEXT, "bank"),
   },
-  filterModule  = {
+  filterModule     = {
     title       = "Filter",
     tooltip     =
       "Items can be filtered by:\n" ..
@@ -25,20 +25,21 @@ locale.addon = {
       "This can cause items to be visually transfered in the incorrect order. " ..
       "To fix this, close and reopen the storage location.",
     transfer    = "Transfer bound items",
+    reset       = "Reset Filter",
     searchGuide = X2Locale:LocalizeUiText(COMMON_TEXT, "search_iteam"),
     startSlot   = "Start: 1",
     endSlot     = "End: 150",
-    cooldown     = "200ms",
+    cooldown    = "200ms",
   },
-  inventoryFull = "|nr;Inventory or storage is full!|r",
+  inventoryFull    = "|nr;Inventory or storage is full!|r",
   autoSortDetected = "|nr;Auto-Sort detected!|r",
-  transaction   = {
+  transaction      = {
     deposit  = X2Locale:LocalizeUiText(INVEN_TEXT, "deposit"),
     withdraw = X2Locale:LocalizeUiText(INVEN_TEXT, "withdraw"),
     cancel   = X2Locale:LocalizeUiText(COMMON_TEXT, "cancel"),
   },
-  filterAll     = X2Locale:LocalizeUiText(COMMON_TEXT, "all"),
-  filter        = {
+  filterAll        = X2Locale:LocalizeUiText(COMMON_TEXT, "all"),
+  filter           = {
     ["Costume Closet"] = {
       ["Costume"] = true,
       ["Daru Costume"] = true,

@@ -168,7 +168,6 @@ API = {
   -- X2MiniScoreboard     = 85, ---@see X2MiniScoreboard
 
   -- X2SurveyForm         = 86, ---@see X2SurveyForm
-
 }
 
 OBJECT = {
@@ -208,7 +207,7 @@ OBJECT = {
 
   -- StatusBar               = 17, ---@see StatusBar
 
-  -- GameTooltip             = 18, ---@see GameTooltip
+  GameTooltip             = 18, ---@see GameTooltip
 
   -- UnitframeTooltip        = 19, ---@see UnitframeTooltip
 

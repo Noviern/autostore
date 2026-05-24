@@ -16,6 +16,7 @@ if X2Locale:GetLocale() == "fr" then
     "Cela peut entraîner un transfert visuel des objets dans le mauvais ordre. " ..
     "Pour corriger cela, fermez et rouvrez l'emplacement de stockage."
   locale.addon.filterModule.transfer  = "Transférer les objets liés"
+  locale.addon.filterModule.reset     = "Réinitialiser le filtre"
   locale.addon.filterModule.startSlot = "Début : 1"
   locale.addon.filterModule.endSlot   = "Fin : 150"
   locale.addon.filterModule.cooldown  = "200 ms"

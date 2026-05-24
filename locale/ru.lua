@@ -16,6 +16,7 @@ if X2Locale:GetLocale() == "ru" then
     "Из-за этого предметы могут визуально перемещаться в неправильном порядке. " ..
     "Чтобы исправить, закройте и снова откройте окно хранилища."
   locale.addon.filterModule.transfer  = "Перемещать привязанные предметы"
+  locale.addon.filterModule.reset     = "Сбросить фильтр"
   locale.addon.filterModule.startSlot = "Начало: 1"
   locale.addon.filterModule.endSlot   = "Конец: 150"
   locale.addon.filterModule.cooldown  = "200 мс"
