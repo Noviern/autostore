@@ -8,7 +8,7 @@ function SetViewOfButtonBackground(button, texturePath, textureKey)
   button.highlightBackground = CreateBackground(button, texturePath, textureKey .. "_ov")
   button:SetHighlightBackground(button.highlightBackground)
 
-  button.pushedBackground = CreateBackground(button, texturePath, textureKey .. "_ov")
+  button.pushedBackground = CreateBackground(button, texturePath, textureKey .. "_on")
   button:SetPushedBackground(button.pushedBackground)
 
   button.disabledBackground = CreateBackground(button, texturePath, textureKey .. "_dis")
