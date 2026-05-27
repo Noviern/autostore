@@ -39,248 +39,31 @@ locale.addon = {
     cancel   = X2Locale:LocalizeUiText(COMMON_TEXT, "cancel"),
   },
   filterAll        = X2Locale:LocalizeUiText(COMMON_TEXT, "all"),
-  filter           = {
-    ["Costume Closet"] = {
-      ["Costume"] = true,
-      ["Daru Costume"] = true,
-      ["Cosmetic Materials"] = true,
-
-      ["Synthesis Gear"] = true,
-    },
-
-    ["Furniture Chest"] = {
-      ["Furniture"] = true,
-      ["Taxidermy"] = true,
-    },
-
-    ["Alchemist's Chest"] = {
-      ["Archeum"] = true,
-      ["Alchemy"] = true,
-      ["Alchemy Oil"] = true,
-
-      ["Special Material"] = true,
-      ["Herb"] = true,
-    },
-
-    ["Otherworldly Pet Hotel"] = {
-      ["Battle Pet"] = true,
-      ["Pets"] = true,
-      ["Powerstone Pet"] = true,
-    },
-
-    ["Rider's Trunk"] = {
-      ["Mount"] = true,
-      ["Giant Pet"] = true,
-    },
-
-    ["Shard Collector's Chest"] = {
-      ["Shard"] = true,
-    },
-
-    ["Flutter Vessel"] = {
-      ["Glider"] = true,
-      ["Magithopter"] = true,
-    },
-
-    ["Pets & Transport Trunk"] = {
-      ["Ship"] = true,
-      ["Vehicle"] = true,
-    },
-
-    ["Adventurer's Chest"] = {
-      ["Coinpurse"] = true,
-      ["Valuable Crate"] = true,
-      ["Key"] = true,
-      ["Coin"] = true,
-      ["Currency"] = true,
-
-      ["Mechanical Component Design Bag"] = true,
-    },
-
-    ["Builder's Chest"] = {
-      ["Buildings"] = true,
-    },
-
-    ["Equipment Enhancement Chest"] = {
-      ["Synthesis Materials"] = true,
-      ["Awakening Materials"] = true,
-      ["Enchancement Materials"] = true,
-      ["Lunagem"] = true,
-      ["Lunastone"] = true,
-    },
-
-    ["Farmer's Large Chest"] = {
-      ["Fruit"] = true,
-      ["Vegetable"] = true,
-      ["Spice"] = true,
-      ["Flower"] = true,
-      ["Grain"] = true,
-      ["Seed"] = true,
-      ["Textile"] = true,
-      ["Livestock"] = true,
-      ["Saplings"] = true,
-      ["Soil"] = true,
-
-      ["Special Consumables"] = true,
-      ["Seafood"] = true,
-      ["Livestock products"] = true,
-      ["Meat"] = true,
-      ["Pelt"] = true,
-      ["Herb"] = true,
-      ["Special Material"] = true,
-    },
-
-    ["Gear Chest"] = {
-      ["Unidentified Equipment"] = true,
-      ["Farmhand Equipment"] = true,
-      ["Pet Gear"] = true,
-      ["Leather Armor"] = true,
-      ["Cloth Armor"] = true,
-      ["Plate Armor"] = true,
-      ["Cloak"] = true,
-      ["Dagger"] = true,
-      ["Sword"] = true,
-      ["Katana"] = true,
-      ["Shortspear"] = true,
-      ["Axe"] = true,
-      ["Club"] = true,
-      ["Scepter"] = true,
-      ["Greatsword"] = true,
-      ["Nodachi"] = true,
-      ["Longspear"] = true,
-      ["Greataxe"] = true,
-      ["Greatclub"] = true,
-      ["Staff"] = true,
-      ["Shield"] = true,
-      ["Earring"] = true,
-      ["Necklace"] = true,
-      ["Ring"] = true,
-      ["Flute"] = true,
-      ["Lute"] = true,
-      ["Bow"] = true,
-      ["Rifle"] = true,
-
-      ["Underwater Equipment"] = true,
-      ["Fishing Rod"] = true,
-      ["Synthesis Gear"] = true,
-    },
-
-    ["Librarian's Chest"] = {
-      ["Book"] = true,
-    },
-
-    ["Machine's Chest"] = {
-      ["Mast"] = true,
-      ["Ship Propellant"] = true,
-      ["Ship Design"] = true,
-      ["Ship Component Design"] = true,
-      ["Machine Component Scroll"] = true,
-      ["Vehicle Component Design"] = true,
-      ["Misc. Apparatus"] = true,
-      ["Machining"] = true,
-      ["Armament"] = true,
-      ["Sound Equipment"] = true,
-      ["Sail"] = true,
-      ["Storage"] = true,
-      ["Navigation"] = true,
-      ["Boarding Equipment"] = true,
-      ["Steering Gear"] = true,
-      ["Mechanical Components"] = true,
-      ["Figurehead"] = true,
-      ["Lighting"] = true,
-
-      ["Music Disc"] = true,
-      ["Mechanical Component Design Bag"] = true,
-    },
-
-    ["Animal Breeder's Chest"] = {
-      ["Cooking Oil"] = true,
-      ["Feed"] = true,
-
-      ["Pelt"] = true,
-      ["Textile"] = true,
-      ["Meat"] = true,
-      ["Seafood"] = true,
-      ["Livestock products"] = true,
-      ["Special Consumables"] = true,
-    },
-
-    ["Artisan's Chest"] = {
-      ["Metal"] = true,
-      ["Lumber"] = true,
-      ["Stone Brick"] = true,
-      ["Hide"] = true,
-      ["Fabric"] = true,
-      ["Ore"] = true,
-      ["Hardwood"] = true,
-      ["Raw Stone"] = true,
-      ["Precious Metal"] = true,
-      ["Gem"] = true,
-      ["Rubber"] = true,
-
-      ["Textile"] = true,
-      ["Pelt"] = true,
-      ["Special Material"] = true,
-    },
-
-    ["Traveler's Necessities Chest"] = {
-      ["Food"] = true,
-      ["Potion"] = true,
-      ["Drink"] = true,
-      ["Mana Potion"] = true,
-      ["Defense Potion"] = true,
-      ["Healing Potion"] = true,
-      ["Boosters"] = true,
-
-      ["Special Consumables"] = true,
-    },
-
-    ["Treasure Hunter's Chest"] = {
-      ["Treasure Map"] = true,
-      ["Relic"] = true,
-      ["Treasure Hunter's Consumables"] = true,
-    },
-
-    ["Trophy Hunter's Chest"] = {
-      ["Legendary Trophy"] = true,
-    },
-
-    ["Design Chest"] = {
-      ["Crest and Dye Items"] = true,
-    },
-
-    ["Instrument Trunk"] = {
-      ["Flute"] = true,
-      ["Lute"] = true,
-    },
-
-    ["Music Chest"] = {
-      ["Sheet Music"] = true,
-
-      ["Music Disc"] = true,
-    },
-
-    ["Fisherman's Chest"] = {
-
-      ["Underwater Equipment"] = true,
-      ["Fishing Rod"] = true,
-      ["Seafood"] = true,
-      ["Special Consumables"] = true,
-    },
-
-    ["Dream Designer's Chest"] = {
-      ["Dream Design"] = true,
-      ["Art Object"] = true,
-    },
-
-    -- [""] = {
-    --   [""] = true,
-    -- },
+  pocketChest      = {
+    costumeCloset             = "Costume Closet",
+    furnitureChest            = "Furniture Chest",
+    alchemistsChest           = "Alchemist's Chest",
+    otherworldlyPetHotel      = "Otherworldly Pet Hotel",
+    ridersTrunk               = "Rider's Trunk",
+    shardCollectorsChest      = "Shard Collector's Chest",
+    flutterVessel             = "Flutter Vessel",
+    petsAndTransportTrunk     = "Pets & Transport Trunk",
+    adventurersChest          = "Adventurer's Chest",
+    buildersChest             = "Builder's Chest",
+    equipmentEnhancementChest = "Equipment Enhancement Chest",
+    farmersLargeChest         = "Farmer's Large Chest",
+    gearChest                 = "Gear Chest",
+    librariansChest           = "Librarian's Chest",
+    machinesChest             = "Machine's Chest",
+    animalBreedersChest       = "Animal Breeder's Chest",
+    artisansChest             = "Artisan's Chest",
+    travelerNecessitiesChest  = "Traveler Necessities Chest",
+    treasureHuntersChest      = "Treasure Hunter's Chest",
+    trophyHuntersChest        = "Trophy Hunter's Chest",
+    designChest               = "Design Chest",
+    instrumentTrunk           = "Instrument Trunk",
+    musicChest                = "Music Chest",
+    fishermansChest           = "Fisherman's Chest",
+    dreamDesignersChest       = "Dream Designer's Chest",
   }
 }
-
--- function X2Locale:GetLocale()
--- return "fr"
--- return "ru"
--- return "zh_cn"
--- end

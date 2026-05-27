@@ -41,38 +41,39 @@ end
 
 ---@param listbox ScrollListbox
 function OverrideScrollListboxMethods(listbox)
-  ---Overrides the default Listbox:AppendItem so that UpdateScrollListboxControlVisibility
-  ---is called afterwards.
+  ---Overrides the default so that UpdateScrollListboxControlVisibility is called afterwards.
   local ListboxAppendItem = listbox.AppendItem
 
   function listbox:AppendItem(...)
-    local result = ListboxAppendItem(self, ...)
+    ListboxAppendItem(self, ...)
     UpdateScrollListboxControlVisibility(listbox)
-    return result
   end
 
-  ---Overrides the default Listbox:AppendItemByTable so that UpdateScrollListboxControlVisibility
-  ---is called afterwards.
+  ---Overrides the default so that UpdateScrollListboxControlVisibility is called afterwards.
   local ListboxAppendItemByTable = listbox.AppendItemByTable
 
   function listbox:AppendItemByTable(...)
-    local result = ListboxAppendItemByTable(self, ...)
+    ListboxAppendItemByTable(self, ...)
     UpdateScrollListboxControlVisibility(listbox)
-    return result
   end
 
-  ---Overrides the default Listbox:SetItem so that UpdateScrollListboxControlVisibility
-  ---is called afterwards.
+  ---Overrides the default so that UpdateScrollListboxControlVisibility is called afterwards.
+  local ListboxClearItem = listbox.ClearItem
+
+  function listbox:ClearItem()
+    ListboxClearItem(self)
+    UpdateScrollListboxControlVisibility(listbox)
+  end
+
+  ---Overrides the default so that UpdateScrollListboxControlVisibility is called afterwards.
   local ListboxSetItem = listbox.SetItem
 
   function listbox:SetItem(...)
-    local result = ListboxSetItem(self, ...)
+    ListboxSetItem(self, ...)
     UpdateScrollListboxControlVisibility(listbox)
-    return result
   end
 
-  ---Overrides the default Listbox:SetItemTrees so that UpdateScrollListboxControlVisibility
-  ---is called afterwards.
+  ---Overrides the default so that UpdateScrollListboxControlVisibility is called afterwards.
   local ListboxSetItemTrees = listbox.SetItemTrees
 
   function listbox:SetItemTrees(...)

@@ -22,4 +22,31 @@ if X2Locale:GetLocale() == "ru" then
   locale.addon.filterModule.cooldown  = "200 мс"
   locale.addon.inventoryFull          = "|nr;Инвентарь или хранилище заполнено!|r"
   locale.addon.autoSortDetected       = "|nr;Обнаружена авто-сортировка!|r"
+  locale.addon.pocketChest            = { -- https://wiki.archerage.to/ru-ru/db/items/
+    costumeCloset             = "Карманный гардероб",
+    furnitureChest            = "Хранилище мебели",
+    alchemistsChest           = "Сундук алхимика",
+    otherworldlyPetHotel      = "Карманная коллекция боевых питомцев",
+    ridersTrunk               = "Карманная коллекция питомцев",
+    shardCollectorsChest      = "Сундук собирателя фрагментов",
+    flutterVessel             = "Хранилище глайдеров",
+    petsAndTransportTrunk     = "Большое хранилище для транспорта",
+    adventurersChest          = "Вместительный сундук авантюриста",
+    buildersChest             = "Вместительный сундук строителя",
+    equipmentEnhancementChest = "Карманное хранилище мастера",
+    farmersLargeChest         = "Вместительный сундук земледельца",
+    gearChest                 = "Карманное хранилище обмундирования",
+    librariansChest           = "Карманное хранилище книг",
+    machinesChest             = "Сундук инженера",
+    animalBreedersChest       = "Вместительный сундук животновода",
+    artisansChest             = "Вместительный сундук ремесленника",
+    travelerNecessitiesChest  = "Карманный схрон странника",
+    treasureHuntersChest      = "Сундук охотника за сокровищами",
+    trophyHuntersChest        = "Сундук легендарного охотника",
+    designChest               = "Сундук для эскизов",
+    instrumentTrunk           = "Сундук для инструментов",
+    musicChest                = "Шкатулка для нот",
+    fishermansChest           = "Вместительный сундук рыбака",
+    dreamDesignersChest       = "Сундук творца",
+  }
 end

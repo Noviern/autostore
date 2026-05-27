@@ -12,3 +12,18 @@ function ResizeParentToFitBottomWidget(parent, bottomWidget, bottomMargin)
 
   parent:SetHeight(height)
 end
+
+---@param parent Widget
+---@param rightWidget Widget
+---@param rightMargin? number
+function ResizeParentToFixRightWidget(parent, rightWidget, rightMargin)
+  rightMargin              = rightMargin or 0
+  local parentOffsetX      = parent:GetOffset()
+  local rightWidgetOffsetX = rightWidget:GetOffset()
+  local rightWidgetWidth   = rightWidget:GetWidth()
+  local minWidth           = parent:GetWidth()
+  local newWidth           = rightWidgetOffsetX + rightWidgetWidth - parentOffsetX + rightMargin
+  local width              = math.max(minWidth, newWidth)
+
+  parent:SetWidth(width)
+end

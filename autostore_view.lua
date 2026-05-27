@@ -74,48 +74,31 @@ local function SetViewOfFilterFrame(contentFrame)
   resetButtonTooltip:RemoveAllAnchors()
   resetButtonTooltip:AddAnchor("BOTTOM", resetButton, "TOP", 0, 0)
 
+  transferBoundCheckbutton.textbox:AddAnchor("RIGHT", resetButton, "LEFT", -COMMON.SPACING, 0)
+
   local categoryFilterCombobox = CreateCombobox("categoryFilterCombobox", filterContentframe)
   categoryFilterCombobox:AddAnchor("TOPLEFT", transferBoundCheckbutton, "BOTTOMLEFT", 0, COMMON.SPACING)
   categoryFilterCombobox:AddAnchor("RIGHT", filterContentframe, 0, 0)
   categoryFilterCombobox:SetDropdownVisibleLimit(15)
 
-  local searchEditbox = CreateEditbox("searchEditbox", filterContentframe)
-  AttachCancelableEditboxBehavior(searchEditbox)
+  local searchEditbox = CreateSearchEditbox("searchEditbox", filterContentframe)
   searchEditbox:AddAnchor("TOPLEFT", categoryFilterCombobox, "BOTTOMLEFT", 0, COMMON.SPACING)
   searchEditbox:AddAnchor("TOPRIGHT", categoryFilterCombobox, "BOTTOMRIGHT", 0, COMMON.SPACING)
   searchEditbox:SetGuideText(filterLocale.searchGuide)
 
-  local searchIcon = searchEditbox:CreateDrawable(TEXTURE_PATH.INVENTORY_DEFAULT, "search_icon", "overlay")
-  searchIcon:AddAnchor("RIGHT", searchEditbox, -6, 0)
-
-  local cancelButton = searchEditbox.cancelButton ---@type Button
-  searchEditbox:SetInset(unpack(EDITBOX_WITH_BUTTON_INSET))
-
-  cancelButton:SetHandler("OnEnableChanged", function (self, enabled)
-    if enabled then
-      searchIcon:SetColor(1, 1, 1, 1)
-    else
-      searchIcon:SetColor(0.4, 0.4, 0.4, .5)
-    end
-  end)
-
-  cancelButton:SetHandler("OnVisibleChanged", function (self, visible)
-    searchIcon:Show(not visible)
-  end)
-
   local startEditbox = CreateFilterEditbox("startEditbox", filterContentframe)
-  startEditbox:SetGuideText(filterLocale.startSlot)
   startEditbox:AddAnchor("TOPLEFT", searchEditbox, "BOTTOMLEFT", 0, COMMON.SPACING)
+  startEditbox:SetGuideText(filterLocale.startSlot)
 
   local endEditbox = CreateFilterEditbox("endEditbox", filterContentframe)
-  endEditbox:SetGuideText(filterLocale.endSlot)
   endEditbox:AddAnchor("LEFT", startEditbox, "RIGHT", 6, 0)
+  endEditbox:SetGuideText(filterLocale.endSlot)
 
   local cooldownEditbox = CreateFilterEditbox("cooldownEditbox", filterContentframe)
   cooldownEditbox:SetDigitMax(10000)
   cooldownEditbox:SetMaxTextLength(5)
-  cooldownEditbox:SetGuideText(filterLocale.cooldown)
   cooldownEditbox:AddAnchor("LEFT", endEditbox, "RIGHT", 6, 0)
+  cooldownEditbox:SetGuideText(filterLocale.cooldown)
 
   ResizeParentToFitBottomWidget(frame, cooldownEditbox, COMMON.MARGIN)
 

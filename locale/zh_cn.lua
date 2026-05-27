@@ -22,4 +22,31 @@ if X2Locale:GetLocale() == "zh_cn" then
   locale.addon.filterModule.cooldown  = "200ms"
   locale.addon.inventoryFull          = "|nr;背包或存储已满！|r"
   locale.addon.autoSortDetected       = "|nr;检测到自动排序！|r"
+  locale.addon.pocketChest            = { -- https://wiki.archerage.to/ru-cn/db/items/
+    costumeCloset             = "时装专用保管箱",
+    furnitureChest            = "家具专用保管箱",
+    alchemistsChest           = "炼金师专用保管箱",
+    otherworldlyPetHotel      = "战宠专用保管箱",
+    ridersTrunk               = "骑宠专用保管箱",
+    shardCollectorsChest      = "碎片物品专用保管箱",
+    flutterVessel             = "滑翔翼专用保管箱",
+    petsAndTransportTrunk     = "载具专用保管箱",
+    adventurersChest          = "冒险者专用保管箱",
+    buildersChest             = "建筑师专用保管箱",
+    equipmentEnhancementChest = "合成和觉醒材料专用保管箱",
+    farmersLargeChest         = "大型农夫专用保管箱",
+    gearChest                 = "装备专用保管箱",
+    librariansChest           = "图书馆管理员专用保管箱",
+    machinesChest             = "机械专用保管箱",
+    animalBreedersChest       = "大型动物饲养员专用保管箱",
+    artisansChest             = "工匠专用保管箱",
+    travelerNecessitiesChest  = "旅行必需品专用保管箱",
+    treasureHuntersChest      = "宝藏猎人专用保管箱",
+    trophyHuntersChest        = "战利品专用保管箱",
+    designChest               = "梦幻染料专用保管箱",
+    instrumentTrunk           = "乐器专用保管箱",
+    musicChest                = "乐谱专用保管箱",
+    fishermansChest           = "渔夫专用保管箱",
+    dreamDesignersChest       = "梦境图画专用保管箱",
+  }
 end

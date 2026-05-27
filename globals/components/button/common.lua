@@ -21,12 +21,13 @@ end
 ---@nodiscard
 function CreateButtonTextbox(button, text)
   local textbox = button:CreateChildWidget("textbox", "textbox", 0, true)
-  textbox:AddAnchor("LEFT", button, "RIGHT", COMMON.SPACING, 0)
+  textbox.style:SetAlign(ALIGN_LEFT)
+  textbox.style:SetColorByKey("default")
+  textbox.style:SetEllipsis(true)
   textbox:SetAutoResize(true)
   textbox:SetAutoWordwrap(false)
   textbox:SetHeight(20)
-  textbox.style:SetAlign(ALIGN_LEFT)
-  textbox.style:SetColorByKey("default")
+  textbox:AddAnchor("LEFT", button, "RIGHT", COMMON.SPACING, 0)
   textbox:SetText(text)
 
   return textbox

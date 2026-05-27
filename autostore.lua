@@ -1,3 +1,398 @@
+local ITEM_CATEGORIES = {
+  OTHER                           = 1,
+  SHIP                            = 4,
+  BUILDINGS                       = 6,
+  FURNITURE                       = 7,
+  SAPLINGS                        = 8,
+  COSTUME                         = 10,
+  POTION                          = 12,
+  FOOD                            = 13,
+  CONTRAPTION                     = 14,
+  SIEGE_GEAR                      = 15,
+  PAPER                           = 17,
+  BOOK                            = 18,
+  LUNASTONE                       = 20,
+  LIVESTOCK                       = 21,
+  METAL                           = 23,
+  LUMBER                          = 24,
+  STONE_BRICK                     = 25,
+  HIDE                            = 26,
+  FABRIC                          = 27,
+  MACHINING                       = 28,
+  GLASS                           = 30,
+  RUBBER                          = 31,
+  ARCHEUM                         = 32,
+  DYE                             = 33,
+  CRAFTING_MATERIAL               = 34,
+  COOKING_OIL                     = 36,
+  SPICES                          = 37,
+  ORE                             = 38,
+  HARDWOOD                        = 39,
+  RAW_STONE                       = 40,
+  PELT                            = 41,
+  TEXTILE                         = 42,
+  COMPONENT                       = 43,
+  EVIDENCE                        = 44,
+  MEAT                            = 45,
+  SEAFOOD                         = 46,
+  GRAIN                           = 47,
+  VEGETABLE                       = 48,
+  FRUIT                           = 49,
+  SEED                            = 51,
+  SPICE                           = 52,
+  HERB                            = 53,
+  FLOWER                          = 55,
+  SOIL                            = 56,
+  PRECIOUS_METAL                  = 58,
+  GEM                             = 59,
+  ALCHEMY                         = 62,
+  QUEST_ITEM                      = 64,
+  DESIGN                          = 65,
+  DAGGER                          = 69,
+  SWORD                           = 70,
+  KATANA                          = 72,
+  AXE                             = 73,
+  CLUB                            = 74,
+  SCEPTER                         = 75,
+  SHORTSPEAR                      = 76,
+  BOW                             = 77,
+  THROWING_WEAPON                 = 78,
+  SHIELD                          = 79,
+  LUTE                            = 80,
+  FLUTE                           = 81,
+  DRUM                            = 82,
+  CLOTH_ARMOR                     = 83,
+  LEATHER_ARMOR                   = 84,
+  PLATE_ARMOR                     = 85,
+  NECKLACE                        = 86,
+  RING                            = 87,
+  ACCESSORY                       = 88,
+  OUTDOOR_DECOR                   = 89,
+  INDOOR_DECOR                    = 90,
+  MOUNT                           = 92,
+  VEHICLE                         = 93,
+  CRATE                           = 94,
+  BATTLE_PET                      = 95,
+  DRINK                           = 97,
+  SUNDRIES                        = 99,
+  KEY                             = 106,
+  ADVENTURE                       = 107,
+  PET_GEAR                        = 108,
+  MARINE_MOUNT                    = 109,
+  MANA_POTION                     = 113,
+  DEFENSE_POTION                  = 114,
+  REGEN_POTION                    = 115,
+  HEALING_POTION                  = 116,
+  TOY                             = 117,
+  GLIDER                          = 118,
+  MATERIAL                        = 119,
+  TALISMAN                        = 120,
+  CLOAK                           = 121,
+  TRADE_PACK                      = 122,
+  EARRING                         = 125,
+  RELIC                           = 126,
+  GREATSWORD                      = 127,
+  NODACHI                         = 128,
+  GREATAXE                        = 129,
+  GREATCLUB                       = 130,
+  STAFF                           = 131,
+  LONGSPEAR                       = 132,
+  SPECIALTY                       = 133,
+  COIN                            = 138,
+  SIEGE_STRONGHOLD                = 140,
+  TOKEN                           = 141,
+  EXPLOSIVE                       = 143,
+  FISHING_ROD                     = 145,
+  TAXIDERMY                       = 146,
+  FISH_PRINT                      = 147,
+  SHEET_MUSIC                     = 148,
+  CREST_AND_DYE_ITEMS             = 150,
+  LUNAGEM                         = 152,
+  UNIDENTIFIED                    = 153,
+  PLUSHIE_ACCESSORY               = 156,
+  ARMAMENT                        = 157,
+  STEERING_GEAR                   = 158,
+  MAST                            = 159,
+  SAIL                            = 160,
+  LIGHTING                        = 161,
+  BOARDING_EQUIPMENT              = 162,
+  NAVIGATION                      = 164,
+  MISC_APPARATUS                  = 165,
+  FIGUREHEAD                      = 166,
+  STORAGE                         = 167,
+  SOUND_EQUIPMENT                 = 169,
+  SHIP_PROPELLANT                 = 170,
+  HOUSEPETS                       = 171,
+  CLOAK_SYNTHESIS_MATERIALS       = 172,
+  SYNTHESIS_GEAR_1                = 173,
+  THEATRICAL_TECHNIQUES           = 174,
+  MAGITHOPTER                     = 175,
+  GIANT_PET                       = 176,
+  PETS                            = 191,
+  CARGO                           = 195,
+  SPECIAL_SHIP_COMPONENT          = 196,
+  POWERSTONE_PET                  = 197,
+  SYNTHESIS_MATERIALS             = 199,
+  AWAKENING_MATERIALS             = 200,
+  STORAGE_CHEST                   = 201,
+  RIFLE                           = 203,
+  FARMHAND_EQUIPMENT              = 204,
+  MECHANICAL_COMPONENTS           = 206,
+  DARU_COSTUME                    = 207,
+  BOOSTERS                        = 9000002,
+  SPECIAL_MATERIAL                = 9000003,
+  LIVESTOCK_PRODUCTS              = 9000004,
+  SHIP_DESIGN                     = 9000005,
+  MACHINE_COMPONENT_SCROLL        = 9000006,
+  SHIP_COMPONENT_DESIGN           = 9000007,
+  SHARD                           = 9000008,
+  MUSIC_DISC                      = 9000009,
+  ENCHANCEMENT_MATERIALS          = 9000010,
+  VEHICLE_COMPONENT_DESIGN        = 9000011,
+  FEED                            = 9000013,
+  UNIDENTIFIED_EQUIPMENT          = 9000014,
+  ALCHEMY_OIL                     = 9000015,
+  MECHANICAL_COMPONENT_DESIGN_BAG = 9000016,
+  COINPURSE                       = 9000017,
+  VALUABLE_CRATE                  = 9000018,
+  CURRENCY                        = 9000019,
+  SYNTHESIS_GEAR_2                = 9000020,
+  SPECIAL_CONSUMABLES             = 9000021,
+  TREASURE_MAP                    = 9000022,
+  TREASURE_HUNTERS_CONSUMABLES    = 9000023,
+  UNDERWATER_EQUIPMENT            = 9000024,
+  LEGENDARY_TROPHY                = 9000025,
+  DREAM_DESIGN                    = 9000026,
+  ART_OBJECT                      = 9000027,
+  COSMETIC_MATERIALS              = 9000028,
+}
+local pocketChestLocale = locale.addon.pocketChest
+local POCKET_CHEST_FILTER = {
+  [pocketChestLocale.costumeCloset] = {
+    [ITEM_CATEGORIES.COSTUME]            = true,
+    [ITEM_CATEGORIES.DARU_COSTUME]       = true,
+    [ITEM_CATEGORIES.COSMETIC_MATERIALS] = true,
+    [ITEM_CATEGORIES.SYNTHESIS_GEAR_1]   = true,
+    [ITEM_CATEGORIES.SYNTHESIS_GEAR_2]   = true,
+  },
+
+  [pocketChestLocale.furnitureChest] = {
+    [ITEM_CATEGORIES.FURNITURE] = true,
+    [ITEM_CATEGORIES.TAXIDERMY] = true,
+  },
+
+  [pocketChestLocale.alchemistsChest] = {
+    [ITEM_CATEGORIES.ARCHEUM]          = true,
+    [ITEM_CATEGORIES.ALCHEMY]          = true,
+    [ITEM_CATEGORIES.ALCHEMY_OIL]      = true,
+    [ITEM_CATEGORIES.SPECIAL_MATERIAL] = true,
+    [ITEM_CATEGORIES.HERB]             = true,
+  },
+
+  [pocketChestLocale.otherworldlyPetHotel] = {
+    [ITEM_CATEGORIES.BATTLE_PET]     = true,
+    [ITEM_CATEGORIES.PETS]           = true,
+    [ITEM_CATEGORIES.POWERSTONE_PET] = true,
+  },
+
+  [pocketChestLocale.ridersTrunk] = {
+    [ITEM_CATEGORIES.MOUNT]     = true,
+    [ITEM_CATEGORIES.GIANT_PET] = true,
+  },
+
+  [pocketChestLocale.shardCollectorsChest] = {
+    [ITEM_CATEGORIES.SHARD] = true,
+  },
+
+  [pocketChestLocale.flutterVessel] = {
+    [ITEM_CATEGORIES.GLIDER]      = true,
+    [ITEM_CATEGORIES.MAGITHOPTER] = true,
+  },
+
+  [pocketChestLocale.petsAndTransportTrunk] = {
+    [ITEM_CATEGORIES.SHIP]    = true,
+    [ITEM_CATEGORIES.VEHICLE] = true,
+  },
+
+  [pocketChestLocale.adventurersChest] = {
+    [ITEM_CATEGORIES.COINPURSE]                       = true,
+    [ITEM_CATEGORIES.VALUABLE_CRATE]                  = true,
+    [ITEM_CATEGORIES.KEY]                             = true,
+    [ITEM_CATEGORIES.COIN]                            = true,
+    [ITEM_CATEGORIES.CURRENCY]                        = true,
+    [ITEM_CATEGORIES.MECHANICAL_COMPONENT_DESIGN_BAG] = true,
+  },
+
+  [pocketChestLocale.buildersChest] = {
+    [ITEM_CATEGORIES.BUILDINGS] = true,
+  },
+
+  [pocketChestLocale.equipmentEnhancementChest] = {
+    [ITEM_CATEGORIES.SYNTHESIS_MATERIALS]    = true,
+    [ITEM_CATEGORIES.AWAKENING_MATERIALS]    = true,
+    [ITEM_CATEGORIES.ENCHANCEMENT_MATERIALS] = true,
+    [ITEM_CATEGORIES.LUNAGEM]                = true,
+    [ITEM_CATEGORIES.LUNASTONE]              = true,
+  },
+
+  [pocketChestLocale.farmersLargeChest] = {
+    [ITEM_CATEGORIES.FRUIT]               = true,
+    [ITEM_CATEGORIES.VEGETABLE]           = true,
+    [ITEM_CATEGORIES.SPICE]               = true,
+    [ITEM_CATEGORIES.FLOWER]              = true,
+    [ITEM_CATEGORIES.GRAIN]               = true,
+    [ITEM_CATEGORIES.SEED]                = true,
+    [ITEM_CATEGORIES.TEXTILE]             = true,
+    [ITEM_CATEGORIES.LIVESTOCK]           = true,
+    [ITEM_CATEGORIES.SAPLINGS]            = true,
+    [ITEM_CATEGORIES.SOIL]                = true,
+    [ITEM_CATEGORIES.SPECIAL_CONSUMABLES] = true,
+    [ITEM_CATEGORIES.SEAFOOD]             = true,
+    [ITEM_CATEGORIES.LIVESTOCK_PRODUCTS]  = true,
+    [ITEM_CATEGORIES.MEAT]                = true,
+    [ITEM_CATEGORIES.PELT]                = true,
+    [ITEM_CATEGORIES.HERB]                = true,
+    [ITEM_CATEGORIES.SPECIAL_MATERIAL]    = true,
+  },
+
+  [pocketChestLocale.gearChest] = {
+    [ITEM_CATEGORIES.UNIDENTIFIED_EQUIPMENT] = true,
+    [ITEM_CATEGORIES.FARMHAND_EQUIPMENT]     = true,
+    [ITEM_CATEGORIES.PET_GEAR]               = true,
+    [ITEM_CATEGORIES.LEATHER_ARMOR]          = true,
+    [ITEM_CATEGORIES.CLOTH_ARMOR]            = true,
+    [ITEM_CATEGORIES.PLATE_ARMOR]            = true,
+    [ITEM_CATEGORIES.CLOAK]                  = true,
+    [ITEM_CATEGORIES.DAGGER]                 = true,
+    [ITEM_CATEGORIES.SWORD]                  = true,
+    [ITEM_CATEGORIES.KATANA]                 = true,
+    [ITEM_CATEGORIES.SHORTSPEAR]             = true,
+    [ITEM_CATEGORIES.AXE]                    = true,
+    [ITEM_CATEGORIES.CLUB]                   = true,
+    [ITEM_CATEGORIES.SCEPTER]                = true,
+    [ITEM_CATEGORIES.GREATSWORD]             = true,
+    [ITEM_CATEGORIES.NODACHI]                = true,
+    [ITEM_CATEGORIES.LONGSPEAR]              = true,
+    [ITEM_CATEGORIES.GREATAXE]               = true,
+    [ITEM_CATEGORIES.GREATCLUB]              = true,
+    [ITEM_CATEGORIES.STAFF]                  = true,
+    [ITEM_CATEGORIES.SHIELD]                 = true,
+    [ITEM_CATEGORIES.EARRING]                = true,
+    [ITEM_CATEGORIES.NECKLACE]               = true,
+    [ITEM_CATEGORIES.RING]                   = true,
+    [ITEM_CATEGORIES.FLUTE]                  = true,
+    [ITEM_CATEGORIES.LUTE]                   = true,
+    [ITEM_CATEGORIES.BOW]                    = true,
+    [ITEM_CATEGORIES.RIFLE]                  = true,
+    [ITEM_CATEGORIES.UNDERWATER_EQUIPMENT]   = true,
+    [ITEM_CATEGORIES.FISHING_ROD]            = true,
+    [ITEM_CATEGORIES.SYNTHESIS_GEAR_1]       = true,
+    [ITEM_CATEGORIES.SYNTHESIS_GEAR_2]       = true,
+  },
+
+  [pocketChestLocale.librariansChest] = {
+    [ITEM_CATEGORIES.BOOK] = true,
+  },
+
+  [pocketChestLocale.machinesChest] = {
+    [ITEM_CATEGORIES.MAST]                            = true,
+    [ITEM_CATEGORIES.SHIP_PROPELLANT]                 = true,
+    [ITEM_CATEGORIES.SHIP_DESIGN]                     = true,
+    [ITEM_CATEGORIES.SHIP_COMPONENT_DESIGN]           = true,
+    [ITEM_CATEGORIES.MACHINE_COMPONENT_SCROLL]        = true,
+    [ITEM_CATEGORIES.VEHICLE_COMPONENT_DESIGN]        = true,
+    [ITEM_CATEGORIES.MISC_APPARATUS]                  = true,
+    [ITEM_CATEGORIES.MACHINING]                       = true,
+    [ITEM_CATEGORIES.ARMAMENT]                        = true,
+    [ITEM_CATEGORIES.SOUND_EQUIPMENT]                 = true,
+    [ITEM_CATEGORIES.SAIL]                            = true,
+    [ITEM_CATEGORIES.STORAGE]                         = true,
+    [ITEM_CATEGORIES.NAVIGATION]                      = true,
+    [ITEM_CATEGORIES.BOARDING_EQUIPMENT]              = true,
+    [ITEM_CATEGORIES.STEERING_GEAR]                   = true,
+    [ITEM_CATEGORIES.MECHANICAL_COMPONENTS]           = true,
+    [ITEM_CATEGORIES.FIGUREHEAD]                      = true,
+    [ITEM_CATEGORIES.LIGHTING]                        = true,
+    [ITEM_CATEGORIES.MUSIC_DISC]                      = true,
+    [ITEM_CATEGORIES.MECHANICAL_COMPONENT_DESIGN_BAG] = true,
+  },
+
+  [pocketChestLocale.animalBreedersChest] = {
+    [ITEM_CATEGORIES.COOKING_OIL]         = true,
+    [ITEM_CATEGORIES.FEED]                = true,
+    [ITEM_CATEGORIES.PELT]                = true,
+    [ITEM_CATEGORIES.TEXTILE]             = true,
+    [ITEM_CATEGORIES.MEAT]                = true,
+    [ITEM_CATEGORIES.SEAFOOD]             = true,
+    [ITEM_CATEGORIES.LIVESTOCK_PRODUCTS]  = true,
+    [ITEM_CATEGORIES.SPECIAL_CONSUMABLES] = true,
+  },
+
+  [pocketChestLocale.artisansChest] = {
+    [ITEM_CATEGORIES.METAL]            = true,
+    [ITEM_CATEGORIES.LUMBER]           = true,
+    [ITEM_CATEGORIES.STONE_BRICK]      = true,
+    [ITEM_CATEGORIES.HIDE]             = true,
+    [ITEM_CATEGORIES.FABRIC]           = true,
+    [ITEM_CATEGORIES.ORE]              = true,
+    [ITEM_CATEGORIES.HARDWOOD]         = true,
+    [ITEM_CATEGORIES.RAW_STONE]        = true,
+    [ITEM_CATEGORIES.PRECIOUS_METAL]   = true,
+    [ITEM_CATEGORIES.GEM]              = true,
+    [ITEM_CATEGORIES.RUBBER]           = true,
+    [ITEM_CATEGORIES.TEXTILE]          = true,
+    [ITEM_CATEGORIES.PELT]             = true,
+    [ITEM_CATEGORIES.SPECIAL_MATERIAL] = true,
+  },
+
+  [pocketChestLocale.travelerNecessitiesChest] = {
+    [ITEM_CATEGORIES.FOOD]                = true,
+    [ITEM_CATEGORIES.POTION]              = true,
+    [ITEM_CATEGORIES.DRINK]               = true,
+    [ITEM_CATEGORIES.MANA_POTION]         = true,
+    [ITEM_CATEGORIES.DEFENSE_POTION]      = true,
+    [ITEM_CATEGORIES.HEALING_POTION]      = true,
+    [ITEM_CATEGORIES.BOOSTERS]            = true,
+    [ITEM_CATEGORIES.SPECIAL_CONSUMABLES] = true,
+  },
+
+  [pocketChestLocale.treasureHuntersChest] = {
+    [ITEM_CATEGORIES.TREASURE_MAP]                 = true,
+    [ITEM_CATEGORIES.RELIC]                        = true,
+    [ITEM_CATEGORIES.TREASURE_HUNTERS_CONSUMABLES] = true,
+  },
+
+  [pocketChestLocale.trophyHuntersChest] = {
+    [ITEM_CATEGORIES.LEGENDARY_TROPHY] = true,
+  },
+
+  [pocketChestLocale.designChest] = {
+    [ITEM_CATEGORIES.CREST_AND_DYE_ITEMS] = true,
+  },
+
+  [pocketChestLocale.instrumentTrunk] = {
+    [ITEM_CATEGORIES.FLUTE] = true,
+    [ITEM_CATEGORIES.LUTE]  = true,
+  },
+
+  [pocketChestLocale.musicChest] = {
+    [ITEM_CATEGORIES.SHEET_MUSIC] = true,
+    [ITEM_CATEGORIES.MUSIC_DISC]  = true,
+  },
+
+  [pocketChestLocale.fishermansChest] = {
+    [ITEM_CATEGORIES.UNDERWATER_EQUIPMENT] = true,
+    [ITEM_CATEGORIES.FISHING_ROD]          = true,
+    [ITEM_CATEGORIES.SEAFOOD]              = true,
+    [ITEM_CATEGORIES.SPECIAL_CONSUMABLES]  = true,
+  },
+
+  [pocketChestLocale.dreamDesignersChest] = {
+    [ITEM_CATEGORIES.DREAM_DESIGN] = true,
+    [ITEM_CATEGORIES.ART_OBJECT]   = true,
+  },
+}
+
 ---This overrides the default params of X2Bag.GetBagItemInfo so that bagId
 ---isnt needed to make it more inline with X2Coffer and X2Bank.
 local X2BagGetBagItemInfo = X2Bag.GetBagItemInfo
@@ -68,7 +463,7 @@ local function CreateAutoStoreWindow(id)
 
   local filterKeys = {}
 
-  for key, _ in pairs(locale.addon.filter) do
+    for _, key in pairs(locale.addon.pocketChest) do
     table.insert(filterKeys, key)
     table.sort(filterKeys)
   end
@@ -92,7 +487,7 @@ local function CreateAutoStoreWindow(id)
   transaction.cancelButton   = transaction.frame.cancelButton ---@type Button
 
   ---@param enable boolean
-  function window:EnableAutoStore(enable)
+  local function EnableAutoStore(enable)
     storageOption.contentframe:Enable(enable, true)
     filter.contentFrame:Enable(enable, true)
     transaction.depositButton:Enable(enable)
@@ -100,16 +495,16 @@ local function CreateAutoStoreWindow(id)
     transaction.cancelButton:Enable(not enable)
   end
 
-  function window:StopTransaction()
+  local function StopTransaction()
     window:ReleaseHandler("OnUpdate")
-    window:EnableAutoStore(true)
     window:SetWindowModal(false)
+    EnableAutoStore(true)
   end
 
   ---@param type TRANSACTION_TYPE
-  function window:StartTransaction(type)
-    window:EnableAutoStore(false)
+  local function StartTransaction(type)
     window:SetWindowModal(true)
+    EnableAutoStore(false)
 
     local option = storageOption.radioGroupFrame:GetChecked()
 
@@ -133,7 +528,7 @@ local function CreateAutoStoreWindow(id)
 
     local categoryFilter
     if selectedCategoryFilter ~= locale.addon.filterAll then
-      categoryFilter = locale.addon.filter[selectedCategoryFilter]
+      categoryFilter = POCKET_CHEST_FILTER[selectedCategoryFilter]
     end
 
     local search = filter.searchEditbox:GetText():lower()
@@ -145,7 +540,7 @@ local function CreateAutoStoreWindow(id)
       local category = itemInfo.category:lower()
 
       return (transferBoundItems or itemInfo.soul_bound ~= 1)
-        and (not categoryFilter or categoryFilter[itemInfo.category])
+        and (not categoryFilter or categoryFilter[itemInfo.category_id])
         and (string.match(name, search) or string.match(category, search))
         and itemInfo.item_impl ~= "bag"
         and not itemInfo.pinned
@@ -170,7 +565,7 @@ local function CreateAutoStoreWindow(id)
 
       if source.currentSlot > source.endSlot or targetEmptySlot <= 0 then
         progressTextbox:SetText(targetEmptySlot <= 0 and locale.addon.inventoryFull or "")
-        window:StopTransaction()
+        StopTransaction()
         return
       end
 
@@ -229,16 +624,16 @@ local function CreateAutoStoreWindow(id)
   window:RegisterEvent("BANK_TAB_SORTED")
 
   transaction.depositButton:SetHandler("OnClick", function ()
-    window:StartTransaction(TRANSACTION_TYPE.DEPOSIT)
+    StartTransaction(TRANSACTION_TYPE.DEPOSIT)
   end)
 
   transaction.withdrawButton:SetHandler("OnClick", function ()
-    window:StartTransaction(TRANSACTION_TYPE.WITHDRAW)
+    StartTransaction(TRANSACTION_TYPE.WITHDRAW)
   end)
 
   transaction.cancelButton:SetHandler("OnClick", function ()
     progressTextbox:SetText("")
-    window:StopTransaction()
+    StopTransaction()
   end)
 
   return window
