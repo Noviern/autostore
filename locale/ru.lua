@@ -12,6 +12,19 @@ if X2Locale:GetLocale() == "ru" then
     "|bu◆;Поиску по названию или категории|br\n" ..
     "|bu◆;Вводу индекса начального или конечного слота|br\n\n" ..
     "Предметы, заблокированные в своей позиции, не будут перемещены.\n\n" ..
+    "Расширенный поиск:\n" ..
+    "Шаблоны\n" ..
+    "|bu◆;(|nc;.|r) Любой символ|br\n" ..
+    "|bu◆;(|nc;%a|r) Буквы|br\n" ..
+    "|bu◆;(|nc;%d|r) Цифры|br\n\n" ..
+    "Модификаторы шаблонов\n" ..
+    "|bu◆;(|nc;+|r) 1 или более|br\n" ..
+    "|bu◆;(|nc;*|r) 0 или более|br\n" ..
+    "|bu◆;(|nc;-|r) Кратчайшее совпадение|br\n" ..
+    "|bu◆;(|nc;?|r) Необязательно|br\n\n" ..
+    "Пример:\n" ..
+    "Карта сокровищ с ключами W и S: \n" ..
+    "W .+ S\n\n" ..
     "Примечание: Использование Авто-сортировки не обновляет индексы слотов. " ..
     "Из-за этого предметы могут визуально перемещаться в неправильном порядке. " ..
     "Чтобы исправить, закройте и снова откройте окно хранилища."
@@ -23,30 +36,31 @@ if X2Locale:GetLocale() == "ru" then
   locale.addon.inventoryFull          = "|nr;Инвентарь или хранилище заполнено!|r"
   locale.addon.autoSortDetected       = "|nr;Обнаружена авто-сортировка!|r"
   locale.addon.pocketChest            = { -- https://wiki.archerage.to/ru-ru/db/items/
-    costumeCloset             = "Карманный гардероб",
-    furnitureChest            = "Хранилище мебели",
-    alchemistsChest           = "Сундук алхимика",
-    otherworldlyPetHotel      = "Карманная коллекция боевых питомцев",
-    ridersTrunk               = "Карманная коллекция питомцев",
-    shardCollectorsChest      = "Сундук собирателя фрагментов",
-    flutterVessel             = "Хранилище глайдеров",
-    petsAndTransportTrunk     = "Большое хранилище для транспорта",
     adventurersChest          = "Вместительный сундук авантюриста",
-    buildersChest             = "Вместительный сундук строителя",
-    equipmentEnhancementChest = "Карманное хранилище мастера",
-    farmersLargeChest         = "Вместительный сундук земледельца",
-    gearChest                 = "Карманное хранилище обмундирования",
-    librariansChest           = "Карманное хранилище книг",
-    machinesChest             = "Сундук инженера",
+    alchemistsChest           = "Сундук алхимика",
     animalBreedersChest       = "Вместительный сундук животновода",
     artisansChest             = "Вместительный сундук ремесленника",
+    buildersChest             = "Вместительный сундук строителя",
+    costumeCloset             = "Карманный гардероб",
+    designChest               = "Сундук для эскизов",
+    dreamDesignersChest       = "Сундук творца",
+    equipmentEnhancementChest = "Карманное хранилище мастера",
+    equipmentMaterialChest    = "Ящик для материалов",
+    farmersLargeChest         = "Вместительный сундук земледельца",
+    fishermansChest           = "Вместительный сундук рыбака",
+    flutterVessel             = "Хранилище глайдеров",
+    furnitureChest            = "Хранилище мебели",
+    gearChest                 = "Карманное хранилище обмундирования",
+    instrumentTrunk           = "Сундук для инструментов",
+    librariansChest           = "Карманное хранилище книг",
+    machinesChest             = "Сундук инженера",
+    musicChest                = "Шкатулка для нот",
+    otherworldlyPetHotel      = "Карманная коллекция боевых питомцев",
+    petsAndTransportTrunk     = "Большое хранилище для транспорта",
+    ridersTrunk               = "Карманная коллекция питомцев",
+    shardCollectorsChest      = "Сундук собирателя фрагментов",
     travelerNecessitiesChest  = "Карманный схрон странника",
     treasureHuntersChest      = "Сундук охотника за сокровищами",
     trophyHuntersChest        = "Сундук легендарного охотника",
-    designChest               = "Сундук для эскизов",
-    instrumentTrunk           = "Сундук для инструментов",
-    musicChest                = "Шкатулка для нот",
-    fishermansChest           = "Вместительный сундук рыбака",
-    dreamDesignersChest       = "Сундук творца",
   }
 end

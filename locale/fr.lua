@@ -12,6 +12,19 @@ if X2Locale:GetLocale() == "fr" then
     "|bu◆;Recherche par nom ou catégorie|br\n" ..
     "|bu◆;Entrée d'un index de slot de début ou de fin|br\n\n" ..
     "Les objets verrouillés dans leur position ne seront pas transférés.\n\n" ..
+    "Recherche avancée :\n" ..
+    "Motifs\n" ..
+    "|bu◆;(|nc;.|r) Tout caractère|br\n" ..
+    "|bu◆;(|nc;%a|r) Lettres|br\n" ..
+    "|bu◆;(|nc;%d|r) Chiffres|br\n\n" ..
+    "Modificateurs de motif\n" ..
+    "|bu◆;(|nc;+|r) 1 ou plus|br\n" ..
+    "|bu◆;(|nc;*|r) 0 ou plus|br\n" ..
+    "|bu◆;(|nc;-|r) Correspondance la plus courte|br\n" ..
+    "|bu◆;(|nc;?|r) Facultatif|br\n\n" ..
+    "Exemple :\n" ..
+    "Carte au trésor avec les clés W et S : \n" ..
+    "W .+ S\n\n" ..
     "Note : L'utilisation de l'Auto-Tri ne met pas à jour les indices de slot. " ..
     "Cela peut entraîner un transfert visuel des objets dans le mauvais ordre. " ..
     "Pour corriger cela, fermez et rouvrez l'emplacement de stockage."
@@ -23,30 +36,31 @@ if X2Locale:GetLocale() == "fr" then
   locale.addon.inventoryFull          = "|nr;Inventaire ou stockage plein !|r"
   locale.addon.autoSortDetected       = "|nr;Auto-Tri détecté !|r"
   locale.addon.pocketChest            = { -- https://wiki.archerage.to/ru-fr/db/items/
-    costumeCloset             = "Placard à costumes",
-    furnitureChest            = "Coffre de décorations",
-    alchemistsChest           = "Alchemist's Chest",
-    otherworldlyPetHotel      = "Hôtel pour familier de l'autre dimension",
-    ridersTrunk               = "Coffre de cavalier",
-    shardCollectorsChest      = "Shard Collector's Chest",
-    flutterVessel             = "Vaisseau voletant",
-    petsAndTransportTrunk     = "Coffre de familiers et transport",
     adventurersChest          = "Adventurer's Chest",
-    buildersChest             = "Builder's Chest",
-    equipmentEnhancementChest = "Equipment Enhancement Chest",
-    farmersLargeChest         = "Farmer's Large Chest",
-    gearChest                 = "Gear Chest",
-    librariansChest           = "Librarian's Chest",
-    machinesChest             = "Machine's Chest",
+    alchemistsChest           = "Alchemist's Chest",
     animalBreedersChest       = "Animal Breeder's Chest",
     artisansChest             = "Artisan's Chest",
+    buildersChest             = "Builder's Chest",
+    costumeCloset             = "Placard à costumes",
+    designChest               = "Coffre design",
+    dreamDesignersChest       = "Dream Designer's Chest",
+    equipmentEnhancementChest = "Equipment Enhancement Chest",
+    equipmentMaterialChest    = "Coffre de matériel d'équipement",
+    farmersLargeChest         = "Farmer's Large Chest",
+    fishermansChest           = "Fisherman's Chest",
+    flutterVessel             = "Vaisseau voletant",
+    furnitureChest            = "Coffre de décorations",
+    gearChest                 = "Gear Chest",
+    instrumentTrunk           = "Coffre à instruments",
+    librariansChest           = "Librarian's Chest",
+    machinesChest             = "Machine's Chest",
+    musicChest                = "Coffre à musique",
+    otherworldlyPetHotel      = "Hôtel pour familier de l'autre dimension",
+    petsAndTransportTrunk     = "Coffre de familiers et transport",
+    ridersTrunk               = "Coffre de cavalier",
+    shardCollectorsChest      = "Shard Collector's Chest",
     travelerNecessitiesChest  = "Traveler Necessities Chest",
     treasureHuntersChest      = "Treasure Hunter's Chest",
     trophyHuntersChest        = "Trophy Hunter's Chest",
-    designChest               = "Coffre design",
-    instrumentTrunk           = "Coffre à instruments",
-    musicChest                = "Coffre à musique",
-    fishermansChest           = "Fisherman's Chest",
-    dreamDesignersChest       = "Dream Designer's Chest",
   }
 end

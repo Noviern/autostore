@@ -21,6 +21,19 @@ locale.addon = {
       "|bu◆;Searcing by name or category|br\n" ..
       "|bu◆;Entering a start or end slot index|br\n\n" ..
       "Items locked in their position will not be transfered.\n\n" ..
+      "Advanced Search:\n" ..
+      "Patterns\n" ..
+      "|bu◆;(|nc;.|r) Any character|br\n" ..
+      "|bu◆;(|nc;%a|r) Letters|br\n" ..
+      "|bu◆;(|nc;%d|r) Digits|br\n\n" ..
+      "Pattern Modifiers\n" ..
+      "|bu◆;(|nc;+|r) 1 or more|br\n" ..
+      "|bu◆;(|nc;*|r) 0 or more|br\n" ..
+      "|bu◆;(|nc;-|r) Shortest match|br\n" ..
+      "|bu◆;(|nc;?|r) Optional|br\n\n" ..
+      "Example:\n" ..
+      "Treasure map with W and S keys: \n" ..
+      "W .+ S\n\n" ..
       "Note: Using Auto-Sort does not update the slot indices. " ..
       "This can cause items to be visually transfered in the incorrect order. " ..
       "To fix this, close and reopen the storage location.",
@@ -32,7 +45,7 @@ locale.addon = {
     cooldown    = "200ms",
   },
   inventoryFull    = "|nr;Inventory or storage is full!|r",
-  autoSortDetected = "|nr;Auto-Sort detected!|r",
+  autoSortDetected = "|nr;Auto-Sort detected!\nPlease read filter (?) tooltip.|r",
   transaction      = {
     deposit  = X2Locale:LocalizeUiText(INVEN_TEXT, "deposit"),
     withdraw = X2Locale:LocalizeUiText(INVEN_TEXT, "withdraw"),
@@ -40,30 +53,31 @@ locale.addon = {
   },
   filterAll        = X2Locale:LocalizeUiText(COMMON_TEXT, "all"),
   pocketChest      = {
-    costumeCloset             = "Costume Closet",
-    furnitureChest            = "Furniture Chest",
-    alchemistsChest           = "Alchemist's Chest",
-    otherworldlyPetHotel      = "Otherworldly Pet Hotel",
-    ridersTrunk               = "Rider's Trunk",
-    shardCollectorsChest      = "Shard Collector's Chest",
-    flutterVessel             = "Flutter Vessel",
-    petsAndTransportTrunk     = "Pets & Transport Trunk",
     adventurersChest          = "Adventurer's Chest",
-    buildersChest             = "Builder's Chest",
-    equipmentEnhancementChest = "Equipment Enhancement Chest",
-    farmersLargeChest         = "Farmer's Large Chest",
-    gearChest                 = "Gear Chest",
-    librariansChest           = "Librarian's Chest",
-    machinesChest             = "Machine's Chest",
+    alchemistsChest           = "Alchemist's Chest",
     animalBreedersChest       = "Animal Breeder's Chest",
     artisansChest             = "Artisan's Chest",
+    buildersChest             = "Builder's Chest",
+    costumeCloset             = "Costume Closet",
+    designChest               = "Design Chest",
+    dreamDesignersChest       = "Dream Designer's Chest",
+    equipmentEnhancementChest = "Equipment Enhancement Chest",
+    equipmentMaterialChest    = "Equipment Material Chest",
+    farmersLargeChest         = "Farmer's Large Chest",
+    fishermansChest           = "Fisherman's Chest",
+    flutterVessel             = "Flutter Vessel",
+    furnitureChest            = "Furniture Chest",
+    gearChest                 = "Gear Chest",
+    instrumentTrunk           = "Instrument Trunk",
+    librariansChest           = "Librarian's Chest",
+    machinesChest             = "Machine's Chest",
+    musicChest                = "Music Chest",
+    otherworldlyPetHotel      = "Otherworldly Pet Hotel",
+    petsAndTransportTrunk     = "Pets & Transport Trunk",
+    ridersTrunk               = "Rider's Trunk",
+    shardCollectorsChest      = "Shard Collector's Chest",
     travelerNecessitiesChest  = "Traveler Necessities Chest",
     treasureHuntersChest      = "Treasure Hunter's Chest",
     trophyHuntersChest        = "Trophy Hunter's Chest",
-    designChest               = "Design Chest",
-    instrumentTrunk           = "Instrument Trunk",
-    musicChest                = "Music Chest",
-    fishermansChest           = "Fisherman's Chest",
-    dreamDesignersChest       = "Dream Designer's Chest",
   }
 }

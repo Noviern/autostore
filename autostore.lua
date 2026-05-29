@@ -168,17 +168,13 @@ local ITEM_CATEGORIES = {
 }
 local pocketChestLocale = locale.addon.pocketChest
 local POCKET_CHEST_FILTER = {
-  [pocketChestLocale.costumeCloset] = {
-    [ITEM_CATEGORIES.COSTUME]            = true,
-    [ITEM_CATEGORIES.DARU_COSTUME]       = true,
-    [ITEM_CATEGORIES.COSMETIC_MATERIALS] = true,
-    [ITEM_CATEGORIES.SYNTHESIS_GEAR_1]   = true,
-    [ITEM_CATEGORIES.SYNTHESIS_GEAR_2]   = true,
-  },
-
-  [pocketChestLocale.furnitureChest] = {
-    [ITEM_CATEGORIES.FURNITURE] = true,
-    [ITEM_CATEGORIES.TAXIDERMY] = true,
+  [pocketChestLocale.adventurersChest] = {
+    [ITEM_CATEGORIES.COINPURSE]                       = true,
+    [ITEM_CATEGORIES.VALUABLE_CRATE]                  = true,
+    [ITEM_CATEGORIES.KEY]                             = true,
+    [ITEM_CATEGORIES.COIN]                            = true,
+    [ITEM_CATEGORIES.CURRENCY]                        = true,
+    [ITEM_CATEGORIES.MECHANICAL_COMPONENT_DESIGN_BAG] = true,
   },
 
   [pocketChestLocale.alchemistsChest] = {
@@ -189,42 +185,53 @@ local POCKET_CHEST_FILTER = {
     [ITEM_CATEGORIES.HERB]             = true,
   },
 
-  [pocketChestLocale.otherworldlyPetHotel] = {
-    [ITEM_CATEGORIES.BATTLE_PET]     = true,
-    [ITEM_CATEGORIES.PETS]           = true,
-    [ITEM_CATEGORIES.POWERSTONE_PET] = true,
+  [pocketChestLocale.animalBreedersChest] = {
+    [ITEM_CATEGORIES.COOKING_OIL]         = true,
+    [ITEM_CATEGORIES.FEED]                = true,
+    [ITEM_CATEGORIES.PELT]                = true,
+    [ITEM_CATEGORIES.TEXTILE]             = true,
+    [ITEM_CATEGORIES.MEAT]                = true,
+    [ITEM_CATEGORIES.SEAFOOD]             = true,
+    [ITEM_CATEGORIES.LIVESTOCK_PRODUCTS]  = true,
+    [ITEM_CATEGORIES.SPECIAL_CONSUMABLES] = true,
   },
 
-  [pocketChestLocale.ridersTrunk] = {
-    [ITEM_CATEGORIES.MOUNT]     = true,
-    [ITEM_CATEGORIES.GIANT_PET] = true,
-  },
-
-  [pocketChestLocale.shardCollectorsChest] = {
-    [ITEM_CATEGORIES.SHARD] = true,
-  },
-
-  [pocketChestLocale.flutterVessel] = {
-    [ITEM_CATEGORIES.GLIDER]      = true,
-    [ITEM_CATEGORIES.MAGITHOPTER] = true,
-  },
-
-  [pocketChestLocale.petsAndTransportTrunk] = {
-    [ITEM_CATEGORIES.SHIP]    = true,
-    [ITEM_CATEGORIES.VEHICLE] = true,
-  },
-
-  [pocketChestLocale.adventurersChest] = {
-    [ITEM_CATEGORIES.COINPURSE]                       = true,
-    [ITEM_CATEGORIES.VALUABLE_CRATE]                  = true,
-    [ITEM_CATEGORIES.KEY]                             = true,
-    [ITEM_CATEGORIES.COIN]                            = true,
-    [ITEM_CATEGORIES.CURRENCY]                        = true,
-    [ITEM_CATEGORIES.MECHANICAL_COMPONENT_DESIGN_BAG] = true,
+  [pocketChestLocale.artisansChest] = {
+    [ITEM_CATEGORIES.METAL]            = true,
+    [ITEM_CATEGORIES.LUMBER]           = true,
+    [ITEM_CATEGORIES.STONE_BRICK]      = true,
+    [ITEM_CATEGORIES.HIDE]             = true,
+    [ITEM_CATEGORIES.FABRIC]           = true,
+    [ITEM_CATEGORIES.ORE]              = true,
+    [ITEM_CATEGORIES.HARDWOOD]         = true,
+    [ITEM_CATEGORIES.RAW_STONE]        = true,
+    [ITEM_CATEGORIES.PRECIOUS_METAL]   = true,
+    [ITEM_CATEGORIES.GEM]              = true,
+    [ITEM_CATEGORIES.RUBBER]           = true,
+    [ITEM_CATEGORIES.TEXTILE]          = true,
+    [ITEM_CATEGORIES.PELT]             = true,
+    [ITEM_CATEGORIES.SPECIAL_MATERIAL] = true,
   },
 
   [pocketChestLocale.buildersChest] = {
     [ITEM_CATEGORIES.BUILDINGS] = true,
+  },
+
+  [pocketChestLocale.costumeCloset] = {
+    [ITEM_CATEGORIES.COSTUME]            = true,
+    [ITEM_CATEGORIES.DARU_COSTUME]       = true,
+    [ITEM_CATEGORIES.COSMETIC_MATERIALS] = true,
+    [ITEM_CATEGORIES.SYNTHESIS_GEAR_1]   = true,
+    [ITEM_CATEGORIES.SYNTHESIS_GEAR_2]   = true,
+  },
+
+  [pocketChestLocale.designChest] = {
+    [ITEM_CATEGORIES.CREST_AND_DYE_ITEMS] = true,
+  },
+
+  [pocketChestLocale.dreamDesignersChest] = {
+    [ITEM_CATEGORIES.DREAM_DESIGN] = true,
+    [ITEM_CATEGORIES.ART_OBJECT]   = true,
   },
 
   [pocketChestLocale.equipmentEnhancementChest] = {
@@ -233,6 +240,11 @@ local POCKET_CHEST_FILTER = {
     [ITEM_CATEGORIES.ENCHANCEMENT_MATERIALS] = true,
     [ITEM_CATEGORIES.LUNAGEM]                = true,
     [ITEM_CATEGORIES.LUNASTONE]              = true,
+  },
+
+  [pocketChestLocale.equipmentMaterialChest] = {
+    [ITEM_CATEGORIES.SYNTHESIS_MATERIALS] = true,
+    [ITEM_CATEGORIES.AWAKENING_MATERIALS] = true,
   },
 
   [pocketChestLocale.farmersLargeChest] = {
@@ -253,6 +265,23 @@ local POCKET_CHEST_FILTER = {
     [ITEM_CATEGORIES.PELT]                = true,
     [ITEM_CATEGORIES.HERB]                = true,
     [ITEM_CATEGORIES.SPECIAL_MATERIAL]    = true,
+  },
+
+  [pocketChestLocale.fishermansChest] = {
+    [ITEM_CATEGORIES.UNDERWATER_EQUIPMENT] = true,
+    [ITEM_CATEGORIES.FISHING_ROD]          = true,
+    [ITEM_CATEGORIES.SEAFOOD]              = true,
+    [ITEM_CATEGORIES.SPECIAL_CONSUMABLES]  = true,
+  },
+
+  [pocketChestLocale.flutterVessel] = {
+    [ITEM_CATEGORIES.GLIDER]      = true,
+    [ITEM_CATEGORIES.MAGITHOPTER] = true,
+  },
+
+  [pocketChestLocale.furnitureChest] = {
+    [ITEM_CATEGORIES.FURNITURE] = true,
+    [ITEM_CATEGORIES.TAXIDERMY] = true,
   },
 
   [pocketChestLocale.gearChest] = {
@@ -290,6 +319,11 @@ local POCKET_CHEST_FILTER = {
     [ITEM_CATEGORIES.SYNTHESIS_GEAR_2]       = true,
   },
 
+  [pocketChestLocale.instrumentTrunk] = {
+    [ITEM_CATEGORIES.FLUTE] = true,
+    [ITEM_CATEGORIES.LUTE]  = true,
+  },
+
   [pocketChestLocale.librariansChest] = {
     [ITEM_CATEGORIES.BOOK] = true,
   },
@@ -317,32 +351,29 @@ local POCKET_CHEST_FILTER = {
     [ITEM_CATEGORIES.MECHANICAL_COMPONENT_DESIGN_BAG] = true,
   },
 
-  [pocketChestLocale.animalBreedersChest] = {
-    [ITEM_CATEGORIES.COOKING_OIL]         = true,
-    [ITEM_CATEGORIES.FEED]                = true,
-    [ITEM_CATEGORIES.PELT]                = true,
-    [ITEM_CATEGORIES.TEXTILE]             = true,
-    [ITEM_CATEGORIES.MEAT]                = true,
-    [ITEM_CATEGORIES.SEAFOOD]             = true,
-    [ITEM_CATEGORIES.LIVESTOCK_PRODUCTS]  = true,
-    [ITEM_CATEGORIES.SPECIAL_CONSUMABLES] = true,
+  [pocketChestLocale.musicChest] = {
+    [ITEM_CATEGORIES.SHEET_MUSIC] = true,
+    [ITEM_CATEGORIES.MUSIC_DISC]  = true,
   },
 
-  [pocketChestLocale.artisansChest] = {
-    [ITEM_CATEGORIES.METAL]            = true,
-    [ITEM_CATEGORIES.LUMBER]           = true,
-    [ITEM_CATEGORIES.STONE_BRICK]      = true,
-    [ITEM_CATEGORIES.HIDE]             = true,
-    [ITEM_CATEGORIES.FABRIC]           = true,
-    [ITEM_CATEGORIES.ORE]              = true,
-    [ITEM_CATEGORIES.HARDWOOD]         = true,
-    [ITEM_CATEGORIES.RAW_STONE]        = true,
-    [ITEM_CATEGORIES.PRECIOUS_METAL]   = true,
-    [ITEM_CATEGORIES.GEM]              = true,
-    [ITEM_CATEGORIES.RUBBER]           = true,
-    [ITEM_CATEGORIES.TEXTILE]          = true,
-    [ITEM_CATEGORIES.PELT]             = true,
-    [ITEM_CATEGORIES.SPECIAL_MATERIAL] = true,
+  [pocketChestLocale.otherworldlyPetHotel] = {
+    [ITEM_CATEGORIES.BATTLE_PET]     = true,
+    [ITEM_CATEGORIES.PETS]           = true,
+    [ITEM_CATEGORIES.POWERSTONE_PET] = true,
+  },
+
+  [pocketChestLocale.petsAndTransportTrunk] = {
+    [ITEM_CATEGORIES.SHIP]    = true,
+    [ITEM_CATEGORIES.VEHICLE] = true,
+  },
+
+  [pocketChestLocale.ridersTrunk] = {
+    [ITEM_CATEGORIES.MOUNT]     = true,
+    [ITEM_CATEGORIES.GIANT_PET] = true,
+  },
+
+  [pocketChestLocale.shardCollectorsChest] = {
+    [ITEM_CATEGORIES.SHARD] = true,
   },
 
   [pocketChestLocale.travelerNecessitiesChest] = {
@@ -364,32 +395,6 @@ local POCKET_CHEST_FILTER = {
 
   [pocketChestLocale.trophyHuntersChest] = {
     [ITEM_CATEGORIES.LEGENDARY_TROPHY] = true,
-  },
-
-  [pocketChestLocale.designChest] = {
-    [ITEM_CATEGORIES.CREST_AND_DYE_ITEMS] = true,
-  },
-
-  [pocketChestLocale.instrumentTrunk] = {
-    [ITEM_CATEGORIES.FLUTE] = true,
-    [ITEM_CATEGORIES.LUTE]  = true,
-  },
-
-  [pocketChestLocale.musicChest] = {
-    [ITEM_CATEGORIES.SHEET_MUSIC] = true,
-    [ITEM_CATEGORIES.MUSIC_DISC]  = true,
-  },
-
-  [pocketChestLocale.fishermansChest] = {
-    [ITEM_CATEGORIES.UNDERWATER_EQUIPMENT] = true,
-    [ITEM_CATEGORIES.FISHING_ROD]          = true,
-    [ITEM_CATEGORIES.SEAFOOD]              = true,
-    [ITEM_CATEGORIES.SPECIAL_CONSUMABLES]  = true,
-  },
-
-  [pocketChestLocale.dreamDesignersChest] = {
-    [ITEM_CATEGORIES.DREAM_DESIGN] = true,
-    [ITEM_CATEGORIES.ART_OBJECT]   = true,
   },
 }
 
@@ -424,6 +429,25 @@ local MoveToEmptySlot = {
   },
 }
 
+---@param text string
+---@param pattern string
+---@return boolean
+local function SafeMatch(text, pattern)
+  local ok, result = pcall(string.match, text, pattern)
+  return ok and result
+end
+
+---@param itemInfo ItemInfo
+---@return string
+local function BuildSextantPosition(itemInfo)
+  return string.format(
+    "%s %d %d %d %s %d %d %d",
+    itemInfo.longitudeDir, itemInfo.longitudeDeg, itemInfo.longitudeMin, itemInfo.longitudeSec,
+    itemInfo.latitudeDir, itemInfo.latitudeDeg, itemInfo.latitudeMin, itemInfo.latitudeSec
+  ):lower()
+end
+
+---@param id string
 ---@return Window
 ---@nodiscard
 local function CreateAutoStoreWindow(id)
@@ -463,7 +487,7 @@ local function CreateAutoStoreWindow(id)
 
   local filterKeys = {}
 
-    for _, key in pairs(locale.addon.pocketChest) do
+  for _, key in pairs(locale.addon.pocketChest) do
     table.insert(filterKeys, key)
     table.sort(filterKeys)
   end
@@ -533,15 +557,22 @@ local function CreateAutoStoreWindow(id)
 
     local search = filter.searchEditbox:GetText():lower()
 
-    local function itemMatchesFilter(itemInfo)
-      if not itemInfo then return false end
-
+    ---@param itemInfo ItemInfo
+    ---@return boolean
+    local function ItemMatchesFilter(itemInfo)
       local name     = itemInfo.name:lower()
       local category = itemInfo.category:lower()
 
       return (transferBoundItems or itemInfo.soul_bound ~= 1)
         and (not categoryFilter or categoryFilter[itemInfo.category_id])
-        and (string.match(name, search) or string.match(category, search))
+        and (
+          (
+            itemInfo.category_id == ITEM_CATEGORIES.TREASURE_MAP
+            and SafeMatch(BuildSextantPosition(itemInfo), search)
+          )
+          or SafeMatch(name, search)
+          or SafeMatch(category, search)
+        )
         and itemInfo.item_impl ~= "bag"
         and not itemInfo.pinned
     end
@@ -588,7 +619,7 @@ local function CreateAutoStoreWindow(id)
       for i = source.currentSlot, source.endSlot do
         local itemInfo = source.storage:GetBagItemInfo(i)
 
-        if itemMatchesFilter(itemInfo) then
+        if itemInfo and ItemMatchesFilter(itemInfo) then
           if not foundMatch then
             foundMatch    = true
             attemptedMove = true
