@@ -34,7 +34,7 @@ if X2Locale:GetLocale() == "fr" then
   locale.addon.filterModule.endSlot   = "Fin : 150"
   locale.addon.filterModule.cooldown  = "200 ms"
   locale.addon.inventoryFull          = "|nr;Inventaire ou stockage plein !|r"
-  locale.addon.autoSortDetected       = "|nr;Auto-Tri détecté !|r"
+  locale.addon.autoSortDetected       = "|nr;Auto-Tri détecté !\nVeuillez lire l'info-bulle du filtre (?).|r"
   locale.addon.pocketChest            = { -- https://wiki.archerage.to/ru-fr/db/items/
     adventurersChest          = "Adventurer's Chest",
     alchemistsChest           = "Alchemist's Chest",

@@ -34,7 +34,7 @@ if X2Locale:GetLocale() == "ru" then
   locale.addon.filterModule.endSlot   = "Конец: 150"
   locale.addon.filterModule.cooldown  = "200 мс"
   locale.addon.inventoryFull          = "|nr;Инвентарь или хранилище заполнено!|r"
-  locale.addon.autoSortDetected       = "|nr;Обнаружена авто-сортировка!|r"
+  locale.addon.autoSortDetected       = "|nr;Обнаружена авто-сортировка!\nПожалуйста, прочтите подсказку фильтра (?).|r"
   locale.addon.pocketChest            = { -- https://wiki.archerage.to/ru-ru/db/items/
     adventurersChest          = "Вместительный сундук авантюриста",
     alchemistsChest           = "Сундук алхимика",

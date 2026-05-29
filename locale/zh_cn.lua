@@ -34,7 +34,7 @@ if X2Locale:GetLocale() == "zh_cn" then
   locale.addon.filterModule.endSlot   = "结束：150"
   locale.addon.filterModule.cooldown  = "200ms"
   locale.addon.inventoryFull          = "|nr;背包或存储已满！|r"
-  locale.addon.autoSortDetected       = "|nr;检测到自动排序！|r"
+  locale.addon.autoSortDetected       = "|nr;检测到自动排序！\n请阅读过滤器 (?) 工具提示。|r"
   locale.addon.pocketChest            = { -- https://wiki.archerage.to/ru-cn/db/items/
     adventurersChest          = "冒险者专用保管箱",
     alchemistsChest           = "炼金师专用保管箱",
