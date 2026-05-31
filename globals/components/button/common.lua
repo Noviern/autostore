@@ -2,16 +2,16 @@
 ---@param texturePath string
 ---@param textureKey string
 function SetViewOfButtonBackground(button, texturePath, textureKey)
-  button.normalBackground = CreateBackground(button, texturePath, textureKey .. "_df")
+  button.normalBackground = CreateTextureBackground(button, texturePath, textureKey .. "_df")
   button:SetNormalBackground(button.normalBackground)
 
-  button.highlightBackground = CreateBackground(button, texturePath, textureKey .. "_ov")
+  button.highlightBackground = CreateTextureBackground(button, texturePath, textureKey .. "_ov")
   button:SetHighlightBackground(button.highlightBackground)
 
-  button.pushedBackground = CreateBackground(button, texturePath, textureKey .. "_on")
+  button.pushedBackground = CreateTextureBackground(button, texturePath, textureKey .. "_on")
   button:SetPushedBackground(button.pushedBackground)
 
-  button.disabledBackground = CreateBackground(button, texturePath, textureKey .. "_dis")
+  button.disabledBackground = CreateTextureBackground(button, texturePath, textureKey .. "_dis")
   button:SetDisabledBackground(button.disabledBackground)
 end
 

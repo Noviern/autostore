@@ -1,3 +1,12 @@
+---@param listbox Listbox
+function SetViewOfDropdownScroll(listbox)
+  local upButton = listbox.upBtn ---@type Button
+  upButton:AddAnchor("TOPRIGHT", listbox, -4, 8)
+
+  local downButton = listbox.downBtn ---@type Button
+  downButton:AddAnchor("BOTTOMRIGHT", listbox, -4, -8)
+end
+
 ---@param id string
 ---@param parent OptionalParent
 ---@return Combobox
@@ -28,13 +37,10 @@ function SetViewOfCombobox(id, parent)
   toggle:SetStyle("grid_folder_down_arrow")
 
   local dropdown = combobox.dropdown
-  InitListbox(dropdown)
-  SetViewOffScroll(dropdown)
-  AttachScrollBehavior(dropdown)
-  OverrideScrollListboxMethods(dropdown)
-  AttachScrollListboxBehavior(dropdown)
+  InitScrollListbox(dropdown)
+  SetViewOfDropdownScroll(dropdown)
 
-  dropdown.background = CreateBackground(dropdown, TEXTURE_PATH.DEFAULT, "editbox_df")
+  dropdown.background = CreateTextureBackground(dropdown, TEXTURE_PATH.DEFAULT, "editbox_df")
 
   return combobox
 end

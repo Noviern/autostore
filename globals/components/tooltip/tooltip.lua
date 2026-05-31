@@ -1,4 +1,4 @@
-local TOOLTIP_INSET = { 10, 10, 10, 10 }
+TOOLTIP_INSET = { 10, 10, 10, 10 }
 
 ---@param widget Widget
 ---@param tooltipFrame Window
@@ -36,7 +36,7 @@ function CreateTooltip(parent, guide, tooltip, autoWrap)
 
   gametooltip:SetAutoWordwrap(autoWrap)
   if autoWrap then
-    frame:SetWidth(parent:GetWidth() - TOOLTIP_INSET[1] * 4)
+    frame:SetWidth(parent:GetWidth() - COMMON.MARGIN * 2)
     align = ALIGN_TOP_LEFT
   end
 

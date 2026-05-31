@@ -3,10 +3,10 @@
 function SetViewOfCheckButtonBackground(checkButton, texturePath, textureKey)
   SetViewOfButtonBackground(checkButton, texturePath, textureKey)
 
-  checkButton.checkedBackground = CreateBackground(checkButton, texturePath, textureKey .. "_chk_df")
+  checkButton.checkedBackground = CreateTextureBackground(checkButton, texturePath, textureKey .. "_chk_df")
   checkButton:SetCheckedBackground(checkButton.checkedBackground)
 
-  checkButton.disabledCheckedBackground = CreateBackground(checkButton, texturePath, textureKey .. "_chk_dis")
+  checkButton.disabledCheckedBackground = CreateTextureBackground(checkButton, texturePath, textureKey .. "_chk_dis")
   checkButton:SetDisabledCheckedBackground(checkButton.disabledCheckedBackground)
 end
 

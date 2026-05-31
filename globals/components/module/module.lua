@@ -14,13 +14,15 @@ function CreateModule(id, parent, title, tooltip, autoWrap)
     parent = frame:GetParent()
   end
 
-  frame.background = CreateBackground(frame, TEXTURE_PATH.DEFAULT, "type02_new")
+  frame.background = CreateTextureBackground(frame, TEXTURE_PATH.DEFAULT, "type02_new")
   frame.background:SetTextureColor("default")
 
   local titleTextbox = frame:CreateChildWidget("textbox", "titleTextbox", 0, true)
   titleTextbox.style:SetColorByKey("title")
   titleTextbox.style:SetFontSize(FONT_SIZE.LARGE)
   titleTextbox.style:SetAlign(ALIGN_LEFT)
+  titleTextbox.style:SetEllipsis(true)
+  titleTextbox:SetAutoWordwrap(false)
   titleTextbox:SetHeight(45)
   titleTextbox:SetInset(COMMON.MARGIN, 0, COMMON.MARGIN, 0)
   titleTextbox:AddAnchor("TOPLEFT", frame, 0, 0)
@@ -30,14 +32,14 @@ function CreateModule(id, parent, title, tooltip, autoWrap)
   local tooltipFrame
   if tooltip then
     local guide = titleTextbox:CreateChildWidget("emptywidget", "guide", 0, true)
-    guide.background = CreateBackground(guide, TEXTURE_PATH.HUD, "questionmark")
+    guide.background = CreateTextureBackground(guide, TEXTURE_PATH.HUD, "questionmark")
     guide:SetExtent(20, 20)
     guide:AddAnchor("RIGHT", titleTextbox, -COMMON.MARGIN, 0)
 
     tooltipFrame = CreateTooltip(parent, guide, tooltip, autoWrap)
   end
 
-  titleTextbox.background = CreateBackground(titleTextbox, TEXTURE_PATH.DEFAULT, "type02_new_half")
+  titleTextbox.background = CreateTextureBackground(titleTextbox, TEXTURE_PATH.DEFAULT, "type02_new_half")
   titleTextbox.background:SetTextureColor("default")
 
   local contentFrame = frame:CreateChildWidget("emptywidget", "contentFrame", 0, true)

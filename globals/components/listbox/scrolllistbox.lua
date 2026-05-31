@@ -1,32 +1,3 @@
----@param listbox Listbox
-function InitListbox(listbox)
-  listbox.itemStyle:SetAlign(ALIGN_LEFT)
-  listbox:SetInset(unpack(EDITBOX_WITH_BUTTON_INSET))
-  listbox:SetOveredItemColor(0, 0.5, 1, 0.2)
-  listbox:SetSelectedItemColor(0, 0.3, 0.5, 0.3)
-  listbox:SetDefaultItemTextColor(unpack(TEXT_COLOR.DEFAULT))
-  listbox:SetOveredItemTextColor(unpack(TEXT_COLOR.BLUE))
-  listbox:SetSelectedItemTextColor(unpack(TEXT_COLOR.BLUE))
-  listbox:SetDisableItemTextColor(unpack(TEXT_COLOR.GRAY))
-end
-
----@param id string
----@param parent OptionalParent
----@return Listbox
----@nodiscard
-function CreateListbox(id, parent)
-  local listbox
-  if parent and type(parent) ~= "string" then
-    listbox = parent:CreateChildWidget("listbox", id, 0, true)
-  else
-    listbox = UIParent:CreateWidget("listbox", id, parent or "UIParent")
-  end
-
-  InitListbox(listbox)
-
-  return listbox
-end
-
 ---@param scrollListbox ScrollListbox
 function UpdateScrollListboxControlVisibility(scrollListbox)
   local max = scrollListbox:GetMaxTop()
@@ -85,9 +56,31 @@ end
 
 ---@param scrollListbox ScrollListbox
 function AttachScrollListboxBehavior(scrollListbox)
-  scrollListbox.vslider:SetHandler("OnSliderChanged", function (self, value)
+  local vslider = scrollListbox.vslider
+
+  scrollListbox:SetHandler("OnWheelUp", function () vslider:Up(1) end)
+  scrollListbox:SetHandler("OnWheelDown", function () vslider:Down(1) end)
+
+  scrollListbox.upBtn:SetHandler("OnClick", function () vslider:Up(1) end)
+  scrollListbox.downBtn:SetHandler("OnClick", function () vslider:Down(1) end)
+
+  vslider:SetHandler("OnSliderChanged", function (self, value)
     scrollListbox:SetTop(value)
   end)
+end
+
+---@param listbox Listbox
+function CommonScrollListboxInit(listbox)
+  AttachScroll(listbox)
+  ---@cast listbox ScrollListbox
+  OverrideScrollListboxMethods(listbox)
+  AttachScrollListboxBehavior(listbox)
+end
+
+---@param listbox Listbox
+function InitScrollListbox(listbox)
+  InitListbox(listbox)
+  CommonScrollListboxInit(listbox)
 end
 
 ---@param id string
@@ -96,11 +89,8 @@ end
 ---@nodiscard
 function CreateScrollListbox(id, parent)
   local listbox = CreateListbox(id, parent)
-  AttachScroll(listbox)
-  AttachScrollBehavior(listbox)
+  CommonScrollListboxInit(listbox)
   ---@cast listbox ScrollListbox
-  OverrideScrollListboxMethods(listbox)
-  AttachScrollListboxBehavior(listbox)
 
   return listbox
 end
