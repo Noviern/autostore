@@ -355,6 +355,7 @@ local function CreateAutoStoreWindow(id)
   local function StopTransaction()
     window:ReleaseHandler("OnUpdate")
     EnableAutoStore(true)
+    progressTextbox:SetText("")
   end
 
   ---@param type TRANSACTION_TYPE
@@ -444,8 +445,8 @@ local function CreateAutoStoreWindow(id)
       local targetEmptySlot = target.storage:Capacity() - target.storage:CountItems()
 
       if source.currentSlot > source.endSlot or targetEmptySlot <= 0 then
-        progressTextbox:SetText(targetEmptySlot <= 0 and locale.addon.inventoryFull or "")
         StopTransaction()
+        progressTextbox:SetText(targetEmptySlot <= 0 and locale.addon.inventoryFull or "")
         return
       end
 
@@ -463,7 +464,6 @@ local function CreateAutoStoreWindow(id)
       end
 
       local foundMatch     = false
-      local foundNextMatch = false
 
       for i = source.currentSlot, source.endSlot do
         local itemInfo = source.storage:GetBagItemInfo(i)
@@ -475,20 +475,19 @@ local function CreateAutoStoreWindow(id)
 
             MoveToEmptySlot[type][option](i)
 
-            progressTextbox:SetText(string.format("%d - %d (x%d) - %d\n%s",
+            progressTextbox:SetText(string.format(
+              "%d - %d (x%d) - %d\n%s",
               source.startSlot, i, attemptFailedCount, source.endSlot, itemInfo.name
             ))
 
             timePassed = 0
-          elseif not foundNextMatch then
-            foundNextMatch     = true
-            source.currentSlot = i
+            source.currentSlot = i + 1
             break
           end
         end
       end
 
-      if not foundNextMatch then
+      if not foundMatch then
         source.currentSlot = source.endSlot + 1
         timePassed = cooldown
       end
@@ -503,6 +502,8 @@ local function CreateAutoStoreWindow(id)
   window:RegisterEvent("COFFER_TAB_SORTED")
   window:RegisterEvent("BANK_TAB_SORTED")
 
+  window:SetHandler("OnHide", StopTransaction)
+
   transaction.depositButton:SetHandler("OnClick", function ()
     StartTransaction(TRANSACTION_TYPE.DEPOSIT)
   end)
@@ -511,10 +512,7 @@ local function CreateAutoStoreWindow(id)
     StartTransaction(TRANSACTION_TYPE.WITHDRAW)
   end)
 
-  transaction.cancelButton:SetHandler("OnClick", function ()
-    progressTextbox:SetText("")
-    StopTransaction()
-  end)
+  transaction.cancelButton:SetHandler("OnClick", StopTransaction)
 
   return window
 end
