@@ -1,48 +1,48 @@
 local pocketChestLocale = locale.addon.pocketChest
 local POCKET_CHEST_FILTER = {
   [pocketChestLocale.adventurersChest] = Set({
-    ITEM_CATEGORIES.COINPURSE,
-    ITEM_CATEGORIES.VALUABLE_CRATE,
-    ITEM_CATEGORIES.KEY,
     ITEM_CATEGORIES.COIN,
+    ITEM_CATEGORIES.COINPURSE,
     ITEM_CATEGORIES.CURRENCY,
+    ITEM_CATEGORIES.KEY,
     ITEM_CATEGORIES.MECHANICAL_COMPONENT_DESIGN_BAG,
+    ITEM_CATEGORIES.VALUABLE_CRATE,
   }),
 
   [pocketChestLocale.alchemistsChest] = Set({
-    ITEM_CATEGORIES.ARCHEUM,
-    ITEM_CATEGORIES.ALCHEMY,
     ITEM_CATEGORIES.ALCHEMY_OIL,
-    ITEM_CATEGORIES.SPECIAL_MATERIAL,
+    ITEM_CATEGORIES.ALCHEMY,
+    ITEM_CATEGORIES.ARCHEUM,
     ITEM_CATEGORIES.HERB,
+    ITEM_CATEGORIES.SPECIAL_MATERIAL,
   }),
 
   [pocketChestLocale.animalBreedersChest] = Set({
     ITEM_CATEGORIES.COOKING_OIL,
     ITEM_CATEGORIES.FEED,
-    ITEM_CATEGORIES.PELT,
-    ITEM_CATEGORIES.TEXTILE,
-    ITEM_CATEGORIES.MEAT,
-    ITEM_CATEGORIES.SEAFOOD,
     ITEM_CATEGORIES.LIVESTOCK_PRODUCTS,
+    ITEM_CATEGORIES.MEAT,
+    ITEM_CATEGORIES.PELT,
+    ITEM_CATEGORIES.SEAFOOD,
     ITEM_CATEGORIES.SPECIAL_CONSUMABLES,
+    ITEM_CATEGORIES.TEXTILE,
   }),
 
   [pocketChestLocale.artisansChest] = Set({
-    ITEM_CATEGORIES.METAL,
-    ITEM_CATEGORIES.LUMBER,
-    ITEM_CATEGORIES.STONE_BRICK,
-    ITEM_CATEGORIES.HIDE,
     ITEM_CATEGORIES.FABRIC,
-    ITEM_CATEGORIES.ORE,
-    ITEM_CATEGORIES.HARDWOOD,
-    ITEM_CATEGORIES.RAW_STONE,
-    ITEM_CATEGORIES.PRECIOUS_METAL,
     ITEM_CATEGORIES.GEM,
-    ITEM_CATEGORIES.RUBBER,
-    ITEM_CATEGORIES.TEXTILE,
+    ITEM_CATEGORIES.HARDWOOD,
+    ITEM_CATEGORIES.HIDE,
+    ITEM_CATEGORIES.LUMBER,
+    ITEM_CATEGORIES.METAL,
+    ITEM_CATEGORIES.ORE,
     ITEM_CATEGORIES.PELT,
+    ITEM_CATEGORIES.PRECIOUS_METAL,
+    ITEM_CATEGORIES.RAW_STONE,
+    ITEM_CATEGORIES.RUBBER,
     ITEM_CATEGORIES.SPECIAL_MATERIAL,
+    ITEM_CATEGORIES.STONE_BRICK,
+    ITEM_CATEGORIES.TEXTILE,
   }),
 
   [pocketChestLocale.buildersChest] = Set({
@@ -50,9 +50,9 @@ local POCKET_CHEST_FILTER = {
   }),
 
   [pocketChestLocale.costumeCloset] = Set({
+    ITEM_CATEGORIES.COSMETIC_MATERIALS,
     ITEM_CATEGORIES.COSTUME,
     ITEM_CATEGORIES.DARU_COSTUME,
-    ITEM_CATEGORIES.COSMETIC_MATERIALS,
     ITEM_CATEGORIES.SYNTHESIS_GEAR_1,
     ITEM_CATEGORIES.SYNTHESIS_GEAR_2,
   }),
@@ -62,48 +62,48 @@ local POCKET_CHEST_FILTER = {
   }),
 
   [pocketChestLocale.dreamDesignersChest] = Set({
-    ITEM_CATEGORIES.DREAM_DESIGN,
     ITEM_CATEGORIES.ART_OBJECT,
+    ITEM_CATEGORIES.DREAM_DESIGN,
   }),
 
   [pocketChestLocale.equipmentEnhancementChest] = Set({
-    ITEM_CATEGORIES.SYNTHESIS_MATERIALS,
     ITEM_CATEGORIES.AWAKENING_MATERIALS,
     ITEM_CATEGORIES.ENCHANCEMENT_MATERIALS,
     ITEM_CATEGORIES.LUNAGEM,
     ITEM_CATEGORIES.LUNASTONE,
+    ITEM_CATEGORIES.SYNTHESIS_MATERIALS,
   }),
 
   [pocketChestLocale.equipmentMaterialChest] = Set({
-    ITEM_CATEGORIES.SYNTHESIS_MATERIALS,
     ITEM_CATEGORIES.AWAKENING_MATERIALS,
+    ITEM_CATEGORIES.SYNTHESIS_MATERIALS,
   }),
 
   [pocketChestLocale.farmersLargeChest] = Set({
-    ITEM_CATEGORIES.FRUIT,
-    ITEM_CATEGORIES.VEGETABLE,
-    ITEM_CATEGORIES.SPICE,
     ITEM_CATEGORIES.FLOWER,
+    ITEM_CATEGORIES.FRUIT,
     ITEM_CATEGORIES.GRAIN,
-    ITEM_CATEGORIES.SEED,
-    ITEM_CATEGORIES.TEXTILE,
-    ITEM_CATEGORIES.LIVESTOCK,
-    ITEM_CATEGORIES.SAPLINGS,
-    ITEM_CATEGORIES.SOIL,
-    ITEM_CATEGORIES.SPECIAL_CONSUMABLES,
-    ITEM_CATEGORIES.SEAFOOD,
+    ITEM_CATEGORIES.HERB,
     ITEM_CATEGORIES.LIVESTOCK_PRODUCTS,
+    ITEM_CATEGORIES.LIVESTOCK,
     ITEM_CATEGORIES.MEAT,
     ITEM_CATEGORIES.PELT,
-    ITEM_CATEGORIES.HERB,
+    ITEM_CATEGORIES.SAPLINGS,
+    ITEM_CATEGORIES.SEAFOOD,
+    ITEM_CATEGORIES.SEED,
+    ITEM_CATEGORIES.SOIL,
+    ITEM_CATEGORIES.SPECIAL_CONSUMABLES,
     ITEM_CATEGORIES.SPECIAL_MATERIAL,
+    ITEM_CATEGORIES.SPICE,
+    ITEM_CATEGORIES.TEXTILE,
+    ITEM_CATEGORIES.VEGETABLE,
   }),
 
   [pocketChestLocale.fishermansChest] = Set({
-    ITEM_CATEGORIES.UNDERWATER_EQUIPMENT,
     ITEM_CATEGORIES.FISHING_ROD,
     ITEM_CATEGORIES.SEAFOOD,
     ITEM_CATEGORIES.SPECIAL_CONSUMABLES,
+    ITEM_CATEGORIES.UNDERWATER_EQUIPMENT,
   }),
 
   [pocketChestLocale.flutterVessel] = Set({
@@ -117,38 +117,38 @@ local POCKET_CHEST_FILTER = {
   }),
 
   [pocketChestLocale.gearChest] = Set({
-    ITEM_CATEGORIES.UNIDENTIFIED_EQUIPMENT,
-    ITEM_CATEGORIES.FARMHAND_EQUIPMENT,
-    ITEM_CATEGORIES.PET_GEAR,
-    ITEM_CATEGORIES.LEATHER_ARMOR,
-    ITEM_CATEGORIES.CLOTH_ARMOR,
-    ITEM_CATEGORIES.PLATE_ARMOR,
-    ITEM_CATEGORIES.CLOAK,
-    ITEM_CATEGORIES.DAGGER,
-    ITEM_CATEGORIES.SWORD,
-    ITEM_CATEGORIES.KATANA,
-    ITEM_CATEGORIES.SHORTSPEAR,
     ITEM_CATEGORIES.AXE,
+    ITEM_CATEGORIES.BOW,
+    ITEM_CATEGORIES.CLOAK,
+    ITEM_CATEGORIES.CLOTH_ARMOR,
     ITEM_CATEGORIES.CLUB,
-    ITEM_CATEGORIES.SCEPTER,
-    ITEM_CATEGORIES.GREATSWORD,
-    ITEM_CATEGORIES.NODACHI,
-    ITEM_CATEGORIES.LONGSPEAR,
+    ITEM_CATEGORIES.DAGGER,
+    ITEM_CATEGORIES.EARRING,
+    ITEM_CATEGORIES.FARMHAND_EQUIPMENT,
+    ITEM_CATEGORIES.FISHING_ROD,
+    ITEM_CATEGORIES.FLUTE,
     ITEM_CATEGORIES.GREATAXE,
     ITEM_CATEGORIES.GREATCLUB,
-    ITEM_CATEGORIES.STAFF,
-    ITEM_CATEGORIES.SHIELD,
-    ITEM_CATEGORIES.EARRING,
-    ITEM_CATEGORIES.NECKLACE,
-    ITEM_CATEGORIES.RING,
-    ITEM_CATEGORIES.FLUTE,
+    ITEM_CATEGORIES.GREATSWORD,
+    ITEM_CATEGORIES.KATANA,
+    ITEM_CATEGORIES.LEATHER_ARMOR,
+    ITEM_CATEGORIES.LONGSPEAR,
     ITEM_CATEGORIES.LUTE,
-    ITEM_CATEGORIES.BOW,
+    ITEM_CATEGORIES.NECKLACE,
+    ITEM_CATEGORIES.NODACHI,
+    ITEM_CATEGORIES.PET_GEAR,
+    ITEM_CATEGORIES.PLATE_ARMOR,
     ITEM_CATEGORIES.RIFLE,
-    ITEM_CATEGORIES.UNDERWATER_EQUIPMENT,
-    ITEM_CATEGORIES.FISHING_ROD,
+    ITEM_CATEGORIES.RING,
+    ITEM_CATEGORIES.SCEPTER,
+    ITEM_CATEGORIES.SHIELD,
+    ITEM_CATEGORIES.SHORTSPEAR,
+    ITEM_CATEGORIES.STAFF,
+    ITEM_CATEGORIES.SWORD,
     ITEM_CATEGORIES.SYNTHESIS_GEAR_1,
     ITEM_CATEGORIES.SYNTHESIS_GEAR_2,
+    ITEM_CATEGORIES.UNDERWATER_EQUIPMENT,
+    ITEM_CATEGORIES.UNIDENTIFIED_EQUIPMENT,
   }),
 
   [pocketChestLocale.instrumentTrunk] = Set({
@@ -161,31 +161,31 @@ local POCKET_CHEST_FILTER = {
   }),
 
   [pocketChestLocale.machinesChest] = Set({
-    ITEM_CATEGORIES.MAST,
-    ITEM_CATEGORIES.SHIP_PROPELLANT,
-    ITEM_CATEGORIES.SHIP_DESIGN,
-    ITEM_CATEGORIES.SHIP_COMPONENT_DESIGN,
-    ITEM_CATEGORIES.MACHINE_COMPONENT_SCROLL,
-    ITEM_CATEGORIES.VEHICLE_COMPONENT_DESIGN,
-    ITEM_CATEGORIES.MISC_APPARATUS,
-    ITEM_CATEGORIES.MACHINING,
     ITEM_CATEGORIES.ARMAMENT,
-    ITEM_CATEGORIES.SOUND_EQUIPMENT,
-    ITEM_CATEGORIES.SAIL,
-    ITEM_CATEGORIES.STORAGE,
-    ITEM_CATEGORIES.NAVIGATION,
     ITEM_CATEGORIES.BOARDING_EQUIPMENT,
-    ITEM_CATEGORIES.STEERING_GEAR,
-    ITEM_CATEGORIES.MECHANICAL_COMPONENTS,
     ITEM_CATEGORIES.FIGUREHEAD,
     ITEM_CATEGORIES.LIGHTING,
-    ITEM_CATEGORIES.MUSIC_DISC,
+    ITEM_CATEGORIES.MACHINE_COMPONENT_SCROLL,
+    ITEM_CATEGORIES.MACHINING,
+    ITEM_CATEGORIES.MAST,
     ITEM_CATEGORIES.MECHANICAL_COMPONENT_DESIGN_BAG,
+    ITEM_CATEGORIES.MECHANICAL_COMPONENTS,
+    ITEM_CATEGORIES.MISC_APPARATUS,
+    ITEM_CATEGORIES.MUSIC_DISC,
+    ITEM_CATEGORIES.NAVIGATION,
+    ITEM_CATEGORIES.SAIL,
+    ITEM_CATEGORIES.SHIP_COMPONENT_DESIGN,
+    ITEM_CATEGORIES.SHIP_DESIGN,
+    ITEM_CATEGORIES.SHIP_PROPELLANT,
+    ITEM_CATEGORIES.SOUND_EQUIPMENT,
+    ITEM_CATEGORIES.STEERING_GEAR,
+    ITEM_CATEGORIES.STORAGE,
+    ITEM_CATEGORIES.VEHICLE_COMPONENT_DESIGN,
   }),
 
   [pocketChestLocale.musicChest] = Set({
-    ITEM_CATEGORIES.SHEET_MUSIC,
     ITEM_CATEGORIES.MUSIC_DISC,
+    ITEM_CATEGORIES.SHEET_MUSIC,
   }),
 
   [pocketChestLocale.otherworldlyPetHotel] = Set({
@@ -200,8 +200,9 @@ local POCKET_CHEST_FILTER = {
   }),
 
   [pocketChestLocale.ridersTrunk] = Set({
-    ITEM_CATEGORIES.MOUNT,
     ITEM_CATEGORIES.GIANT_PET,
+    ITEM_CATEGORIES.MARINE_MOUNT,
+    ITEM_CATEGORIES.MOUNT,
   }),
 
   [pocketChestLocale.shardCollectorsChest] = Set({
@@ -209,20 +210,20 @@ local POCKET_CHEST_FILTER = {
   }),
 
   [pocketChestLocale.travelerNecessitiesChest] = Set({
-    ITEM_CATEGORIES.FOOD,
-    ITEM_CATEGORIES.POTION,
-    ITEM_CATEGORIES.DRINK,
-    ITEM_CATEGORIES.MANA_POTION,
-    ITEM_CATEGORIES.DEFENSE_POTION,
-    ITEM_CATEGORIES.HEALING_POTION,
     ITEM_CATEGORIES.BOOSTERS,
+    ITEM_CATEGORIES.DEFENSE_POTION,
+    ITEM_CATEGORIES.DRINK,
+    ITEM_CATEGORIES.FOOD,
+    ITEM_CATEGORIES.HEALING_POTION,
+    ITEM_CATEGORIES.MANA_POTION,
+    ITEM_CATEGORIES.POTION,
     ITEM_CATEGORIES.SPECIAL_CONSUMABLES,
   }),
 
   [pocketChestLocale.treasureHuntersChest] = Set({
-    ITEM_CATEGORIES.TREASURE_MAP,
     ITEM_CATEGORIES.RELIC,
     ITEM_CATEGORIES.TREASURE_HUNTERS_CONSUMABLES,
+    ITEM_CATEGORIES.TREASURE_MAP,
   }),
 
   [pocketChestLocale.trophyHuntersChest] = Set({
@@ -286,38 +287,31 @@ local function CreateAutoStoreWindow(id)
   local window = SetViewOfAutoStoreWindow(id)
   window:SetUILayer("system")
 
-  local contentFrame              = window.contentFrame
+  local contentFrame                     = window.contentFrame
 
-  local storageOption             = {
+  local storageOption                    = {
     frame = contentFrame.storageOptionFrame ---@type EmptyWidget
   }
 
-  storageOption.contentframe      = storageOption.frame.contentFrame ---@type EmptyWidget
-  storageOption.radioGroupFrame   = storageOption.contentframe.radioGroupFrame ---@type RadioGroup
+  storageOption.contentframe             = storageOption.frame.contentFrame ---@type EmptyWidget
+  storageOption.radioGroupFrame          = storageOption.contentframe.radioGroupFrame ---@type RadioGroup
 
-  local filter                    = {
+  local filter                           = {
     frame = contentFrame.filterFrame, ---@type EmptyWidget
   }
 
-  filter.contentFrame             = filter.frame.contentFrame ---@type EmptyWidget
-  filter.transferBoundCheckbutton = filter.contentFrame.transferBoundCheckbutton ---@type CheckButton
-  filter.resetButton              = filter.contentFrame.resetButton ---@type Button
-  filter.categoryFilterCombobox   = filter.contentFrame.categoryFilterCombobox ---@type Combobox
-  filter.searchEditbox            = filter.contentFrame.searchEditbox ---@type X2Editbox
-  filter.startEditbox             = filter.contentFrame.startEditbox ---@type X2Editbox
-  filter.endEditbox               = filter.contentFrame.endEditbox ---@type X2Editbox
-  filter.cooldownEditbox          = filter.contentFrame.cooldownEditbox ---@type X2Editbox
+  filter.contentFrame                    = filter.frame.contentFrame ---@type EmptyWidget
+  filter.onlyTransferExistingCheckbutton = filter.contentFrame.onlyTransferExistingCheckbutton ---@type CheckButton
+  filter.transferBoundCheckbutton        = filter.contentFrame.transferBoundCheckbutton ---@type CheckButton
+  filter.cancelFullInventoryCheckbutton  = filter.contentFrame.cancelFullInventoryCheckbutton ---@type CheckButton
+  filter.resetButton                     = filter.contentFrame.resetButton ---@type Button
+  filter.categoryFilterCombobox          = filter.contentFrame.categoryFilterCombobox ---@type Combobox
+  filter.searchEditbox                   = filter.contentFrame.searchEditbox ---@type X2Editbox
+  filter.startEditbox                    = filter.contentFrame.startEditbox ---@type X2Editbox
+  filter.endEditbox                      = filter.contentFrame.endEditbox ---@type X2Editbox
+  filter.cooldownEditbox                 = filter.contentFrame.cooldownEditbox ---@type X2Editbox
 
-  filter.resetButton:SetHandler("OnClick", function ()
-    filter.transferBoundCheckbutton:SetChecked(false)
-    filter.categoryFilterCombobox.dropdown:Select(0)
-    filter.searchEditbox:SetText("")
-    filter.startEditbox:SetText("")
-    filter.endEditbox:SetText("")
-    filter.cooldownEditbox:SetText("")
-  end)
-
-  local filterKeys = {}
+  local filterKeys                       = {}
 
   for _, key in pairs(locale.addon.pocketChest) do
     table.insert(filterKeys, key)
@@ -329,8 +323,6 @@ local function CreateAutoStoreWindow(id)
   for k, v in ipairs(filterKeys) do
     filter.categoryFilterCombobox.dropdown:AppendItem(v, k)
   end
-
-  filter.categoryFilterCombobox.dropdown:Select(0)
 
   local progressTextbox      = contentFrame.progressTextbox ---@type Textbox
 
@@ -387,6 +379,21 @@ local function CreateAutoStoreWindow(id)
       categoryFilter = POCKET_CHEST_FILTER[selectedCategoryFilter]
     end
 
+    local onlyTransferExisting = filter.onlyTransferExistingCheckbutton:GetChecked()
+
+    local existingFilter = {}
+    if onlyTransferExisting then
+      for i = 1, target.storage:Capacity() do
+        local itemInfo = target.storage:GetBagItemInfo(i)
+
+        if itemInfo
+          and not existingFilter[itemInfo.itemType]
+        then
+          existingFilter[itemInfo.itemType] = true
+        end
+      end
+    end
+
     local search = filter.searchEditbox:GetText():lower()
 
     ---@param itemInfo ItemInfo
@@ -400,26 +407,36 @@ local function CreateAutoStoreWindow(id)
         return false
       end
 
-      if itemInfo.soul_bound == 1 and not transferBoundItems then
+      if next(existingFilter)
+        and not existingFilter[itemInfo.itemType]
+      then
         return false
       end
 
-      if categoryFilter and not categoryFilter[itemInfo.category_id] then
+      if itemInfo.soul_bound == 1
+        and not transferBoundItems
+      then
+        return false
+      end
+
+      if categoryFilter
+        and not categoryFilter[itemInfo.category_id]
+      then
         return false
       end
 
       if itemInfo.category_id == ITEM_CATEGORIES.TREASURE_MAP
-        and SafeMatch(BuildSextantPosition(itemInfo), search) then
+        and SafeMatch(BuildSextantPosition(itemInfo), search)
+      then
         return true
       end
 
-      local name     = itemInfo.name:lower()
-      local category = itemInfo.category:lower()
-
+      local name = itemInfo.name:lower()
       if SafeMatch(name, search) then
         return true
       end
 
+      local category = itemInfo.category:lower()
       if SafeMatch(category, search) then
         return true
       end
@@ -432,6 +449,7 @@ local function CreateAutoStoreWindow(id)
     local cooldown           = userCooldown > minimumCooldown and userCooldown or minimumCooldown
     local timePassed         = cooldown
     local attemptedMove      = false
+    local attemptedMoveItem
     local attemptFailedCount = 0
     local maxFailedAttempts  = 3
 
@@ -442,55 +460,64 @@ local function CreateAutoStoreWindow(id)
         return
       end
 
-      local targetEmptySlot = target.storage:Capacity() - target.storage:CountItems()
-
-      if source.currentSlot > source.endSlot or targetEmptySlot <= 0 then
+      if source.currentSlot > source.endSlot then
         StopTransaction()
-        progressTextbox:SetText(targetEmptySlot <= 0 and locale.addon.inventoryFull or "")
         return
       end
 
-      if attemptedMove then
-        local checkItemInfo = source.storage:GetBagItemInfo(source.currentSlot - 1)
+      if filter.cancelFullInventoryCheckbutton:GetChecked() then
+        local targetEmptySlot = target.storage:Capacity() - target.storage:CountItems()
 
-        if checkItemInfo and attemptFailedCount < maxFailedAttempts then
-          attemptFailedCount = attemptFailedCount + 1
-          source.currentSlot = source.currentSlot - 1
-        else
-          attemptFailedCount = 0
+        if targetEmptySlot <= 0 then
+          StopTransaction()
+          progressTextbox:SetText(locale.addon.inventoryFull)
+          return
         end
-
-        attemptedMove = false
       end
 
-      local foundMatch     = false
+      if attemptedMove then
+        local checkItemInfo = source.storage:GetBagItemInfo(source.currentSlot)
+
+        if checkItemInfo
+          and checkItemInfo.itemType == attemptedMoveItem.itemType
+          and attemptFailedCount < maxFailedAttempts
+        then
+          if checkItemInfo.stack == attemptedMoveItem.stack then
+            attemptFailedCount = attemptFailedCount + 1
+          else
+            attemptFailedCount = 0
+            attemptedMove = false
+          end
+        else
+          attemptFailedCount = 0
+          attemptedMove = false
+          source.currentSlot = source.currentSlot + 1
+        end
+      end
 
       for i = source.currentSlot, source.endSlot do
         local itemInfo = source.storage:GetBagItemInfo(i)
 
-        if itemInfo and ItemMatchesFilter(itemInfo) then
-          if not foundMatch then
-            foundMatch    = true
-            attemptedMove = true
+        if itemInfo
+          and ItemMatchesFilter(itemInfo)
+        then
+          MoveToEmptySlot[type][option](i)
 
-            MoveToEmptySlot[type][option](i)
+          progressTextbox:SetText(string.format(
+            "%d - %d (x%d) - %d\n%s",
+            source.startSlot, i, attemptFailedCount, source.endSlot, itemInfo.name
+          ))
 
-            progressTextbox:SetText(string.format(
-              "%d - %d (x%d) - %d\n%s",
-              source.startSlot, i, attemptFailedCount, source.endSlot, itemInfo.name
-            ))
-
-            timePassed = 0
-            source.currentSlot = i + 1
-            break
-          end
+          timePassed         = 0
+          source.currentSlot = i
+          attemptedMove      = true
+          attemptedMoveItem  = itemInfo
+          return
         end
       end
 
-      if not foundMatch then
-        source.currentSlot = source.endSlot + 1
-        timePassed = cooldown
-      end
+      source.currentSlot = source.endSlot + 1
+      timePassed = cooldown
     end)
   end
 
@@ -503,6 +530,21 @@ local function CreateAutoStoreWindow(id)
   window:RegisterEvent("BANK_TAB_SORTED")
 
   window:SetHandler("OnHide", StopTransaction)
+
+  function ResetFilter()
+    filter.onlyTransferExistingCheckbutton:SetChecked(false)
+    filter.transferBoundCheckbutton:SetChecked(true)
+    filter.cancelFullInventoryCheckbutton:SetChecked(true)
+    filter.categoryFilterCombobox.dropdown:Select(0)
+    filter.searchEditbox:SetText("")
+    filter.startEditbox:SetText("")
+    filter.endEditbox:SetText("")
+    filter.cooldownEditbox:SetText("")
+  end
+
+  filter.resetButton:SetHandler("OnClick", ResetFilter)
+
+  ResetFilter()
 
   transaction.depositButton:SetHandler("OnClick", function ()
     StartTransaction(TRANSACTION_TYPE.DEPOSIT)

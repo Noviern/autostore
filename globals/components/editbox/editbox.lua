@@ -72,6 +72,10 @@ function AttachCancelableEditboxBehavior(editbox)
 
   editbox:SetHandler("OnTextChanged", function (self)
     cancelButton:Show(editbox:GetText() ~= "")
+
+    if type(editbox.OnTextChanged) == "function" then
+      editbox:OnTextChanged()
+    end
   end)
 end
 

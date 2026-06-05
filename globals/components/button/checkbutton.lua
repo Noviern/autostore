@@ -16,7 +16,7 @@ end
 ---@nodiscard
 function CreateCheckButton(id, parent)
   local checkButton
-  if parent then
+  if parent and type(parent) ~= "string" then
     checkButton = parent:CreateChildWidget("checkbutton", id, 0, true)
   else
     checkButton = UIParent:CreateWidget("checkbutton", id, "UIParent")

@@ -104,12 +104,12 @@ local function OverrideSearchComboboxMethods(combobox, maxVisible)
   end
 
   selector:SetHandler("OnAcceptFocus", function ()
-    dropdown:Show(dropdown:GetViewItemCount() > 0 and dropdown:ItemCount() > 0)
+    dropdown:Show(DropdownHasItems(dropdown))
   end)
 
   selector:SetHandler("OnTextChanged", function ()
     Search(selector:GetText())
-    dropdown:Show(dropdown:GetViewItemCount() > 0 and dropdown:ItemCount() > 0)
+    dropdown:Show(DropdownHasItems(dropdown))
   end)
 end
 

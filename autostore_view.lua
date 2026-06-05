@@ -58,12 +58,12 @@ local function SetViewOfFilterFrame(contentFrame)
 
   local filterContentframe = frame.contentFrame ---@type EmptyWidget
 
-  local transferBoundCheckbutton = CreateCheckButtonWithTextbox(
-    "transferBoundCheckbutton",
+  local onlyTransferExistingCheckbutton = CreateCheckButtonWithTextbox(
+    "onlyTransferExistingCheckbutton",
     filterContentframe,
-    filterLocale.transfer
+    filterLocale.onlyTransferExisting
   )
-  transferBoundCheckbutton:AddAnchor("TOPLEFT", filterContentframe, 0, 0)
+  onlyTransferExistingCheckbutton:AddAnchor("TOPLEFT", filterContentframe, 0, 0)
 
   local resetButton = filterContentframe:CreateChildWidget("button", "resetButton", 0, true)
   resetButton:SetExtent(20, 20)
@@ -74,10 +74,25 @@ local function SetViewOfFilterFrame(contentFrame)
   resetButtonTooltip:RemoveAllAnchors()
   resetButtonTooltip:AddAnchor("BOTTOM", resetButton, "TOP", 0, 0)
 
-  transferBoundCheckbutton.textbox:AddAnchor("RIGHT", resetButton, "LEFT", -COMMON.SPACING, 0)
+  onlyTransferExistingCheckbutton.textbox:AddAnchor("RIGHT", resetButton, "LEFT", -COMMON.SPACING, 0)
+  onlyTransferExistingCheckbutton.textbox:SetAutoWordwrap(true)
+
+  local transferBoundCheckbutton = CreateCheckButtonWithTextbox(
+    "transferBoundCheckbutton",
+    filterContentframe,
+    filterLocale.transfer
+  )
+  transferBoundCheckbutton:AddAnchor("TOPLEFT", onlyTransferExistingCheckbutton, "BOTTOMLEFT", 0, COMMON.SPACING)
+
+  local cancelFullInventoryCheckbutton = CreateCheckButtonWithTextbox(
+    "cancelFullInventoryCheckbutton",
+    filterContentframe,
+    filterLocale.autoCancel
+  )
+  cancelFullInventoryCheckbutton:AddAnchor("TOPLEFT", transferBoundCheckbutton, "BOTTOMLEFT", 0, COMMON.SPACING)
 
   local categoryFilterCombobox = CreateCombobox("categoryFilterCombobox", filterContentframe)
-  categoryFilterCombobox:AddAnchor("TOPLEFT", transferBoundCheckbutton, "BOTTOMLEFT", 0, COMMON.SPACING)
+  categoryFilterCombobox:AddAnchor("TOPLEFT", cancelFullInventoryCheckbutton, "BOTTOMLEFT", 0, COMMON.SPACING)
   categoryFilterCombobox:AddAnchor("RIGHT", filterContentframe, 0, 0)
   categoryFilterCombobox:SetDropdownVisibleLimit(15)
 

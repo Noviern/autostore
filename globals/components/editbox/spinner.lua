@@ -3,7 +3,6 @@
 ---@field max number|nil
 ---@field useMinButton boolean|nil
 ---@field useMaxButton boolean|nil
----@field onTextChanged OnTextChanged|nil
 
 ---@param id string
 ---@param parent OptionalParent
@@ -70,7 +69,7 @@ function CreateSpinner(id, parent, initData)
       editbox:SetText(tostring(max), false)
     end
 
-    if initData and type(initData.onTextChanged) == "function" then
+    if initData and type(frame.OnTextChanged) == "function" then
       initData.onTextChanged(self)
     end
   end)

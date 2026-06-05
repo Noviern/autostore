@@ -13,7 +13,7 @@ end
 ---@nodiscard
 function SetViewOfCombobox(id, parent)
   local combobox
-  if parent then
+  if parent and type(parent) ~= "string" then
     combobox = parent:CreateChildWidget("combobox", id, 0, true)
   else
     combobox = UIParent:CreateWidget("combobox", id, "UIParent")

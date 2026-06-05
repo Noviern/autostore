@@ -1,6 +1,11 @@
+---@param dropdown ScrollListbox
+function DropdownHasItems(dropdown)
+  return dropdown:GetViewItemCount() > 0 and dropdown:ItemCount() > 0
+end
+
 ---@param combobox Combobox
 local function UpdateComboboxToggleVisibility(combobox)
-  combobox.toggle:Show(combobox.dropdown:GetViewItemCount() > 0 and combobox.dropdown:ItemCount() > 0)
+  combobox.toggle:Show(DropdownHasItems(combobox.dropdown))
 end
 
 ---@param combobox Combobox
@@ -102,6 +107,16 @@ local function OverrideComboboxMethods(combobox)
   end
 end
 
+---@TODO: Bug: Slider/Thumb can not be clicked unless dropdown is in focus from either clicking upBtn/downBtn.
+---@param combobox Combobox
+function AttachComboboxBehavior(combobox)
+  local dropdown = combobox.dropdown
+
+  dropdown:SetHandler("OnShow", function ()
+    dropdown:Show(DropdownHasItems(combobox.dropdown))
+  end)
+end
+
 ---@param id string
 ---@param parent OptionalParent
 ---@return Combobox
@@ -111,6 +126,8 @@ function CreateCombobox(id, parent)
   OverrideComboboxMethods(combobox)
   combobox:SetExtent(EDITBOX_WIDTH, EDITBOX_HEIGHT)
   combobox:SetDropdownVisibleLimit(10)
+
+  AttachComboboxBehavior(combobox)
 
   return combobox
 end
