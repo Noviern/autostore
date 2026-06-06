@@ -150,7 +150,7 @@ local function SetViewOfTransactionFrame(contentFrame)
 end
 
 local INVENTORY = {
-  WIDTH = 510,
+  WIDTH  = 510,
   OFFSET = 30
 }
 
