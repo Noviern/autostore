@@ -15,17 +15,17 @@ function AttachEditboxBehavior(editbox)
   }
   editbox.background = CreateTextureBackground(editbox, TEXTURE_PATH.DEFAULT, textureKeys.enabled)
 
-  function editbox:SetViewOfBackground(enabled)
+  local function SetViewOfBackground(enabled)
     local textureKey = enabled and textureKeys.enabled or textureKeys.disabled
     editbox.background:SetTextureInfo(textureKey)
 
     local color = enabled and TEXT_COLOR.DEFAULT or TEXT_COLOR.GRAY
-    self.style:SetColor(unpack(color))
+    editbox.style:SetColor(unpack(color))
   end
 
-  editbox:SetViewOfBackground(true)
+  SetViewOfBackground(true)
 
-  editbox:SetHandler("OnEnableChanged", editbox.SetViewOfBackground)
+  editbox:SetHandler("OnEnableChanged", SetViewOfBackground)
 end
 
 ---@param editbox X2Editbox

@@ -4,8 +4,16 @@ function AttachScrollWindowBehavior(frame)
   local scrollFrame = frame.scrollFrame ---@type EmptyWidget
   local vslider = scrollFrame.vslider ---@type Slider
 
-  contentFrame:SetHandler("OnWheelUp", function () vslider:Up(SCROLL_STEP) end)
-  contentFrame:SetHandler("OnWheelDown", function () vslider:Down(SCROLL_STEP) end)
+  local function ScrollUp()
+    vslider:Up(vslider:GetValueStep())
+  end
+
+  local function ScrollDown()
+    vslider:Down(vslider:GetValueStep())
+  end
+
+  contentFrame:SetHandler("OnWheelUp", ScrollUp)
+  contentFrame:SetHandler("OnWheelDown", ScrollDown)
 
   vslider:SetHandler("OnSliderChanged", function (self, value)
     contentFrame:ChangeChildAnchorByScrollValue("vert", value)
@@ -24,9 +32,6 @@ function CreateScrollWindow(id, parent)
     frame = UIParent:CreateWidget("emptywidget", id, parent or "UIParent")
     parent = frame:GetParent()
   end
-
-  frame:AddAnchor("TOPLEFT", parent, 0, 0)
-  frame:AddAnchor("BOTTOMRIGHT", parent, 0, 0)
 
   local contentFrame = frame:CreateChildWidget("emptywidget", "contentFrame", 0, true)
   contentFrame:EnableScroll(true)

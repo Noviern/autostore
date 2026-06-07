@@ -287,31 +287,35 @@ local function CreateAutoStoreWindow(id)
   local window = SetViewOfAutoStoreWindow(id)
   window:SetUILayer("system")
 
-  local contentFrame                     = window.contentFrame
+  local contentFrame                               = window.contentFrame
 
-  local storageOption                    = {
+  local storageOption                              = {
     frame = contentFrame.storageOptionFrame ---@type EmptyWidget
   }
 
-  storageOption.contentframe             = storageOption.frame.contentFrame ---@type EmptyWidget
-  storageOption.radioGroupFrame          = storageOption.contentframe.radioGroupFrame ---@type RadioGroup
+  storageOption.contentframe                       = storageOption.frame.contentFrame ---@type EmptyWidget
+  storageOption.radioGroupFrame                    = storageOption.contentframe.radioGroupFrame ---@type RadioGroup
 
-  local filter                           = {
+  local filter                                     = {
     frame = contentFrame.filterFrame, ---@type EmptyWidget
   }
 
-  filter.contentFrame                    = filter.frame.contentFrame ---@type EmptyWidget
-  filter.onlyTransferExistingCheckbutton = filter.contentFrame.onlyTransferExistingCheckbutton ---@type CheckButton
-  filter.transferBoundCheckbutton        = filter.contentFrame.transferBoundCheckbutton ---@type CheckButton
-  filter.cancelFullInventoryCheckbutton  = filter.contentFrame.cancelFullInventoryCheckbutton ---@type CheckButton
-  filter.resetButton                     = filter.contentFrame.resetButton ---@type Button
-  filter.categoryFilterCombobox          = filter.contentFrame.categoryFilterCombobox ---@type Combobox
-  filter.searchEditbox                   = filter.contentFrame.searchEditbox ---@type X2Editbox
-  filter.startEditbox                    = filter.contentFrame.startEditbox ---@type X2Editbox
-  filter.endEditbox                      = filter.contentFrame.endEditbox ---@type X2Editbox
-  filter.cooldownEditbox                 = filter.contentFrame.cooldownEditbox ---@type X2Editbox
+  filter.contentFrame                              = filter.frame.contentFrame ---@type EmptyWidget
+  filter.onlyTransferExistingCategoriesCheckbutton = filter.contentFrame
+    .onlyTransferExistingCategoriesCheckbutton ---@type CheckButton
+  filter.onlyTransferExistingItemsCheckbutton      = filter.contentFrame
+    .onlyTransferExistingItemsCheckbutton ---@type CheckButton
+  filter.transferBoundCheckbutton                  = filter.contentFrame.transferBoundCheckbutton ---@type CheckButton
+  filter.cancelFullInventoryCheckbutton            = filter.contentFrame
+    .cancelFullInventoryCheckbutton ---@type CheckButton
+  filter.resetButton                               = filter.contentFrame.resetButton ---@type Button
+  filter.categoryFilterCombobox                    = filter.contentFrame.categoryFilterCombobox ---@type Combobox
+  filter.searchEditbox                             = filter.contentFrame.searchEditbox ---@type X2Editbox
+  filter.startEditbox                              = filter.contentFrame.startEditbox ---@type X2Editbox
+  filter.endEditbox                                = filter.contentFrame.endEditbox ---@type X2Editbox
+  filter.cooldownEditbox                           = filter.contentFrame.cooldownEditbox ---@type X2Editbox
 
-  local filterKeys                       = {}
+  local filterKeys                                 = {}
 
   for _, key in pairs(locale.addon.pocketChest) do
     table.insert(filterKeys, key)
@@ -367,11 +371,33 @@ local function CreateAutoStoreWindow(id)
       target.storage = Storage[option]
     end
 
-    source.startSlot             = tonumber(filter.startEditbox:GetText()) or 1
-    source.currentSlot           = source.startSlot
-    source.endSlot               = tonumber(filter.endEditbox:GetText()) or source.storage:Capacity()
+    local onlyTransferExistingCategories = filter.onlyTransferExistingCategoriesCheckbutton:GetChecked()
+    local onlyTransferExistingItems      = filter.onlyTransferExistingItemsCheckbutton:GetChecked()
+
+    local existingCategoriesFilter       = {}
+    local existingItemFilter             = {}
+    if onlyTransferExistingCategories or onlyTransferExistingItems then
+      for i = 1, target.storage:Capacity() do
+        local itemInfo = target.storage:GetBagItemInfo(i)
+
+        if itemInfo then
+          if onlyTransferExistingCategories
+            and not existingCategoriesFilter[itemInfo.category_id]
+          then
+            existingCategoriesFilter[itemInfo.category_id] = true
+          end
+
+          if onlyTransferExistingItems
+            and not existingItemFilter[itemInfo.itemType]
+          then
+            existingItemFilter[itemInfo.itemType] = true
+          end
+        end
+      end
+    end
 
     local transferBoundItems     = filter.transferBoundCheckbutton:GetChecked()
+    local cancelFullInventory    = filter.cancelFullInventoryCheckbutton:GetChecked()
     local selectedCategoryFilter = filter.categoryFilterCombobox.selectorBtn:GetText()
 
     local categoryFilter
@@ -379,22 +405,11 @@ local function CreateAutoStoreWindow(id)
       categoryFilter = POCKET_CHEST_FILTER[selectedCategoryFilter]
     end
 
-    local onlyTransferExisting = filter.onlyTransferExistingCheckbutton:GetChecked()
+    source.startSlot   = tonumber(filter.startEditbox:GetText()) or 1
+    source.currentSlot = source.startSlot
+    source.endSlot     = tonumber(filter.endEditbox:GetText()) or source.storage:Capacity()
 
-    local existingFilter = {}
-    if onlyTransferExisting then
-      for i = 1, target.storage:Capacity() do
-        local itemInfo = target.storage:GetBagItemInfo(i)
-
-        if itemInfo
-          and not existingFilter[itemInfo.itemType]
-        then
-          existingFilter[itemInfo.itemType] = true
-        end
-      end
-    end
-
-    local search = filter.searchEditbox:GetText():lower()
+    local search       = filter.searchEditbox:GetText():lower()
 
     ---@param itemInfo ItemInfo
     ---@return boolean
@@ -407,8 +422,14 @@ local function CreateAutoStoreWindow(id)
         return false
       end
 
-      if next(existingFilter)
-        and not existingFilter[itemInfo.itemType]
+      if next(existingCategoriesFilter)
+        and not existingCategoriesFilter[itemInfo.category_id]
+      then
+        return false
+      end
+
+      if next(existingItemFilter)
+        and not existingItemFilter[itemInfo.itemType]
       then
         return false
       end
@@ -431,13 +452,21 @@ local function CreateAutoStoreWindow(id)
         return true
       end
 
-      local name = itemInfo.name:lower()
-      if SafeMatch(name, search) then
+      local category = itemInfo.category:lower()
+      local name     = itemInfo.name:lower()
+
+      if search:sub(1, 1) == "-" then
+        local searchTerm = search:sub(2)
+
+        return SafeMatch(category, searchTerm) ~= searchTerm
+          and SafeMatch(name, searchTerm) ~= searchTerm
+      end
+
+      if SafeMatch(category, search) then
         return true
       end
 
-      local category = itemInfo.category:lower()
-      if SafeMatch(category, search) then
+      if SafeMatch(name, search) then
         return true
       end
 
@@ -465,7 +494,7 @@ local function CreateAutoStoreWindow(id)
         return
       end
 
-      if filter.cancelFullInventoryCheckbutton:GetChecked() then
+      if cancelFullInventory then
         local targetEmptySlot = target.storage:Capacity() - target.storage:CountItems()
 
         if targetEmptySlot <= 0 then
@@ -532,7 +561,8 @@ local function CreateAutoStoreWindow(id)
   window:SetHandler("OnHide", StopTransaction)
 
   function ResetFilter()
-    filter.onlyTransferExistingCheckbutton:SetChecked(false)
+    filter.onlyTransferExistingCategoriesCheckbutton:SetChecked(false)
+    filter.onlyTransferExistingItemsCheckbutton:SetChecked(false)
     filter.transferBoundCheckbutton:SetChecked(true)
     filter.cancelFullInventoryCheckbutton:SetChecked(true)
     filter.categoryFilterCombobox.dropdown:Select(0)

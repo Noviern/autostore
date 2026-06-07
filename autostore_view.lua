@@ -58,12 +58,12 @@ local function SetViewOfFilterFrame(contentFrame)
 
   local filterContentframe = frame.contentFrame ---@type EmptyWidget
 
-  local onlyTransferExistingCheckbutton = CreateCheckButtonWithTextbox(
-    "onlyTransferExistingCheckbutton",
+  local onlyTransferExistingCategoriesCheckbutton = CreateCheckButtonWithTextbox(
+    "onlyTransferExistingCategoriesCheckbutton",
     filterContentframe,
-    filterLocale.onlyTransferExisting
+    filterLocale.onlyTransferExistingCategories
   )
-  onlyTransferExistingCheckbutton:AddAnchor("TOPLEFT", filterContentframe, 0, 0)
+  onlyTransferExistingCategoriesCheckbutton:AddAnchor("TOPLEFT", filterContentframe, 0, 0)
 
   local resetButton = filterContentframe:CreateChildWidget("button", "resetButton", 0, true)
   resetButton:SetExtent(20, 20)
@@ -74,15 +74,29 @@ local function SetViewOfFilterFrame(contentFrame)
   resetButtonTooltip:RemoveAllAnchors()
   resetButtonTooltip:AddAnchor("BOTTOM", resetButton, "TOP", 0, 0)
 
-  onlyTransferExistingCheckbutton.textbox:AddAnchor("RIGHT", resetButton, "LEFT", -COMMON.SPACING, 0)
-  onlyTransferExistingCheckbutton.textbox:SetAutoWordwrap(true)
+  onlyTransferExistingCategoriesCheckbutton.textbox:AddAnchor("RIGHT", resetButton, "LEFT", -COMMON.SPACING, 0)
+  onlyTransferExistingCategoriesCheckbutton.textbox:SetAutoWordwrap(true)
+
+  ---@TODO need to find a way to auto resize the height of the textbox and then anchor to the textbox with spacing instead of the checkbutton
+  local onlyTransferExistingItemsCheckbutton = CreateCheckButtonWithTextbox(
+    "onlyTransferExistingItemsCheckbutton",
+    filterContentframe,
+    filterLocale.onlyTransferExistingItems
+  )
+  onlyTransferExistingItemsCheckbutton:AddAnchor(
+    "TOPLEFT", onlyTransferExistingCategoriesCheckbutton, "BOTTOMLEFT", 0, COMMON.SPACING
+  )
+  onlyTransferExistingItemsCheckbutton.textbox:AddAnchor("RIGHT", filterContentframe, 0, 0)
+  onlyTransferExistingItemsCheckbutton.textbox:SetAutoWordwrap(true)
 
   local transferBoundCheckbutton = CreateCheckButtonWithTextbox(
     "transferBoundCheckbutton",
     filterContentframe,
     filterLocale.transfer
   )
-  transferBoundCheckbutton:AddAnchor("TOPLEFT", onlyTransferExistingCheckbutton, "BOTTOMLEFT", 0, COMMON.SPACING)
+  transferBoundCheckbutton:AddAnchor("TOPLEFT", onlyTransferExistingItemsCheckbutton, "BOTTOMLEFT", 0, COMMON.SPACING)
+  transferBoundCheckbutton.textbox:AddAnchor("RIGHT", filterContentframe, 0, 0)
+  transferBoundCheckbutton.textbox:SetAutoWordwrap(true)
 
   local cancelFullInventoryCheckbutton = CreateCheckButtonWithTextbox(
     "cancelFullInventoryCheckbutton",
@@ -90,6 +104,8 @@ local function SetViewOfFilterFrame(contentFrame)
     filterLocale.autoCancel
   )
   cancelFullInventoryCheckbutton:AddAnchor("TOPLEFT", transferBoundCheckbutton, "BOTTOMLEFT", 0, COMMON.SPACING)
+  cancelFullInventoryCheckbutton.textbox:AddAnchor("RIGHT", filterContentframe, 0, 0)
+  cancelFullInventoryCheckbutton.textbox:SetAutoWordwrap(true)
 
   local categoryFilterCombobox = CreateCombobox("categoryFilterCombobox", filterContentframe)
   categoryFilterCombobox:AddAnchor("TOPLEFT", cancelFullInventoryCheckbutton, "BOTTOMLEFT", 0, COMMON.SPACING)

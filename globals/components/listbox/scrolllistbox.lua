@@ -58,11 +58,19 @@ end
 function AttachScrollListboxBehavior(scrollListbox)
   local vslider = scrollListbox.vslider
 
-  scrollListbox:SetHandler("OnWheelUp", function () vslider:Up(1) end)
-  scrollListbox:SetHandler("OnWheelDown", function () vslider:Down(1) end)
+  local function ScrollUp()
+    vslider:Up(vslider:GetValueStep())
+  end
 
-  scrollListbox.upBtn:SetHandler("OnClick", function () vslider:Up(1) end)
-  scrollListbox.downBtn:SetHandler("OnClick", function () vslider:Down(1) end)
+  local function ScrollDown()
+    vslider:Down(vslider:GetValueStep())
+  end
+
+  scrollListbox:SetHandler("OnWheelUp", ScrollUp)
+  scrollListbox:SetHandler("OnWheelDown", ScrollDown)
+
+  scrollListbox.upBtn:SetHandler("OnClick", ScrollUp)
+  scrollListbox.downBtn:SetHandler("OnClick", ScrollDown)
 
   vslider:SetHandler("OnSliderChanged", function (self, value)
     scrollListbox:SetTop(value)

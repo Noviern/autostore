@@ -3,17 +3,23 @@ function AttachScrollListCtrlBehavior(frame)
   local scrollFrame = frame.scrollFrame
   local vslider = scrollFrame.vslider
 
-  frame:SetHandler("OnWheelUp", function () vslider:Up(1) end)
-  frame:SetHandler("OnWheelDown", function () vslider:Down(1) end)
+  local function ScrollUp()
+    vslider:Up(vslider:GetValueStep())
+  end
 
-  scrollFrame.upBtn:SetHandler("OnClick", function () vslider:Up(1) end)
-  scrollFrame.downBtn:SetHandler("OnClick", function () vslider:Down(1) end)
+  local function ScrollDown()
+    vslider:Down(vslider:GetValueStep())
+  end
+
+  frame:SetHandler("OnWheelUp", ScrollUp)
+  frame:SetHandler("OnWheelDown", ScrollDown)
+
+  scrollFrame.upBtn:SetHandler("OnClick", ScrollUp)
+  scrollFrame.downBtn:SetHandler("OnClick", ScrollDown)
 
   vslider:SetHandler("OnSliderChanged", function (self, value)
-    ADDON:ChatLog("value " .. tostring(value))
     local listCtrl = frame.listCtrl ---@type ListCtrl
     local selected = listCtrl:GetSelectedIdx() - 1 - 1
-    ADDON:ChatLog("selected " .. tostring(selected))
 
     listCtrl:Select(selected, false)
 
@@ -23,7 +29,6 @@ function AttachScrollListCtrlBehavior(frame)
   end)
 end
 
----@TODO:
 ---@param id string
 ---@param parent OptionalParent
 ---@return EmptyWidget
@@ -42,7 +47,7 @@ function CreateScrollListCtrl(id, parent)
   listCtrl:AddAnchor("TOPLEFT", frame, 0, 0)
   listCtrl:AddAnchor("BOTTOMRIGHT", scrollFrame, "BOTTOMLEFT", 0, 0)
 
-  scrollFrame.vslider:SetMinMaxValues(0, 10) ---@TODO:
+  scrollFrame.vslider:SetMinMaxValues(0, 10) ---@TODO Remove this.
 
   AttachScrollListCtrlBehavior(frame)
 

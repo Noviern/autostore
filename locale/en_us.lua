@@ -14,14 +14,18 @@ locale.addon = {
     bank    = X2Locale:LocalizeUiText(WINDOW_TITLE_TEXT, "bank"),
   },
   filterModule     = {
-    title                = "Filter",
-    tooltip              =
+    title                          = "Filter",
+    tooltip                        =
       "Items can be filtered by:\n" ..
       "|bu◆;Selecting a Pocket Chest filter|br\n" ..
       "|bu◆;Searcing by name or category|br\n" ..
       "|bu◆;Entering a start or end slot index|br\n\n" ..
       "Items locked in their position will not be transfered.\n\n" ..
       "Advanced Search:\n" ..
+      "Negation\n" ..
+      "|bu◆;Start with (|nc;-|r) to negate the search|br\n\n" ..
+      "Example:\n" ..
+      "|nc;-fruit|r excludes item names and categories containing \"|nc;fruit|r\"\n\n" ..
       "Patterns\n" ..
       "|bu◆;(|nc;.|r) Any character|br\n" ..
       "|bu◆;(|nc;%a|r) Letters|br\n" ..
@@ -37,14 +41,15 @@ locale.addon = {
       "Note: Using Auto-Sort does not update the slot indices. " ..
       "This can cause items to be visually transfered in the incorrect order. " ..
       "To fix this, close and reopen the storage location.",
-    onlyTransferExisting = "Only transfer existing items",
-    transfer             = "Transfer bound items",
-    autoCancel           = "Cancel on full inventory",
-    reset                = "Reset Filter",
-    searchGuide          = X2Locale:LocalizeUiText(COMMON_TEXT, "search_iteam"),
-    startSlot            = "Start: 1",
-    endSlot              = "End: 150",
-    cooldown             = "200ms",
+    onlyTransferExistingCategories = "Only transfer existing categories",
+    onlyTransferExistingItems      = "Only transfer existing items",
+    transfer                       = "Transfer bound items",
+    autoCancel                     = "Cancel on full inventory",
+    reset                          = "Reset Filter",
+    searchGuide                    = X2Locale:LocalizeUiText(COMMON_TEXT, "search_iteam"),
+    startSlot                      = "Start: 1",
+    endSlot                        = "End: 150",
+    cooldown                       = "200ms",
   },
   inventoryFull    = "|nr;Inventory or storage is full!|r",
   autoSortDetected = "|nr;Auto-Sort detected!\nPlease read filter (?) tooltip.|r",

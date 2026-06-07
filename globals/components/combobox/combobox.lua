@@ -107,7 +107,8 @@ local function OverrideComboboxMethods(combobox)
   end
 end
 
----@TODO: Bug: Slider/Thumb can not be clicked unless dropdown is in focus from either clicking upBtn/downBtn.
+---@FIXME Slider/Thumb can not be clicked unless dropdown is in focus from either clicking upBtn/downBtn.
+---@FIXME When the dropdown is in focus if you click the window the dropdown goes behind the window instead of hiding or staying on top.
 ---@param combobox Combobox
 function AttachComboboxBehavior(combobox)
   local dropdown = combobox.dropdown

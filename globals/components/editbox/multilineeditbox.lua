@@ -1,4 +1,4 @@
-EDITBOX_MULTILINE_GUIDE_INSET = { 10, 10, 15, 0 }
+EDITBOX_MULTILINE_GUIDE_INSET = { 10, 10, 15, 10 }
 
 ---@param id string
 ---@param parent OptionalParent

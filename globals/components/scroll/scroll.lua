@@ -1,5 +1,3 @@
-SCROLL_STEP = 40
-
 ---@param parent Widget
 function SetViewOfScroll(parent)
   local upButton = parent.upBtn ---@type Button
@@ -67,11 +65,19 @@ end
 function AttachScrollBehavior(scrollFrame)
   local vslider = scrollFrame.vslider ---@type Slider
 
-  scrollFrame:SetHandler("OnWheelUp", function () vslider:Up(SCROLL_STEP) end)
-  scrollFrame:SetHandler("OnWheelDown", function () vslider:Down(SCROLL_STEP) end)
+  local function ScrollUp()
+    vslider:Up(vslider:GetValueStep())
+  end
 
-  scrollFrame.upBtn:SetHandler("OnClick", function () vslider:Up(SCROLL_STEP) end)
-  scrollFrame.downBtn:SetHandler("OnClick", function () vslider:Down(SCROLL_STEP) end)
+  local function ScrollDown()
+    vslider:Down(vslider:GetValueStep())
+  end
+
+  scrollFrame:SetHandler("OnWheelUp", ScrollUp)
+  scrollFrame:SetHandler("OnWheelDown", ScrollDown)
+
+  scrollFrame.upBtn:SetHandler("OnClick", ScrollUp)
+  scrollFrame.downBtn:SetHandler("OnClick", ScrollDown)
 end
 
 ---@param id string
@@ -93,6 +99,12 @@ function CreateScroll(id, parent)
   frame:SetWidth(COMMON.MARGIN)
   frame:AddAnchor("TOPRIGHT", parent, 0, 0)
   frame:AddAnchor("BOTTOMRIGHT", parent, 0, 0)
+
+  local step = 40
+
+  frame.vslider:SetPageStep(step)
+  frame.vslider:SetValueStep(step)
+  frame.vslider:SetFixedThumb(true)
 
   OverrideSliderMethods(frame.vslider)
 
