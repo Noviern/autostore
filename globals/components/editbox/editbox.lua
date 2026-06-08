@@ -1,9 +1,3 @@
-TEXT_COLOR = {
-  DEFAULT = UIParent:GetFontColor("default"),
-  BLUE    = UIParent:GetFontColor("blue"),
-  GRAY    = UIParent:GetFontColor("gray"),
-}
-
 EDITBOX_INSET = { 5, 5, 5, 5 }
 EDITBOX_GUIDE_INSET = { 7, 5, 5, 5 }
 

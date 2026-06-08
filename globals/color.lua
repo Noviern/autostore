@@ -1,44 +1,35 @@
-local function CheckValidColorString(value)
-  if type(value) ~= "string" then
-    return false
-  end
-  local firstIndex, lastIndex, matchedStr = string.find(value, "^(%x%x%x%x%x%x%x%x)$")
-  if firstIndex == nil or lastIndex == nil or matchedStr == nil then
-    return false
-  end
-  return true
-end
+TEXT_COLOR = {
+  DEFAULT = UIParent:GetFontColor("default"),
+  BLUE    = UIParent:GetFontColor("blue"),
+  GRAY    = UIParent:GetFontColor("gray"),
+}
 
 local prefix = "|c"
-function ConvertColor(value)
-  if value == nil or type(value) ~= "number" then
-    return 0
-  end
-  return value / 255
+
+---@param value string
+---@return boolean
+local function CheckValidColorString(value)
+  local firstIndex, lastIndex, matchedStr = value:find("^(%x%x%x%x%x%x%x%x)$")
+  return firstIndex and lastIndex and matchedStr
 end
 
-function Hex2Dec(stringValue)
-  local valid = CheckValidColorString(stringValue)
+---@param hexColor string
+---@return RGBAColor
+function Hex2Dec(hexColor)
+  local valid = CheckValidColorString(hexColor)
   if not valid then
-    return {
-      1,
-      0,
-      0,
-      1
-    }
+    return { 1, 0, 0, 1 }
   end
-  local colors = {}
-  local _, closeIdx = string.find(stringValue, prefix)
+
+  local _, closeIdx = hexColor:find(prefix)
   if closeIdx ~= nil then
-    stringValue = string.sub(stringValue, closeIdx + 1)
+    hexColor = hexColor:sub(closeIdx + 1)
   end
-  colors[1] = string.sub(stringValue, 3, 4)
-  colors[2] = string.sub(stringValue, 5, 6)
-  colors[3] = string.sub(stringValue, 7, 8)
-  colors[4] = string.sub(stringValue, 1, 2)
-  for i = 1, #colors do
-    colors[i] = tonumber(string.format("0x" .. colors[i]))
-    colors[i] = ConvertColor(colors[i])
-  end
-  return colors
+
+  return {
+    tonumber(hexColor:sub(3, 4), 16) / 255,
+    tonumber(hexColor:sub(5, 6), 16) / 255,
+    tonumber(hexColor:sub(7, 8), 16) / 255,
+    tonumber(hexColor:sub(1, 2), 16) / 255,
+  }
 end

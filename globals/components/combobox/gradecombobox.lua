@@ -1,29 +1,53 @@
----X2Item:AllGradeTypes()
----X2Item:GradeName(grade)
----X2Item:GradeColor(grade)
-
 local item_grades = {
-  { text = X2Locale:LocalizeUiText(COMMON_TEXT, "all"),                 color = "" },
-  { text = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_uncommon"),  color = "FF77b064" }, -- Grand
-  { text = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_rare"),      color = "FF558fd7" }, -- Rare
-  { text = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_acient"),    color = "FFcb72d8" }, -- Arcane
-  { text = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_heroic"),    color = "FFd78b06" }, -- Heroic
-  { text = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_unique"),    color = "FFe17853" }, -- Unique
-  { text = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_artifact"),  color = "FFf95252" }, -- Celestial
-  { text = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_wonder"),    color = "FFcf7d5d" }, -- Divine
-  { text = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_epic"),      color = "FF8fa5ca" }, -- Epic
-  { text = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_legendary"), color = "FFbf7900" }, -- Legendary
-  { text = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_mythic"),    color = "FFc90b0b" }, -- Mythic
-  { text = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_arche"),     color = "FFae98fe" }, -- Eternal
+  { -- All
+    text  = X2Locale:LocalizeUiText(COMMON_TEXT, "all"),
+    color = UIParent:GetFontColor("all_in_item_grade_combobox"),
+  },
+  { -- Grand
+    text  = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_uncommon"),
+    color = Hex2Dec("FF77b064"),
+  },
+  { -- Rare
+    text  = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_rare"),
+    color = Hex2Dec("FF558fd7"),
+  },
+  { -- Arcane
+    text  = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_acient"),
+    color = Hex2Dec("FFcb72d8"),
+  },
+  { -- Heroic
+    text  = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_heroic"),
+    color = Hex2Dec("FFd78b06"),
+  },
+  { -- Unique
+    text  = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_unique"),
+    color = Hex2Dec("FFe17853"),
+  },
+  { -- Celestial
+    text  = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_artifact"),
+    color = Hex2Dec("FFf95252"),
+  },
+  { -- Divine
+    text  = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_wonder"),
+    color = Hex2Dec("FFcf7d5d"),
+  },
+  { -- Epic
+    text  = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_epic"),
+    color = Hex2Dec("FF8fa5ca"),
+  },
+  { -- Legendary
+    text  = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_legendary"),
+    color = Hex2Dec("FFbf7900"),
+  },
+  { -- Mythic
+    text  = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_mythic"),
+    color = Hex2Dec("FFc90b0b"),
+  },
+  { -- Eternal
+    text  = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_arche"),
+    color = Hex2Dec("FFae98fe"),
+  },
 }
-
----@param index number
----@return RGBAColor
-local function GetFontColor(index)
-  return index == 1
-      and UIParent:GetFontColor("all_in_item_grade_combobox")
-      or Hex2Dec(item_grades[index].color)
-end
 
 ---@param id string
 ---@param parent OptionalParent
@@ -36,25 +60,24 @@ function CreateGradeCombobox(id, parent)
     dropdown:AppendItemByTable({
       text         = item_grades[i].text,
       value        = i,
-      color        = GetFontColor(i),
-      disableColor = UIParent:GetFontColor("gray"), ---@TODO should this be extracted to a variable so its not called multiple times?
+      color        = item_grades[i].color,
+      disableColor = TEXT_COLOR.GRAY,
       useColor     = true,
       enable       = true,
     })
   end
 
   combobox:SetDropdownVisibleLimit(#item_grades)
+  dropdown:Select(0)
 
-  ---@TODO perhaps this would be a default behavior of combobox?
+  ---@TODO perhaps this should be a default behavior of combobox?
   combobox:SetHandler("OnContentUpdated", function (self, action, index, value)
     if action ~= "ChangedValue" then
       return
     end
 
-    SetButtonFontOneColor(combobox.selectorBtn, GetFontColor(index))
+    SetButtonFontOneColor(combobox.selectorBtn, item_grades[index].color)
   end)
-
-  dropdown:Select(0)
 
   return combobox
 end
