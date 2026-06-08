@@ -1,5 +1,6 @@
 # Globals
 globals/apitypes.lua
+# globals/color.lua
 globals/common.lua
 globals/correct_widget_screen_pos.lua
 globals/imports.lua
@@ -14,10 +15,12 @@ globals/components/button/common.lua
 globals/components/button/radio.lua
 globals/components/combobox/combobox_view.lua
 globals/components/combobox/combobox.lua
+# globals/components/combobox/gradecombobox.lua
 # globals/components/combobox/searchcombobox.lua
 globals/components/editbox/common.lua
 globals/components/editbox/editbox.lua
 # globals/components/editbox/multilineeditbox.lua
+# globals/components/editbox/scrollmultilineeditbox.lua
 globals/components/editbox/searcheditbox.lua
 # globals/components/editbox/spinner.lua
 globals/components/listbox/listbox.lua

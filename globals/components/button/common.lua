@@ -32,3 +32,12 @@ function CreateButtonTextbox(button, text)
 
   return textbox
 end
+
+---@param button Button
+---@param color RGBAColor
+function SetButtonFontOneColor(button, color)
+  button:SetTextColor(unpack(color))
+  button:SetPushedTextColor(unpack(color))
+  button:SetHighlightTextColor(unpack(color))
+  button:SetDisabledTextColor(unpack(color))
+end
