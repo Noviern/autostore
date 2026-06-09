@@ -1,12 +1,35 @@
 ---@param widget Widget
 ---@param texturePath string
 ---@param textureKey string
+---@param colorKey string|nil
 ---@return DrawableDDS
 ---@nodiscard
-function CreateTextureBackground(widget, texturePath, textureKey)
+function CreateTextureBackground(widget, texturePath, textureKey, colorKey)
   local background = widget:CreateDrawable(texturePath, textureKey, "background")
   background:AddAnchor("TOPLEFT", widget, 0, 0)
   background:AddAnchor("BOTTOMRIGHT", widget, 0, 0)
+
+  if colorKey then
+    background:SetTextureColor(colorKey)
+  end
+
+  return background
+end
+
+---@param widget Widget
+---@param texturePath string
+---@param colorKey string|nil
+---@return IconDrawable
+---@nodiscard
+function CreateIconBackground(widget, texturePath, colorKey)
+  local background = widget:CreateIconDrawable("background")
+  background:AddTexture(texturePath)
+  background:AddAnchor("TOPLEFT", widget, 0, 0)
+  background:AddAnchor("BOTTOMRIGHT", widget, 0, 0)
+
+  if colorKey then
+    background:SetTextureColor(colorKey)
+  end
 
   return background
 end

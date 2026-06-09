@@ -1,234 +1,287 @@
-local pocketChestLocale = locale.addon.pocketChest
-local POCKET_CHEST_FILTER = {
-  [pocketChestLocale.adventurersChest] = Set({
-    ITEM_CATEGORIES.COIN,
-    ITEM_CATEGORIES.COINPURSE,
-    ITEM_CATEGORIES.CURRENCY,
-    ITEM_CATEGORIES.KEY,
-    ITEM_CATEGORIES.MECHANICAL_COMPONENT_DESIGN_BAG,
-    ITEM_CATEGORIES.VALUABLE_CRATE,
-  }),
-
-  [pocketChestLocale.alchemistsChest] = Set({
-    ITEM_CATEGORIES.ALCHEMY_OIL,
-    ITEM_CATEGORIES.ALCHEMY,
-    ITEM_CATEGORIES.ARCHEUM,
-    ITEM_CATEGORIES.HERB,
-    ITEM_CATEGORIES.SPECIAL_MATERIAL,
-  }),
-
-  [pocketChestLocale.animalBreedersChest] = Set({
-    ITEM_CATEGORIES.COOKING_OIL,
-    ITEM_CATEGORIES.FEED,
-    ITEM_CATEGORIES.LIVESTOCK_PRODUCTS,
-    ITEM_CATEGORIES.MEAT,
-    ITEM_CATEGORIES.PELT,
-    ITEM_CATEGORIES.SEAFOOD,
-    ITEM_CATEGORIES.SPECIAL_CONSUMABLES,
-    ITEM_CATEGORIES.TEXTILE,
-  }),
-
-  [pocketChestLocale.artisansChest] = Set({
-    ITEM_CATEGORIES.FABRIC,
-    ITEM_CATEGORIES.GEM,
-    ITEM_CATEGORIES.HARDWOOD,
-    ITEM_CATEGORIES.HIDE,
-    ITEM_CATEGORIES.LUMBER,
-    ITEM_CATEGORIES.METAL,
-    ITEM_CATEGORIES.ORE,
-    ITEM_CATEGORIES.PELT,
-    ITEM_CATEGORIES.PRECIOUS_METAL,
-    ITEM_CATEGORIES.RAW_STONE,
-    ITEM_CATEGORIES.RUBBER,
-    ITEM_CATEGORIES.SPECIAL_MATERIAL,
-    ITEM_CATEGORIES.STONE_BRICK,
-    ITEM_CATEGORIES.TEXTILE,
-  }),
-
-  [pocketChestLocale.buildersChest] = Set({
-    ITEM_CATEGORIES.BUILDINGS,
-  }),
-
-  [pocketChestLocale.costumeCloset] = Set({
-    ITEM_CATEGORIES.COSMETIC_MATERIALS,
-    ITEM_CATEGORIES.COSTUME,
-    ITEM_CATEGORIES.DARU_COSTUME,
-    ITEM_CATEGORIES.SYNTHESIS_GEAR_1,
-    ITEM_CATEGORIES.SYNTHESIS_GEAR_2,
-  }),
-
-  [pocketChestLocale.designChest] = Set({
-    ITEM_CATEGORIES.CREST_AND_DYE_ITEMS,
-  }),
-
-  [pocketChestLocale.dreamDesignersChest] = Set({
-    ITEM_CATEGORIES.ART_OBJECT,
-    ITEM_CATEGORIES.DREAM_DESIGN,
-  }),
-
-  [pocketChestLocale.equipmentEnhancementChest] = Set({
-    ITEM_CATEGORIES.AWAKENING_MATERIALS,
-    ITEM_CATEGORIES.ENCHANCEMENT_MATERIALS,
-    ITEM_CATEGORIES.LUNAGEM,
-    ITEM_CATEGORIES.LUNASTONE,
-    ITEM_CATEGORIES.SYNTHESIS_MATERIALS,
-  }),
-
-  [pocketChestLocale.equipmentMaterialChest] = Set({
-    ITEM_CATEGORIES.AWAKENING_MATERIALS,
-    ITEM_CATEGORIES.SYNTHESIS_MATERIALS,
-  }),
-
-  [pocketChestLocale.farmersLargeChest] = Set({
-    ITEM_CATEGORIES.FLOWER,
-    ITEM_CATEGORIES.FRUIT,
-    ITEM_CATEGORIES.GRAIN,
-    ITEM_CATEGORIES.HERB,
-    ITEM_CATEGORIES.LIVESTOCK_PRODUCTS,
-    ITEM_CATEGORIES.LIVESTOCK,
-    ITEM_CATEGORIES.MEAT,
-    ITEM_CATEGORIES.PELT,
-    ITEM_CATEGORIES.SAPLINGS,
-    ITEM_CATEGORIES.SEAFOOD,
-    ITEM_CATEGORIES.SEED,
-    ITEM_CATEGORIES.SOIL,
-    ITEM_CATEGORIES.SPECIAL_CONSUMABLES,
-    ITEM_CATEGORIES.SPECIAL_MATERIAL,
-    ITEM_CATEGORIES.SPICE,
-    ITEM_CATEGORIES.TEXTILE,
-    ITEM_CATEGORIES.VEGETABLE,
-  }),
-
-  [pocketChestLocale.fishermansChest] = Set({
-    ITEM_CATEGORIES.FISHING_ROD,
-    ITEM_CATEGORIES.SEAFOOD,
-    ITEM_CATEGORIES.SPECIAL_CONSUMABLES,
-    ITEM_CATEGORIES.UNDERWATER_EQUIPMENT,
-  }),
-
-  [pocketChestLocale.flutterVessel] = Set({
-    ITEM_CATEGORIES.GLIDER,
-    ITEM_CATEGORIES.MAGITHOPTER,
-  }),
-
-  [pocketChestLocale.furnitureChest] = Set({
-    ITEM_CATEGORIES.FURNITURE,
-    ITEM_CATEGORIES.TAXIDERMY,
-  }),
-
-  [pocketChestLocale.gearChest] = Set({
-    ITEM_CATEGORIES.AXE,
-    ITEM_CATEGORIES.BOW,
-    ITEM_CATEGORIES.CLOAK,
-    ITEM_CATEGORIES.CLOTH_ARMOR,
-    ITEM_CATEGORIES.CLUB,
-    ITEM_CATEGORIES.DAGGER,
-    ITEM_CATEGORIES.EARRING,
-    ITEM_CATEGORIES.FARMHAND_EQUIPMENT,
-    ITEM_CATEGORIES.FISHING_ROD,
-    ITEM_CATEGORIES.FLUTE,
-    ITEM_CATEGORIES.GREATAXE,
-    ITEM_CATEGORIES.GREATCLUB,
-    ITEM_CATEGORIES.GREATSWORD,
-    ITEM_CATEGORIES.KATANA,
-    ITEM_CATEGORIES.LEATHER_ARMOR,
-    ITEM_CATEGORIES.LONGSPEAR,
-    ITEM_CATEGORIES.LUTE,
-    ITEM_CATEGORIES.NECKLACE,
-    ITEM_CATEGORIES.NODACHI,
-    ITEM_CATEGORIES.PET_GEAR,
-    ITEM_CATEGORIES.PLATE_ARMOR,
-    ITEM_CATEGORIES.RIFLE,
-    ITEM_CATEGORIES.RING,
-    ITEM_CATEGORIES.SCEPTER,
-    ITEM_CATEGORIES.SHIELD,
-    ITEM_CATEGORIES.SHORTSPEAR,
-    ITEM_CATEGORIES.STAFF,
-    ITEM_CATEGORIES.SWORD,
-    ITEM_CATEGORIES.SYNTHESIS_GEAR_1,
-    ITEM_CATEGORIES.SYNTHESIS_GEAR_2,
-    ITEM_CATEGORIES.UNDERWATER_EQUIPMENT,
-    ITEM_CATEGORIES.UNIDENTIFIED_EQUIPMENT,
-  }),
-
-  [pocketChestLocale.instrumentTrunk] = Set({
-    ITEM_CATEGORIES.FLUTE,
-    ITEM_CATEGORIES.LUTE,
-  }),
-
-  [pocketChestLocale.librariansChest] = Set({
-    ITEM_CATEGORIES.BOOK,
-  }),
-
-  [pocketChestLocale.machinesChest] = Set({
-    ITEM_CATEGORIES.ARMAMENT,
-    ITEM_CATEGORIES.BOARDING_EQUIPMENT,
-    ITEM_CATEGORIES.FIGUREHEAD,
-    ITEM_CATEGORIES.LIGHTING,
-    ITEM_CATEGORIES.MACHINE_COMPONENT_SCROLL,
-    ITEM_CATEGORIES.MACHINING,
-    ITEM_CATEGORIES.MAST,
-    ITEM_CATEGORIES.MECHANICAL_COMPONENT_DESIGN_BAG,
-    ITEM_CATEGORIES.MECHANICAL_COMPONENTS,
-    ITEM_CATEGORIES.MISC_APPARATUS,
-    ITEM_CATEGORIES.MUSIC_DISC,
-    ITEM_CATEGORIES.NAVIGATION,
-    ITEM_CATEGORIES.SAIL,
-    ITEM_CATEGORIES.SHIP_COMPONENT_DESIGN,
-    ITEM_CATEGORIES.SHIP_DESIGN,
-    ITEM_CATEGORIES.SHIP_PROPELLANT,
-    ITEM_CATEGORIES.SOUND_EQUIPMENT,
-    ITEM_CATEGORIES.STEERING_GEAR,
-    ITEM_CATEGORIES.STORAGE,
-    ITEM_CATEGORIES.VEHICLE_COMPONENT_DESIGN,
-  }),
-
-  [pocketChestLocale.musicChest] = Set({
-    ITEM_CATEGORIES.MUSIC_DISC,
-    ITEM_CATEGORIES.SHEET_MUSIC,
-  }),
-
-  [pocketChestLocale.otherworldlyPetHotel] = Set({
-    ITEM_CATEGORIES.BATTLE_PET,
-    ITEM_CATEGORIES.PETS,
-    ITEM_CATEGORIES.POWERSTONE_PET,
-  }),
-
-  [pocketChestLocale.petsAndTransportTrunk] = Set({
-    ITEM_CATEGORIES.SHIP,
-    ITEM_CATEGORIES.VEHICLE,
-  }),
-
-  [pocketChestLocale.ridersTrunk] = Set({
-    ITEM_CATEGORIES.GIANT_PET,
-    ITEM_CATEGORIES.MARINE_MOUNT,
-    ITEM_CATEGORIES.MOUNT,
-  }),
-
-  [pocketChestLocale.shardCollectorsChest] = Set({
-    ITEM_CATEGORIES.SHARD,
-  }),
-
-  [pocketChestLocale.travelerNecessitiesChest] = Set({
-    ITEM_CATEGORIES.BOOSTERS,
-    ITEM_CATEGORIES.DEFENSE_POTION,
-    ITEM_CATEGORIES.DRINK,
-    ITEM_CATEGORIES.FOOD,
-    ITEM_CATEGORIES.HEALING_POTION,
-    ITEM_CATEGORIES.MANA_POTION,
-    ITEM_CATEGORIES.POTION,
-    ITEM_CATEGORIES.SPECIAL_CONSUMABLES,
-  }),
-
-  [pocketChestLocale.treasureHuntersChest] = Set({
-    ITEM_CATEGORIES.RELIC,
-    ITEM_CATEGORIES.TREASURE_HUNTERS_CONSUMABLES,
-    ITEM_CATEGORIES.TREASURE_MAP,
-  }),
-
-  [pocketChestLocale.trophyHuntersChest] = Set({
-    ITEM_CATEGORIES.LEGENDARY_TROPHY,
-  }),
+local POCKETCHEST_FILTER  = {
+  {},
+  { -- Alchemist's Chest
+    iconPath   = "ui/icon/arcustom/alchemist_storage.dds",
+    categories = Set({
+      ITEM_CATEGORIES.ALCHEMY_OIL,
+      ITEM_CATEGORIES.ALCHEMY,
+      ITEM_CATEGORIES.ARCHEUM,
+      ITEM_CATEGORIES.HERB,
+      ITEM_CATEGORIES.SPECIAL_MATERIAL,
+    }),
+  },
+  { -- Animal Breeder's Chest
+    iconPath   = "ui/icon/arcustom/animal_storage.dds",
+    categories = Set({
+      ITEM_CATEGORIES.COOKING_OIL,
+      ITEM_CATEGORIES.FEED,
+      ITEM_CATEGORIES.LIVESTOCK_PRODUCTS,
+      ITEM_CATEGORIES.MEAT,
+      ITEM_CATEGORIES.PELT,
+      ITEM_CATEGORIES.SEAFOOD,
+      ITEM_CATEGORIES.SPECIAL_CONSUMABLES,
+      ITEM_CATEGORIES.TEXTILE,
+    }),
+  },
+  { -- Artisan's Chest
+    iconPath   = "ui/icon/arcustom/artisan_storage.dds",
+    categories = Set({
+      ITEM_CATEGORIES.FABRIC,
+      ITEM_CATEGORIES.GEM,
+      ITEM_CATEGORIES.HARDWOOD,
+      ITEM_CATEGORIES.HIDE,
+      ITEM_CATEGORIES.LUMBER,
+      ITEM_CATEGORIES.METAL,
+      ITEM_CATEGORIES.ORE,
+      ITEM_CATEGORIES.PELT,
+      ITEM_CATEGORIES.PRECIOUS_METAL,
+      ITEM_CATEGORIES.RAW_STONE,
+      ITEM_CATEGORIES.RUBBER,
+      ITEM_CATEGORIES.SPECIAL_MATERIAL,
+      ITEM_CATEGORIES.STONE_BRICK,
+      ITEM_CATEGORIES.TEXTILE,
+    }),
+  },
+  { -- Farmer's Large Chest
+    iconPath   = "ui/icon/arcustom/farmers_storage.dds",
+    categories = Set({
+      ITEM_CATEGORIES.FLOWER,
+      ITEM_CATEGORIES.FRUIT,
+      ITEM_CATEGORIES.GRAIN,
+      ITEM_CATEGORIES.HERB,
+      ITEM_CATEGORIES.LIVESTOCK_PRODUCTS,
+      ITEM_CATEGORIES.LIVESTOCK,
+      ITEM_CATEGORIES.MEAT,
+      ITEM_CATEGORIES.PELT,
+      ITEM_CATEGORIES.SAPLINGS,
+      ITEM_CATEGORIES.SEAFOOD,
+      ITEM_CATEGORIES.SEED,
+      ITEM_CATEGORIES.SOIL,
+      ITEM_CATEGORIES.SPECIAL_CONSUMABLES,
+      ITEM_CATEGORIES.SPECIAL_MATERIAL,
+      ITEM_CATEGORIES.SPICE,
+      ITEM_CATEGORIES.TEXTILE,
+      ITEM_CATEGORIES.VEGETABLE,
+    }),
+  },
+  { -- Machine's Chest
+    iconPath   = "ui/icon/arcustom/captain_storage.dds",
+    categories = Set({
+      ITEM_CATEGORIES.ARMAMENT,
+      ITEM_CATEGORIES.BOARDING_EQUIPMENT,
+      ITEM_CATEGORIES.FIGUREHEAD,
+      ITEM_CATEGORIES.LIGHTING,
+      ITEM_CATEGORIES.MACHINE_COMPONENT_SCROLL,
+      ITEM_CATEGORIES.MACHINING,
+      ITEM_CATEGORIES.MAST,
+      ITEM_CATEGORIES.MECHANICAL_COMPONENT_DESIGN_BAG,
+      ITEM_CATEGORIES.MECHANICAL_COMPONENTS,
+      ITEM_CATEGORIES.MISC_APPARATUS,
+      ITEM_CATEGORIES.MUSIC_DISC,
+      ITEM_CATEGORIES.NAVIGATION,
+      ITEM_CATEGORIES.SAIL,
+      ITEM_CATEGORIES.SHIP_COMPONENT_DESIGN,
+      ITEM_CATEGORIES.SHIP_DESIGN,
+      ITEM_CATEGORIES.SHIP_PROPELLANT,
+      ITEM_CATEGORIES.SOUND_EQUIPMENT,
+      ITEM_CATEGORIES.STEERING_GEAR,
+      ITEM_CATEGORIES.STORAGE,
+      ITEM_CATEGORIES.VEHICLE_COMPONENT_DESIGN,
+    }),
+  },
+  { -- Costume Closet
+    iconPath   = "ui/icon/icon_item_4627.dds",
+    categories = Set({
+      ITEM_CATEGORIES.COSMETIC_MATERIALS,
+      ITEM_CATEGORIES.COSTUME,
+      ITEM_CATEGORIES.DARU_COSTUME,
+      ITEM_CATEGORIES.SYNTHESIS_GEAR_1,
+      ITEM_CATEGORIES.SYNTHESIS_GEAR_2,
+    }),
+  },
+  { -- Equipment Enhancement Chest
+    iconPath   = "ui/icon/arcustom/infusion_storage.dds",
+    categories = Set({
+      ITEM_CATEGORIES.AWAKENING_MATERIALS,
+      ITEM_CATEGORIES.ENCHANCEMENT_MATERIALS,
+      ITEM_CATEGORIES.LUNAGEM,
+      ITEM_CATEGORIES.LUNASTONE,
+      ITEM_CATEGORIES.SYNTHESIS_MATERIALS,
+    }),
+  },
+  { -- Equipment Material Chest
+    iconPath   = "ui/icon/icon_item_4999.dds",
+    categories = Set({
+      ITEM_CATEGORIES.AWAKENING_MATERIALS,
+      ITEM_CATEGORIES.SYNTHESIS_MATERIALS,
+    }),
+  },
+  { -- Gear Chest
+    iconPath   = "ui/icon/arcustom/gear_storage.dds",
+    categories = Set({
+      ITEM_CATEGORIES.AXE,
+      ITEM_CATEGORIES.BOW,
+      ITEM_CATEGORIES.CLOAK,
+      ITEM_CATEGORIES.CLOTH_ARMOR,
+      ITEM_CATEGORIES.CLUB,
+      ITEM_CATEGORIES.DAGGER,
+      ITEM_CATEGORIES.EARRING,
+      ITEM_CATEGORIES.FARMHAND_EQUIPMENT,
+      ITEM_CATEGORIES.FISHING_ROD,
+      ITEM_CATEGORIES.FLUTE,
+      ITEM_CATEGORIES.GREATAXE,
+      ITEM_CATEGORIES.GREATCLUB,
+      ITEM_CATEGORIES.GREATSWORD,
+      ITEM_CATEGORIES.KATANA,
+      ITEM_CATEGORIES.LEATHER_ARMOR,
+      ITEM_CATEGORIES.LONGSPEAR,
+      ITEM_CATEGORIES.LUTE,
+      ITEM_CATEGORIES.NECKLACE,
+      ITEM_CATEGORIES.NODACHI,
+      ITEM_CATEGORIES.PET_GEAR,
+      ITEM_CATEGORIES.PLATE_ARMOR,
+      ITEM_CATEGORIES.RIFLE,
+      ITEM_CATEGORIES.RING,
+      ITEM_CATEGORIES.SCEPTER,
+      ITEM_CATEGORIES.SHIELD,
+      ITEM_CATEGORIES.SHORTSPEAR,
+      ITEM_CATEGORIES.STAFF,
+      ITEM_CATEGORIES.SWORD,
+      ITEM_CATEGORIES.SYNTHESIS_GEAR_1,
+      ITEM_CATEGORIES.SYNTHESIS_GEAR_2,
+      ITEM_CATEGORIES.UNDERWATER_EQUIPMENT,
+      ITEM_CATEGORIES.UNIDENTIFIED_EQUIPMENT,
+    }),
+  },
+  { -- Instrument Trunk
+    iconPath   = "ui/icon/icon_item_4565.dds",
+    categories = Set({
+      ITEM_CATEGORIES.FLUTE,
+      ITEM_CATEGORIES.LUTE,
+    }),
+  },
+  { -- Fisherman's Chest
+    iconPath   = "ui/icon/arcustom/fishermans_storage.dds",
+    categories = Set({
+      ITEM_CATEGORIES.FISHING_ROD,
+      ITEM_CATEGORIES.SEAFOOD,
+      ITEM_CATEGORIES.SPECIAL_CONSUMABLES,
+      ITEM_CATEGORIES.UNDERWATER_EQUIPMENT,
+    }),
+  },
+  { -- Flutter Vessel
+    iconPath   = "ui/icon/icon_item_4493.dds",
+    categories = Set({
+      ITEM_CATEGORIES.GLIDER,
+      ITEM_CATEGORIES.MAGITHOPTER,
+    }),
+  },
+  { -- Otherworldly Pet Hotel
+    iconPath   = "ui/icon/icon_item_4586.dds",
+    categories = Set({
+      ITEM_CATEGORIES.BATTLE_PET,
+      ITEM_CATEGORIES.PETS,
+      ITEM_CATEGORIES.POWERSTONE_PET,
+    }),
+  },
+  { -- Pets & Transport Trunk
+    iconPath   = "ui/icon/icon_item_4442.dds",
+    categories = Set({
+      ITEM_CATEGORIES.SHIP,
+      ITEM_CATEGORIES.VEHICLE,
+    }),
+  },
+  { -- Rider's Trunk
+    iconPath   = "ui/icon/icon_item_4718.dds",
+    categories = Set({
+      ITEM_CATEGORIES.GIANT_PET,
+      ITEM_CATEGORIES.MARINE_MOUNT,
+      ITEM_CATEGORIES.MOUNT,
+    }),
+  },
+  { -- Shard Collector's Chest
+    iconPath   = "ui/icon/arcustom/shard_storage.dds",
+    categories = Set({
+      ITEM_CATEGORIES.SHARD,
+    }),
+  },
+  { -- Adventurer's Chest
+    iconPath   = "ui/icon/arcustom/adventurers_storage.dds",
+    categories = Set({
+      ITEM_CATEGORIES.COIN,
+      ITEM_CATEGORIES.COINPURSE,
+      ITEM_CATEGORIES.CURRENCY,
+      ITEM_CATEGORIES.KEY,
+      ITEM_CATEGORIES.MECHANICAL_COMPONENT_DESIGN_BAG,
+      ITEM_CATEGORIES.VALUABLE_CRATE,
+    }),
+  },
+  { -- Builder's Chest
+    iconPath   = "ui/icon/arcustom/builders_storage.dds",
+    categories = Set({
+      ITEM_CATEGORIES.BUILDINGS,
+    }),
+  },
+  { -- Design Chest
+    iconPath   = "ui/icon/icon_item_4567.dds",
+    categories = Set({
+      ITEM_CATEGORIES.CREST_AND_DYE_ITEMS,
+    }),
+  },
+  { -- Dream Designer's Chest
+    iconPath = "ui/icon/arcustom/dream_designes_storage.dds",
+    categories = Set({
+      ITEM_CATEGORIES.ART_OBJECT,
+      ITEM_CATEGORIES.DREAM_DESIGN,
+    }),
+  },
+  { -- Furniture Chest
+    iconPath   = "ui/icon/icon_item_4619.dds",
+    categories = Set({
+      ITEM_CATEGORIES.FURNITURE,
+      ITEM_CATEGORIES.TAXIDERMY,
+    }),
+  },
+  { -- Librarian's Chest
+    iconPath   = "ui/icon/arcustom/books_storage.dds",
+    categories = Set({
+      ITEM_CATEGORIES.BOOK,
+    }),
+  },
+  { -- Music Chest
+    iconPath   = "ui/icon/icon_item_4566.dds",
+    categories = Set({
+      ITEM_CATEGORIES.MUSIC_DISC,
+      ITEM_CATEGORIES.SHEET_MUSIC,
+    }),
+  },
+  { -- Traveler Necessities Chest
+    iconPath   = "ui/icon/arcustom/buff_storage.dds",
+    categories = Set({
+      ITEM_CATEGORIES.BOOSTERS,
+      ITEM_CATEGORIES.DEFENSE_POTION,
+      ITEM_CATEGORIES.DRINK,
+      ITEM_CATEGORIES.FOOD,
+      ITEM_CATEGORIES.HEALING_POTION,
+      ITEM_CATEGORIES.MANA_POTION,
+      ITEM_CATEGORIES.POTION,
+      ITEM_CATEGORIES.SPECIAL_CONSUMABLES,
+    }),
+  },
+  { -- Treasure Hunter's Chest
+    iconPath   = "ui/icon/arcustom/treasure_hunter_storage.dds",
+    categories = Set({
+      ITEM_CATEGORIES.RELIC,
+      ITEM_CATEGORIES.TREASURE_HUNTERS_CONSUMABLES,
+      ITEM_CATEGORIES.TREASURE_MAP,
+    }),
+  },
+  { -- Trophy Hunter's Chest
+    iconPath = "ui/icon/arcustom/boss_trophy_storage.dds",
+    categories = Set({
+      ITEM_CATEGORIES.LEGENDARY_TROPHY,
+    }),
+  },
 }
 
 ---This overrides the default params of X2Bag.GetBagItemInfo so that bagId
@@ -285,47 +338,65 @@ end
 ---@nodiscard
 local function CreateAutoStoreWindow(id)
   local window = SetViewOfAutoStoreWindow(id)
-  window:SetUILayer("system")
 
-  local contentFrame                               = window.contentFrame
+  local contentFrame = window.contentFrame
 
-  local storageOption                              = {
+  local storageOption = {
     frame = contentFrame.storageOptionFrame ---@type EmptyWidget
   }
 
-  storageOption.contentframe                       = storageOption.frame.contentFrame ---@type EmptyWidget
-  storageOption.radioGroupFrame                    = storageOption.contentframe.radioGroupFrame ---@type RadioGroup
+  storageOption.contentframe = storageOption.frame.contentFrame ---@type EmptyWidget
+  storageOption.radioGroupFrame = storageOption.contentframe.radioGroupFrame ---@type RadioGroup
 
-  local filter                                     = {
+  local filter = {
     frame = contentFrame.filterFrame, ---@type EmptyWidget
   }
 
-  filter.contentFrame                              = filter.frame.contentFrame ---@type EmptyWidget
+  filter.contentFrame = filter.frame.contentFrame ---@type EmptyWidget
   filter.onlyTransferExistingCategoriesCheckbutton = filter.contentFrame
     .onlyTransferExistingCategoriesCheckbutton ---@type CheckButton
-  filter.onlyTransferExistingItemsCheckbutton      = filter.contentFrame
+  filter.onlyTransferExistingItemsCheckbutton = filter.contentFrame
     .onlyTransferExistingItemsCheckbutton ---@type CheckButton
-  filter.transferBoundCheckbutton                  = filter.contentFrame.transferBoundCheckbutton ---@type CheckButton
-  filter.cancelFullInventoryCheckbutton            = filter.contentFrame
-    .cancelFullInventoryCheckbutton ---@type CheckButton
-  filter.resetButton                               = filter.contentFrame.resetButton ---@type Button
-  filter.categoryFilterCombobox                    = filter.contentFrame.categoryFilterCombobox ---@type Combobox
-  filter.searchEditbox                             = filter.contentFrame.searchEditbox ---@type X2Editbox
-  filter.startEditbox                              = filter.contentFrame.startEditbox ---@type X2Editbox
-  filter.endEditbox                                = filter.contentFrame.endEditbox ---@type X2Editbox
-  filter.cooldownEditbox                           = filter.contentFrame.cooldownEditbox ---@type X2Editbox
+  filter.transferBoundCheckbutton = filter.contentFrame.transferBoundCheckbutton ---@type CheckButton
+  filter.cancelFullInventoryCheckbutton = filter.contentFrame.cancelFullInventoryCheckbutton ---@type CheckButton
+  filter.resetButton = filter.contentFrame.resetButton ---@type Button
+  filter.iconButton = filter.contentFrame.iconButtonFrame.iconButton ---@type Button
+  filter.iconGroupFrame = contentFrame.iconGroupFrame ---@type EmptyWidget
+  filter.iconGroup = filter.iconGroupFrame.listCtrl ---@type ListCtrl
+  filter.searchEditbox = filter.contentFrame.searchEditbox ---@type X2Editbox
+  filter.startEditbox = filter.contentFrame.startEditbox ---@type X2Editbox
+  filter.endEditbox = filter.contentFrame.endEditbox ---@type X2Editbox
+  filter.cooldownEditbox = filter.contentFrame.cooldownEditbox ---@type X2Editbox
 
-  local filterKeys                                 = {}
+  local selectedCategoryFilter
+  local currentIcon = 1
+  for row = 1, ICON_FRAME_DATA.rows do
+    local rowButtons = filter.iconGroup.items[row].subItems
 
-  for _, key in pairs(locale.addon.pocketChest) do
-    table.insert(filterKeys, key)
-    table.sort(filterKeys)
-  end
+    for _, button in ipairs(rowButtons) do
+      ---@cast button Button
+      local pocketChest = POCKETCHEST_FILTER[currentIcon]
+      if pocketChest then
+        if pocketChest.iconPath then
+          button.background = CreateIconBackground(button, pocketChest.iconPath)
+          button.background:AddAnchor("TOPLEFT", button, 2, 2)
+          button.background:AddAnchor("BOTTOMRIGHT", button, -2, -2)
+        end
 
-  table.insert(filterKeys, 1, locale.addon.filterAll)
-
-  for k, v in ipairs(filterKeys) do
-    filter.categoryFilterCombobox.dropdown:AppendItem(v, k)
+        local iconIndex = currentIcon
+        button:SetHandler("OnClick", function ()
+          filter.iconButton.icon:ClearAllTextures()
+          if pocketChest.iconPath then
+            filter.iconButton.icon:AddTexture(pocketChest.iconPath)
+          end
+          filter.iconGroupFrame:Show(not filter.iconGroupFrame:IsVisible())
+          selectedCategoryFilter = iconIndex
+        end)
+      else
+        button:Show(false)
+      end
+      currentIcon = currentIcon + 1
+    end
   end
 
   local progressTextbox      = contentFrame.progressTextbox ---@type Textbox
@@ -346,6 +417,9 @@ local function CreateAutoStoreWindow(id)
     transaction.depositButton:Enable(enable)
     transaction.withdrawButton:Enable(enable)
     transaction.cancelButton:Enable(not enable)
+
+    window:SetUILayer(enable and "normal" or "system")
+    window:Raise()
   end
 
   local function StopTransaction()
@@ -396,13 +470,12 @@ local function CreateAutoStoreWindow(id)
       end
     end
 
-    local transferBoundItems     = filter.transferBoundCheckbutton:GetChecked()
-    local cancelFullInventory    = filter.cancelFullInventoryCheckbutton:GetChecked()
-    local selectedCategoryFilter = filter.categoryFilterCombobox.selectorBtn:GetText()
+    local transferBoundItems  = filter.transferBoundCheckbutton:GetChecked()
+    local cancelFullInventory = filter.cancelFullInventoryCheckbutton:GetChecked()
 
     local categoryFilter
-    if selectedCategoryFilter ~= locale.addon.filterAll then
-      categoryFilter = POCKET_CHEST_FILTER[selectedCategoryFilter]
+    if selectedCategoryFilter ~= 1 then
+      categoryFilter = POCKETCHEST_FILTER[selectedCategoryFilter].categories
     end
 
     source.startSlot   = tonumber(filter.startEditbox:GetText()) or 1
@@ -422,14 +495,19 @@ local function CreateAutoStoreWindow(id)
         return false
       end
 
-      if next(existingCategoriesFilter)
-        and not existingCategoriesFilter[itemInfo.category_id]
+      if onlyTransferExistingCategories
+        and (
+          next(existingCategoriesFilter) == nil
+          or not existingCategoriesFilter[itemInfo.category_id]
+        )
       then
         return false
       end
 
-      if next(existingItemFilter)
-        and not existingItemFilter[itemInfo.itemType]
+      if onlyTransferExistingItems and (
+          next(existingItemFilter) == nil
+          or not existingItemFilter[itemInfo.itemType]
+        )
       then
         return false
       end
@@ -550,7 +628,7 @@ local function CreateAutoStoreWindow(id)
     end)
   end
 
-  window:SetHandler("OnEvent", function ()
+  window:SetHandler("OnEvent", function (self, event, ...)
     progressTextbox:SetText(locale.addon.autoSortDetected)
   end)
 
@@ -565,7 +643,8 @@ local function CreateAutoStoreWindow(id)
     filter.onlyTransferExistingItemsCheckbutton:SetChecked(false)
     filter.transferBoundCheckbutton:SetChecked(true)
     filter.cancelFullInventoryCheckbutton:SetChecked(true)
-    filter.categoryFilterCombobox.dropdown:Select(0)
+    selectedCategoryFilter = 1
+    filter.iconButton.icon:ClearAllTextures()
     filter.searchEditbox:SetText("")
     filter.startEditbox:SetText("")
     filter.endEditbox:SetText("")
@@ -575,6 +654,11 @@ local function CreateAutoStoreWindow(id)
   filter.resetButton:SetHandler("OnClick", ResetFilter)
 
   ResetFilter()
+
+  filter.iconButton:SetHandler("OnClick", function (self, mouseButton, doubleClick, keyModifier)
+    filter.iconGroupFrame:Show(not filter.iconGroupFrame:IsVisible())
+    filter.iconGroupFrame:Raise()
+  end)
 
   transaction.depositButton:SetHandler("OnClick", function ()
     StartTransaction(TRANSACTION_TYPE.DEPOSIT)

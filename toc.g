@@ -23,6 +23,7 @@ globals/components/editbox/editbox.lua
 # globals/components/editbox/scrollmultilineeditbox.lua
 globals/components/editbox/searcheditbox.lua
 # globals/components/editbox/spinner.lua
+globals/components/icongroup/icongroup.lua
 globals/components/listbox/listbox.lua
 globals/components/listbox/scrolllistbox.lua
 # globals/components/listctrl/listctrl.lua

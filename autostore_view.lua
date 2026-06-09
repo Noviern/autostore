@@ -107,14 +107,36 @@ local function SetViewOfFilterFrame(contentFrame)
   cancelFullInventoryCheckbutton.textbox:AddAnchor("RIGHT", filterContentframe, 0, 0)
   cancelFullInventoryCheckbutton.textbox:SetAutoWordwrap(true)
 
-  local categoryFilterCombobox = CreateCombobox("categoryFilterCombobox", filterContentframe)
-  categoryFilterCombobox:AddAnchor("TOPLEFT", cancelFullInventoryCheckbutton, "BOTTOMLEFT", 0, COMMON.SPACING)
-  categoryFilterCombobox:AddAnchor("RIGHT", filterContentframe, 0, 0)
-  categoryFilterCombobox:SetDropdownVisibleLimit(15)
+  local iconButtonFrame = filterContentframe:CreateChildWidget("emptywidget", "iconButtonFrame", 0, true)
+  iconButtonFrame:AddAnchor("TOP", cancelFullInventoryCheckbutton, "BOTTOM", 0, COMMON.SPACING)
+  iconButtonFrame:AddAnchor("LEFT", filterContentframe, 0, 0)
+  iconButtonFrame:AddAnchor("RIGHT", filterContentframe, 0, 0)
+  iconButtonFrame:SetHeight(42)
+
+  local iconButton = iconButtonFrame:CreateChildWidget("button", "iconButton", 0, true)
+  iconButton:SetExtent(42, 42)
+  iconButton:AddAnchor("CENTER", iconButtonFrame, 0, 0)
+  iconButton.background = CreateTextureBackground(iconButton, TEXTURE_PATH.HUD, "action_slot_default_bg", "dimmed")
+  iconButton.icon = iconButton:CreateIconDrawable("artwork")
+  iconButton.icon:AddAnchor("TOPLEFT", iconButton, 0, 0)
+  iconButton.icon:AddAnchor("BOTTOMRIGHT", iconButton, 0, 0)
+
+  local iconTextbox = iconButton:CreateChildWidget("textbox", "asdfasdf", 0, true)
+  iconTextbox.style:SetColorByKey("default")
+  iconTextbox:SetAutoResize(true)
+  iconTextbox:SetAutoWordwrap(false)
+  iconTextbox:SetHeight(20)
+  iconTextbox:AddAnchor("RIGHT", iconButton, "LEFT", -COMMON.SPACING, 0)
+  iconTextbox:SetText(filterLocale.pocketChestFilter)
+
+  local iconGroupFrame = CreateIconGroup("iconGroupFrame", contentFrame, ICON_FRAME_DATA)
+  iconGroupFrame:Show(false)
+  iconGroupFrame:AddAnchor("TOP", iconButton, "BOTTOM", 0, COMMON.SPACING)
 
   local searchEditbox = CreateSearchEditbox("searchEditbox", filterContentframe)
-  searchEditbox:AddAnchor("TOPLEFT", categoryFilterCombobox, "BOTTOMLEFT", 0, COMMON.SPACING)
-  searchEditbox:AddAnchor("TOPRIGHT", categoryFilterCombobox, "BOTTOMRIGHT", 0, COMMON.SPACING)
+  searchEditbox:AddAnchor("TOP", iconButton, "BOTTOM", 0, COMMON.SPACING)
+  searchEditbox:AddAnchor("LEFT", filterContentframe, 0, 0)
+  searchEditbox:AddAnchor("RIGHT", filterContentframe, 0, 0)
   searchEditbox:SetGuideText(filterLocale.searchGuide)
 
   local startEditbox = CreateFilterEditbox("startEditbox", filterContentframe)
@@ -189,10 +211,6 @@ function SetViewOfAutoStoreWindow(id)
   local filterFrame = SetViewOfFilterFrame(contentFrame)
   filterFrame:AddAnchor("TOPLEFT", storageOptionFrame, "BOTTOMLEFT", 0, COMMON.SPACING)
   filterFrame:AddAnchor("TOPRIGHT", storageOptionFrame, "BOTTOMRIGHT", 0, COMMON.SPACING)
-
-  local filterContentFrame = filterFrame.contentFrame
-  local categoryFilterCombobox = filterContentFrame.categoryFilterCombobox ---@type Combobox
-  categoryFilterCombobox:SetWidth(filterContentFrame:GetWidth())
 
   local progressTextbox = contentFrame:CreateChildWidget("textbox", "progressTextbox", 0, true)
   progressTextbox.style:SetEllipsis(true)
