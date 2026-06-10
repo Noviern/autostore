@@ -1,20 +1,15 @@
 if X2Locale:GetLocale() == "ru" then
   locale.addon.title                                       = "Авто-хранилище"
-  locale.addon.storageModule.title                         = "Хранилище"
-  locale.addon.storageModule.tooltip                       =
-    "Выберите место хранения, которое сейчас открыто, для пополнения или изъятия предметов :\n" ..
-    "|bu◆;Сундук хранения (включая карманные сундуки)|br\n" ..
-    "|bu◆;Склад|br\n"
   locale.addon.filterModule.title                          = "Фильтр"
   locale.addon.filterModule.tooltip                        =
-    "Предметы можно фильтровать по :\n" ..
-    "|bu◆;Выбору фильтра карманного сундука|br\n" ..
-    "|bu◆;Поиску по названию или категории|br\n" ..
-    "|bu◆;Вводу индекса начального или конечного слота|br\n\n" ..
     "Предметы, заблокированные в своей позиции, не будут перемещены.\n\n" ..
     "Расширенный поиск :\n" ..
+    "Несколько запросов\n" ..
+    "|bu◆;Несколько поисковых запросов можно объединить с помощью (|nc;;|r) (точка с запятой)|br\n\n" ..
+    "Пример :\n" ..
+    "|nc;фрукт;трава|r включает названия и категории, содержащие |nc;фрукт|r или |nc;трава|r\n\n" ..
     "Отрицание\n" ..
-    "|bu◆;Начните с (|nc;-|r) для исключения|br\n\n" ..
+    "|bu◆;Начните с (|nc;-|r) (дефис) для исключения|br\n\n" ..
     "Пример :\n" ..
     "|nc;-фрукт|r исключает названия и категории, содержащие \"|nc;фрукт|r\"\n\n" ..
     "Шаблоны :\n" ..
@@ -34,13 +29,13 @@ if X2Locale:GetLocale() == "ru" then
     "Чтобы исправить, закройте и снова откройте окно хранилища."
   locale.addon.filterModule.onlyTransferExistingCategories = "Переносить только существующие категории"
   locale.addon.filterModule.reset                          = "Сбросить фильтр"
-  locale.addon.filterModule.onlyTransferExistingItems      = "Переносить только существующие элементы"
+  locale.addon.filterModule.onlyTransferExistingItems      = "Переносить только существующие предметы"
   locale.addon.filterModule.transfer                       = "Перемещать привязанные предметы"
   locale.addon.filterModule.autoCancel                     = "Отменить при полном инвентаре"
   locale.addon.filterModule.pocketChestFilter              = "Фильтр карманного\nсундука"
   locale.addon.filterModule.startSlot                      = "Начало: 1"
   locale.addon.filterModule.endSlot                        = "Конец: 150"
-  locale.addon.filterModule.cooldown                       = "200 мс"
+  locale.addon.filterModule.cooldown                       = "200мс"
   locale.addon.inventoryFull                               = "|nr;Инвентарь или хранилище заполнено!|r"
-  locale.addon.autoSortDetected                            = "|nr;Обнаружена авто-сортировка!\nПожалуйста, прочтите подсказку фильтра (?).|r"
+  locale.addon.autoSortDetected                            = "|nr;Обнаружена авто-сортировка!\nПрочитайте подсказку фильтра (?).|r"
 end

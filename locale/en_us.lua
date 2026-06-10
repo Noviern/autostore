@@ -4,26 +4,17 @@ end
 
 locale.addon = {
   title            = "Auto Store",
-  storageModule    = {
-    title   = "Storage",
-    tooltip =
-      "Select a storage location that is currently open to deposit or withdraw items from:\n" ..
-      "|bu◆;Storage Chest (includes pocket chests)|br\n" ..
-      "|bu◆;Warehouse|br\n",
-    coffer  = X2Locale:LocalizeUiText(WINDOW_TITLE_TEXT, "coffer"),
-    bank    = X2Locale:LocalizeUiText(WINDOW_TITLE_TEXT, "bank"),
-  },
   filterModule     = {
     title                          = "Filter",
     tooltip                        =
-      "Items can be filtered by:\n" ..
-      "|bu◆;Selecting a Pocket Chest filter|br\n" ..
-      "|bu◆;Searcing by name or category|br\n" ..
-      "|bu◆;Entering a start or end slot index|br\n\n" ..
       "Items locked in their position will not be transfered.\n\n" ..
       "Advanced Search:\n" ..
+      "Multiple Queries\n" ..
+      "|bu◆;Multiple search queries can be combined using (|nc;;|r) (semicolon) between terms|br\n\n" ..
+      "Example:\n" ..
+      "|nc;fruit;herb|r includes item names and categories containing |nc;fruit|r or |nc;herb|r\n\n" ..
       "Negation\n" ..
-      "|bu◆;Start with (|nc;-|r) to negate the search|br\n\n" ..
+      "|bu◆;Start with (|nc;-|r) (hyphen) to negate the search|br\n\n" ..
       "Example:\n" ..
       "|nc;-fruit|r excludes item names and categories containing \"|nc;fruit|r\"\n\n" ..
       "Patterns\n" ..

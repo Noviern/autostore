@@ -1,5 +1,6 @@
 ---@enum STORAGE_TYPE
 STORAGE_TYPE = {
+  NONE   = 0,
   COFFER = 1,
   BANK   = 2,
 }

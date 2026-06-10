@@ -320,7 +320,7 @@ local MoveToEmptySlot = {
 ---@return boolean
 local function SafeMatch(text, pattern)
   local ok, result = pcall(string.match, text, pattern)
-  return ok and result
+  return ok and result ~= nil
 end
 
 ---@param itemInfo ItemInfo
@@ -338,16 +338,7 @@ end
 ---@nodiscard
 local function CreateAutoStoreWindow(id)
   local window = SetViewOfAutoStoreWindow(id)
-
   local contentFrame = window.contentFrame
-
-  local storageOption = {
-    frame = contentFrame.storageOptionFrame ---@type EmptyWidget
-  }
-
-  storageOption.contentframe = storageOption.frame.contentFrame ---@type EmptyWidget
-  storageOption.radioGroupFrame = storageOption.contentframe.radioGroupFrame ---@type RadioGroup
-
   local filter = {
     frame = contentFrame.filterFrame, ---@type EmptyWidget
   }
@@ -409,10 +400,26 @@ local function CreateAutoStoreWindow(id)
   transaction.withdrawButton = transaction.frame.withdrawButton ---@type Button
   transaction.cancelButton   = transaction.frame.cancelButton ---@type Button
 
+  local storageType
+
+  ---@param type STORAGE_TYPE
+  function window:SetStorageType(type)
+    if storageType == type then
+      return
+    end
+
+    storageType = type
+
+    local enable = type ~= STORAGE_TYPE.NONE
+    transaction.depositButton:Enable(enable)
+    transaction.withdrawButton:Enable(enable)
+  end
+
+  window:SetStorageType(STORAGE_TYPE.NONE)
+
   ---@param enable boolean
   local function EnableAutoStore(enable)
     window:SetWindowModal(not enable)
-    storageOption.contentframe:Enable(enable, true)
     filter.contentFrame:Enable(enable, true)
     transaction.depositButton:Enable(enable)
     transaction.withdrawButton:Enable(enable)
@@ -430,19 +437,21 @@ local function CreateAutoStoreWindow(id)
 
   ---@param type TRANSACTION_TYPE
   local function StartTransaction(type)
-    EnableAutoStore(false)
+    if storageType == STORAGE_TYPE.NONE then
+      return
+    end
 
-    local option = storageOption.radioGroupFrame:GetChecked()
+    EnableAutoStore(false)
 
     local source = {}
     local target = {}
 
     if type == TRANSACTION_TYPE.WITHDRAW then
-      source.storage = Storage[option]
+      source.storage = Storage[storageType]
       target.storage = X2Bag
     elseif type == TRANSACTION_TYPE.DEPOSIT then
       source.storage = X2Bag
-      target.storage = Storage[option]
+      target.storage = Storage[storageType]
     end
 
     local onlyTransferExistingCategories = filter.onlyTransferExistingCategoriesCheckbutton:GetChecked()
@@ -478,11 +487,20 @@ local function CreateAutoStoreWindow(id)
       categoryFilter = POCKETCHEST_FILTER[selectedCategoryFilter].categories
     end
 
-    source.startSlot   = tonumber(filter.startEditbox:GetText()) or 1
-    source.currentSlot = source.startSlot
-    source.endSlot     = tonumber(filter.endEditbox:GetText()) or source.storage:Capacity()
+    source.startSlot    = tonumber(filter.startEditbox:GetText()) or 1
+    source.currentSlot  = source.startSlot
+    source.endSlot      = tonumber(filter.endEditbox:GetText()) or source.storage:Capacity()
 
-    local search       = filter.searchEditbox:GetText():lower()
+    local search        = filter.searchEditbox:GetText():lower()
+
+    local searchQueries = {}
+    for searchQuery in search:gmatch("[^;]+") do
+      searchQuery = searchQuery:match("^%s*(.-)%s*$")
+
+      if searchQuery ~= "" then
+        table.insert(searchQueries, searchQuery)
+      end
+    end
 
     ---@param itemInfo ItemInfo
     ---@return boolean
@@ -524,31 +542,37 @@ local function CreateAutoStoreWindow(id)
         return false
       end
 
-      if itemInfo.category_id == ITEM_CATEGORIES.TREASURE_MAP
-        and SafeMatch(BuildSextantPosition(itemInfo), search)
-      then
+      if #searchQueries == 0 then
         return true
       end
 
-      local category = itemInfo.category:lower()
-      local name     = itemInfo.name:lower()
+      local category        = itemInfo.category:lower()
+      local name            = itemInfo.name:lower()
+      local matchedPositive = false
 
-      if search:sub(1, 1) == "-" then
-        local searchTerm = search:sub(2)
+      for _, searchQuery in ipairs(searchQueries) do
+        if searchQuery:sub(1, 1) == "-" then
+          local searchTerm = searchQuery:sub(2)
 
-        return SafeMatch(category, searchTerm) ~= searchTerm
-          and SafeMatch(name, searchTerm) ~= searchTerm
+          if SafeMatch(category, searchTerm)
+            or SafeMatch(name, searchTerm)
+          then
+            return false
+          else
+            matchedPositive = true
+          end
+        elseif (
+            itemInfo.category_id == ITEM_CATEGORIES.TREASURE_MAP
+            and SafeMatch(BuildSextantPosition(itemInfo), searchQuery)
+          )
+          or SafeMatch(category, searchQuery)
+          or SafeMatch(name, searchQuery)
+        then
+          matchedPositive = true
+        end
       end
 
-      if SafeMatch(category, search) then
-        return true
-      end
-
-      if SafeMatch(name, search) then
-        return true
-      end
-
-      return false
+      return matchedPositive
     end
 
     local userCooldown       = tonumber(filter.cooldownEditbox:GetText()) or 0
@@ -562,6 +586,12 @@ local function CreateAutoStoreWindow(id)
 
     window:SetHandler("OnUpdate", function (self, frameTime)
       timePassed = timePassed + frameTime
+
+      if storageType == STORAGE_TYPE.NONE then
+        StopTransaction()
+        window:SetStorageType(STORAGE_TYPE.NONE)
+        return
+      end
 
       if timePassed < cooldown then
         return
@@ -608,7 +638,7 @@ local function CreateAutoStoreWindow(id)
         if itemInfo
           and ItemMatchesFilter(itemInfo)
         then
-          MoveToEmptySlot[type][option](i)
+          MoveToEmptySlot[type][storageType](i)
 
           progressTextbox:SetText(string.format(
             "%d - %d (x%d) - %d\n%s",
@@ -700,13 +730,35 @@ local function CreateAutoStoreButton()
   tooltipFrame:AddAnchor("BOTTOM", button, "TOP", 0, 0)
 
   local isHiding = false
+  local cooldown = 500
+  local timePassed = cooldown
 
-  frame:SetHandler("OnUpdate", function ()
+  frame:SetHandler("OnUpdate", function (self, frameTime)
     local x, y, w, h, isVisible = ADDON:GetContentMainScriptPosVis(UIC_BAG)
+    timePassed = timePassed + frameTime
 
     if isVisible then
       frame:AddAnchor("TOPLEFT", "UIParent", x + BUTTON_OFFSET[1], y + h - BUTTON_OFFSET[2])
       isHiding = false
+
+      if timePassed < cooldown then
+        return
+      end
+
+      timePassed = 0
+
+      if autoStoreWindow ~= nil then
+        local _, _, _, _, cofferWidgetIsVisible = ADDON:GetContentMainScriptPosVis(UIC_COFFER)
+        local _, _, _, _, bankWidgetIsVisible = ADDON:GetContentMainScriptPosVis(UIC_BANK)
+
+        if cofferWidgetIsVisible then
+          autoStoreWindow:SetStorageType(STORAGE_TYPE.COFFER)
+        elseif bankWidgetIsVisible then
+          autoStoreWindow:SetStorageType(STORAGE_TYPE.BANK)
+        else
+          autoStoreWindow:SetStorageType(STORAGE_TYPE.NONE)
+        end
+      end
     elseif not isHiding then
       frame:AddAnchor("TOPLEFT", "UIParent", "BOTTOMRIGHT", 100, 100)
       isHiding = true
@@ -715,6 +767,23 @@ local function CreateAutoStoreButton()
       end
     end
   end)
+
+  ---Fixes a bug where interacting with a house item while a chest was open
+  ---would cause the chest to become unusable.
+  frame:SetHandler("OnEvent", function (self, event, ...)
+    if event == "NPC_INTERACTION_END" then
+      local _, _, _, _, cofferWidgetIsVisible = ADDON:GetContentMainScriptPosVis(UIC_COFFER)
+      local _, _, _, _, bankWidgetIsVisible = ADDON:GetContentMainScriptPosVis(UIC_BANK)
+
+      if cofferWidgetIsVisible then
+        ADDON:ShowContent(UIC_COFFER, false)
+      elseif bankWidgetIsVisible then
+        ADDON:ShowContent(UIC_BANK, false)
+      end
+    end
+  end)
+
+  frame:RegisterEvent("NPC_INTERACTION_END")
 
   button:SetHandler("OnClick", function ()
     ToggleAutoStoreWindow()

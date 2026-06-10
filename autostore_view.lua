@@ -1,34 +1,3 @@
----@param contentFrame EmptyWidget
----@return EmptyWidget
----@nodiscard
-local function SetViewOfStorageOptionFrame(contentFrame)
-  local storageLocale = locale.addon.storageModule
-  local frame = CreateModule(
-    "storageOptionFrame",
-    contentFrame,
-    storageLocale.title,
-    storageLocale.tooltip
-  )
-
-  local storageOptionContentFrame = frame.contentFrame ---@type EmptyWidget
-  local radioGroupFrame = storageOptionContentFrame:CreateChildWidget("radiogroup", "radioGroupFrame", 0, true)
-  radioGroupFrame:AddAnchor("TOPLEFT", storageOptionContentFrame, 0, 0)
-  radioGroupFrame:AddAnchor("TOPRIGHT", storageOptionContentFrame, 0, 0)
-
-  local storageChestOptionFrame = CreateRadioItemWithTextbox(radioGroupFrame, STORAGE_TYPE.COFFER, storageLocale.coffer)
-  storageChestOptionFrame:AddAnchor("TOPLEFT", radioGroupFrame, 0, 0)
-
-  local warehouseOptionFrame = CreateRadioItemWithTextbox(radioGroupFrame, STORAGE_TYPE.BANK, storageLocale.bank)
-  warehouseOptionFrame:AddAnchor("TOPLEFT", storageChestOptionFrame, "BOTTOMLEFT", 0, COMMON.SPACING)
-
-  radioGroupFrame:Check(1)
-
-  ResizeParentToFitBottomWidget(radioGroupFrame, warehouseOptionFrame)
-  ResizeParentToFitBottomWidget(frame, warehouseOptionFrame, COMMON.MARGIN)
-
-  return frame
-end
-
 ---@param id string
 ---@param parent OptionalParent
 ---@return X2Editbox
@@ -204,13 +173,9 @@ function SetViewOfAutoStoreWindow(id)
 
   local contentFrame = window.contentFrame ---@type EmptyWidget
 
-  local storageOptionFrame = SetViewOfStorageOptionFrame(contentFrame)
-  storageOptionFrame:AddAnchor("TOPLEFT", contentFrame, 0, 0)
-  storageOptionFrame:AddAnchor("TOPRIGHT", contentFrame, 0, 0)
-
   local filterFrame = SetViewOfFilterFrame(contentFrame)
-  filterFrame:AddAnchor("TOPLEFT", storageOptionFrame, "BOTTOMLEFT", 0, COMMON.SPACING)
-  filterFrame:AddAnchor("TOPRIGHT", storageOptionFrame, "BOTTOMRIGHT", 0, COMMON.SPACING)
+  filterFrame:AddAnchor("TOPLEFT", contentFrame, 0, 0)
+  filterFrame:AddAnchor("TOPRIGHT", contentFrame, 0, 0)
 
   local progressTextbox = contentFrame:CreateChildWidget("textbox", "progressTextbox", 0, true)
   progressTextbox.style:SetEllipsis(true)
