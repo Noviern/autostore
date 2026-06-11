@@ -61,7 +61,7 @@ local function SetViewOfFilterFrame(contentFrame)
   local transferBoundCheckbutton = CreateCheckButtonWithTextbox(
     "transferBoundCheckbutton",
     filterContentframe,
-    filterLocale.transfer
+    filterLocale.transferBound
   )
   transferBoundCheckbutton:AddAnchor("TOPLEFT", onlyTransferExistingItemsCheckbutton, "BOTTOMLEFT", 0, COMMON.SPACING)
   transferBoundCheckbutton.textbox:AddAnchor("RIGHT", filterContentframe, 0, 0)
@@ -178,11 +178,10 @@ function SetViewOfAutoStoreWindow(id)
   filterFrame:AddAnchor("TOPRIGHT", contentFrame, 0, 0)
 
   local progressTextbox = contentFrame:CreateChildWidget("textbox", "progressTextbox", 0, true)
-  progressTextbox.style:SetEllipsis(true)
   progressTextbox.style:SetColorByKey("default")
   progressTextbox.style:SetFontSize(FONT_SIZE.DEFAULT)
   progressTextbox:SetAutoWordwrap(false)
-  progressTextbox:SetHeight(FONT_SIZE.DEFAULT * 2 + COMMON.SPACING)
+  progressTextbox:SetHeight(FONT_SIZE.DEFAULT * 3 + COMMON.SPACING)
   progressTextbox:AddAnchor("TOPLEFT", filterFrame, "BOTTOMLEFT", 0, COMMON.SPACING)
   progressTextbox:AddAnchor("TOPRIGHT", filterFrame, "BOTTOMRIGHT", 0, COMMON.SPACING)
 

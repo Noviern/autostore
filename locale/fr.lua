@@ -30,7 +30,7 @@ if X2Locale:GetLocale() == "fr" then
   locale.addon.filterModule.onlyTransferExistingCategories = "Ne transférer que les catégories existantes"
   locale.addon.filterModule.reset                          = "Réinitialiser le filtre"
   locale.addon.filterModule.onlyTransferExistingItems      = "Ne transférer que les objets existants"
-  locale.addon.filterModule.transfer                       = "Transférer les objets liés"
+  locale.addon.filterModule.transferBound                  = "Transférer les objets liés"
   locale.addon.filterModule.autoCancel                     = "Annuler si inventaire plein"
   locale.addon.filterModule.pocketChestFilter              = "Filtre Coffre\nde poche"
   locale.addon.filterModule.startSlot                      = "Début : 1"

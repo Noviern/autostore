@@ -404,7 +404,9 @@ local function CreateAutoStoreWindow(id)
 
   ---@param type STORAGE_TYPE
   function window:SetStorageType(type)
-    if storageType == type then
+    if storageType == type
+      and type ~= STORAGE_TYPE.NONE
+    then
       return
     end
 
@@ -421,8 +423,12 @@ local function CreateAutoStoreWindow(id)
   local function EnableAutoStore(enable)
     window:SetWindowModal(not enable)
     filter.contentFrame:Enable(enable, true)
-    transaction.depositButton:Enable(enable)
-    transaction.withdrawButton:Enable(enable)
+
+    if storageType ~= STORAGE_TYPE.NONE then
+      transaction.depositButton:Enable(enable)
+      transaction.withdrawButton:Enable(enable)
+    end
+
     transaction.cancelButton:Enable(not enable)
 
     window:SetUILayer(enable and "normal" or "system")
@@ -589,7 +595,6 @@ local function CreateAutoStoreWindow(id)
 
       if storageType == STORAGE_TYPE.NONE then
         StopTransaction()
-        window:SetStorageType(STORAGE_TYPE.NONE)
         return
       end
 
@@ -641,8 +646,8 @@ local function CreateAutoStoreWindow(id)
           MoveToEmptySlot[type][storageType](i)
 
           progressTextbox:SetText(string.format(
-            "%d - %d (x%d) - %d\n%s",
-            source.startSlot, i, attemptFailedCount, source.endSlot, itemInfo.name
+            "%d - %d (x%d) - %d\n%s\n%s",
+            source.startSlot, i, attemptFailedCount, source.endSlot, itemInfo.category, itemInfo.name
           ))
 
           timePassed         = 0

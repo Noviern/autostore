@@ -30,7 +30,7 @@ if X2Locale:GetLocale() == "ru" then
   locale.addon.filterModule.onlyTransferExistingCategories = "Переносить только существующие категории"
   locale.addon.filterModule.reset                          = "Сбросить фильтр"
   locale.addon.filterModule.onlyTransferExistingItems      = "Переносить только существующие предметы"
-  locale.addon.filterModule.transfer                       = "Перемещать привязанные предметы"
+  locale.addon.filterModule.transferBound                  = "Перемещать привязанные предметы"
   locale.addon.filterModule.autoCancel                     = "Отменить при полном инвентаре"
   locale.addon.filterModule.pocketChestFilter              = "Фильтр карманного\nсундука"
   locale.addon.filterModule.startSlot                      = "Начало: 1"

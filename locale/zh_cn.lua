@@ -30,7 +30,7 @@ if X2Locale:GetLocale() == "zh_cn" then
   locale.addon.filterModule.onlyTransferExistingCategories = "仅传输已存在的类别"
   locale.addon.filterModule.reset                          = "重置过滤器"
   locale.addon.filterModule.onlyTransferExistingItems      = "仅传输已存在的物品"
-  locale.addon.filterModule.transfer                       = "传输绑定物品"
+  locale.addon.filterModule.transferBound                  = "传输绑定物品"
   locale.addon.filterModule.autoCancel                     = "背包满时取消"
   locale.addon.filterModule.pocketChestFilter              = "口袋箱\n过滤器"
   locale.addon.filterModule.startSlot                      = "起始：1"
