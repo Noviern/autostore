@@ -76,34 +76,55 @@ local function SetViewOfFilterFrame(contentFrame)
   cancelFullInventoryCheckbutton.textbox:AddAnchor("RIGHT", filterContentframe, 0, 0)
   cancelFullInventoryCheckbutton.textbox:SetAutoWordwrap(true)
 
-  local iconButtonFrame = filterContentframe:CreateChildWidget("emptywidget", "iconButtonFrame", 0, true)
-  iconButtonFrame:AddAnchor("TOP", cancelFullInventoryCheckbutton, "BOTTOM", 0, COMMON.SPACING)
-  iconButtonFrame:AddAnchor("LEFT", filterContentframe, 0, 0)
-  iconButtonFrame:AddAnchor("RIGHT", filterContentframe, 0, 0)
-  iconButtonFrame:SetHeight(42)
+  local pocketchestFrame = filterContentframe:CreateChildWidget("emptywidget", "iconButtonFrame", 0, true)
+  pocketchestFrame:AddAnchor("TOP", cancelFullInventoryCheckbutton, "BOTTOM", 0, COMMON.SPACING)
+  pocketchestFrame:AddAnchor("LEFT", filterContentframe, 0, 0)
+  pocketchestFrame:AddAnchor("RIGHT", filterContentframe, 0, 0)
 
-  local iconButton = iconButtonFrame:CreateChildWidget("button", "iconButton", 0, true)
+  local iconTextbox = pocketchestFrame:CreateChildWidget("textbox", "iconTextbox", 0, true)
+  iconTextbox.style:SetColorByKey("default")
+  iconTextbox:SetAutoResize(true)
+  iconTextbox:SetAutoWordwrap(false)
+  iconTextbox:SetHeight(20)
+  iconTextbox:SetText(filterLocale.pocketChestFilter)
+
+  local iconButton = pocketchestFrame:CreateChildWidget("button", "iconButton", 0, true)
   iconButton:SetExtent(42, 42)
-  iconButton:AddAnchor("CENTER", iconButtonFrame, 0, 0)
+  iconButton:AddAnchor("TOP", pocketchestFrame, 0, 0)
   iconButton.background = CreateTextureBackground(iconButton, TEXTURE_PATH.HUD, "action_slot_default_bg", "dimmed")
   iconButton.icon = iconButton:CreateIconDrawable("artwork")
   iconButton.icon:AddAnchor("TOPLEFT", iconButton, 0, 0)
   iconButton.icon:AddAnchor("BOTTOMRIGHT", iconButton, 0, 0)
 
-  local iconTextbox = iconButton:CreateChildWidget("textbox", "asdfasdf", 0, true)
-  iconTextbox.style:SetColorByKey("default")
-  iconTextbox:SetAutoResize(true)
-  iconTextbox:SetAutoWordwrap(false)
-  iconTextbox:SetHeight(20)
+  ResizeParentToFitBottomWidget(pocketchestFrame, iconButton)
+
   iconTextbox:AddAnchor("RIGHT", iconButton, "LEFT", -COMMON.SPACING, 0)
-  iconTextbox:SetText(filterLocale.pocketChestFilter)
 
   local iconGroupFrame = CreateIconGroup("iconGroupFrame", contentFrame, ICON_FRAME_DATA)
   iconGroupFrame:Show(false)
   iconGroupFrame:AddAnchor("TOP", iconButton, "BOTTOM", 0, COMMON.SPACING)
 
+  local gradeFrame = filterContentframe:CreateChildWidget("emptywidget", "gradeFrame", 0, true)
+  gradeFrame:AddAnchor("TOP", pocketchestFrame, "BOTTOM", 0, COMMON.SPACING)
+  gradeFrame:AddAnchor("LEFT", filterContentframe, 0, 0)
+  gradeFrame:AddAnchor("RIGHT", filterContentframe, 0, 0)
+
+  local gradeTextbox = gradeFrame:CreateChildWidget("textbox", "gradeTextbox", 0, true)
+  gradeTextbox.style:SetColorByKey("default")
+  gradeTextbox:SetAutoResize(true)
+  gradeTextbox:SetAutoWordwrap(false)
+  gradeTextbox:SetHeight(20)
+  gradeTextbox:AddAnchor("LEFT", gradeFrame, 0, 0)
+  gradeTextbox:SetText(filterLocale.grade)
+
+  local gradeCombobox = CreateGradeCombobox("gradeCombobox", gradeFrame)
+  gradeCombobox:AddAnchor("LEFT", gradeTextbox, "RIGHT", COMMON.SPACING, 0)
+  gradeCombobox:AddAnchor("TOPRIGHT", gradeFrame, 0, 0)
+
+  ResizeParentToFitBottomWidget(gradeFrame, gradeCombobox)
+
   local searchEditbox = CreateSearchEditbox("searchEditbox", filterContentframe)
-  searchEditbox:AddAnchor("TOP", iconButton, "BOTTOM", 0, COMMON.SPACING)
+  searchEditbox:AddAnchor("TOP", gradeCombobox, "BOTTOM", 0, COMMON.SPACING)
   searchEditbox:AddAnchor("LEFT", filterContentframe, 0, 0)
   searchEditbox:AddAnchor("RIGHT", filterContentframe, 0, 0)
   searchEditbox:SetGuideText(filterLocale.searchGuide)
@@ -176,6 +197,14 @@ function SetViewOfAutoStoreWindow(id)
   local filterFrame = SetViewOfFilterFrame(contentFrame)
   filterFrame:AddAnchor("TOPLEFT", contentFrame, 0, 0)
   filterFrame:AddAnchor("TOPRIGHT", contentFrame, 0, 0)
+
+  ---@type EmptyWidget
+  local gradeFrame = filterFrame.contentFrame.gradeFrame
+
+  ---@TODO the parents width wasnt known at the time this was set previously.
+  ---@type Combobox
+  local gradeCombobox = gradeFrame.gradeCombobox
+  gradeCombobox:SetWidth(gradeCombobox:GetWidth())
 
   local progressTextbox = contentFrame:CreateChildWidget("textbox", "progressTextbox", 0, true)
   progressTextbox.style:SetColorByKey("default")

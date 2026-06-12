@@ -3,6 +3,14 @@ local item_grades = {
     text  = X2Locale:LocalizeUiText(COMMON_TEXT, "all"),
     color = UIParent:GetFontColor("all_in_item_grade_combobox"),
   },
+  { -- None
+    text  = X2Locale:LocalizeUiText(COMMON_TEXT, "none"),
+    color = Hex2Dec("FF949293"),
+  },
+  { -- Basic
+    text  = X2Locale:LocalizeUiText(COMMON_TEXT, "equip_item_guide_craft_normal"),
+    color = Hex2Dec("FFBA976D"),
+  },
   { -- Grand
     text  = X2Locale:LocalizeUiText(ITEM_GRADE, "item_grade_uncommon"),
     color = Hex2Dec("FF77b064"),

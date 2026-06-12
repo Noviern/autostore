@@ -340,24 +340,51 @@ local function CreateAutoStoreWindow(id)
   local window = SetViewOfAutoStoreWindow(id)
   local contentFrame = window.contentFrame
   local filter = {
-    frame = contentFrame.filterFrame, ---@type EmptyWidget
+    ---@type EmptyWidget
+    frame = contentFrame.filterFrame
   }
 
-  filter.contentFrame = filter.frame.contentFrame ---@type EmptyWidget
-  filter.onlyTransferExistingCategoriesCheckbutton = filter.contentFrame
-    .onlyTransferExistingCategoriesCheckbutton ---@type CheckButton
-  filter.onlyTransferExistingItemsCheckbutton = filter.contentFrame
-    .onlyTransferExistingItemsCheckbutton ---@type CheckButton
-  filter.transferBoundCheckbutton = filter.contentFrame.transferBoundCheckbutton ---@type CheckButton
-  filter.cancelFullInventoryCheckbutton = filter.contentFrame.cancelFullInventoryCheckbutton ---@type CheckButton
-  filter.resetButton = filter.contentFrame.resetButton ---@type Button
-  filter.iconButton = filter.contentFrame.iconButtonFrame.iconButton ---@type Button
-  filter.iconGroupFrame = contentFrame.iconGroupFrame ---@type EmptyWidget
-  filter.iconGroup = filter.iconGroupFrame.listCtrl ---@type ListCtrl
-  filter.searchEditbox = filter.contentFrame.searchEditbox ---@type X2Editbox
-  filter.startEditbox = filter.contentFrame.startEditbox ---@type X2Editbox
-  filter.endEditbox = filter.contentFrame.endEditbox ---@type X2Editbox
-  filter.cooldownEditbox = filter.contentFrame.cooldownEditbox ---@type X2Editbox
+  ---@type EmptyWidget
+  filter.contentFrame = filter.frame.contentFrame
+
+  ---@type CheckButton
+  filter.onlyTransferExistingCategoriesCheckbutton = filter.contentFrame.onlyTransferExistingCategoriesCheckbutton
+
+  ---@type CheckButton
+  filter.onlyTransferExistingItemsCheckbutton = filter.contentFrame.onlyTransferExistingItemsCheckbutton
+
+  ---@type CheckButton
+  filter.transferBoundCheckbutton = filter.contentFrame.transferBoundCheckbutton
+
+  ---@type CheckButton
+  filter.cancelFullInventoryCheckbutton = filter.contentFrame.cancelFullInventoryCheckbutton
+
+  ---@type Button
+  filter.resetButton = filter.contentFrame.resetButton
+
+  ---@type Button
+  filter.iconButton = filter.contentFrame.iconButtonFrame.iconButton
+
+  ---@type EmptyWidget
+  filter.iconGroupFrame = contentFrame.iconGroupFrame
+
+  ---@type ListCtrl
+  filter.iconGroup = filter.iconGroupFrame.listCtrl
+
+  ---@type Combobox
+  filter.gradeCombobox = filter.contentFrame.gradeFrame.gradeCombobox
+
+  ---@type X2Editbox
+  filter.searchEditbox = filter.contentFrame.searchEditbox
+
+  ---@type X2Editbox
+  filter.startEditbox = filter.contentFrame.startEditbox
+
+  ---@type X2Editbox
+  filter.endEditbox = filter.contentFrame.endEditbox
+
+  ---@type X2Editbox
+  filter.cooldownEditbox = filter.contentFrame.cooldownEditbox
 
   local selectedCategoryFilter
   local currentIcon = 1
@@ -390,15 +417,22 @@ local function CreateAutoStoreWindow(id)
     end
   end
 
-  local progressTextbox      = contentFrame.progressTextbox ---@type Textbox
+  ---@type Textbox
+  local progressTextbox      = contentFrame.progressTextbox
 
   local transaction          = {
-    frame = contentFrame.transactionFrame ---@type EmptyWidget
+    ---@type EmptyWidget
+    frame = contentFrame.transactionFrame
   }
 
-  transaction.depositButton  = transaction.frame.depositButton ---@type Button
-  transaction.withdrawButton = transaction.frame.withdrawButton ---@type Button
-  transaction.cancelButton   = transaction.frame.cancelButton ---@type Button
+  ---@type Button
+  transaction.depositButton  = transaction.frame.depositButton
+
+  ---@type Button
+  transaction.withdrawButton = transaction.frame.withdrawButton
+
+  ---@type Button
+  transaction.cancelButton   = transaction.frame.cancelButton
 
   local storageType
 
@@ -497,6 +531,7 @@ local function CreateAutoStoreWindow(id)
     source.currentSlot  = source.startSlot
     source.endSlot      = tonumber(filter.endEditbox:GetText()) or source.storage:Capacity()
 
+    local grade         = filter.gradeCombobox.dropdown:GetSelectedIndex()
     local search        = filter.searchEditbox:GetText():lower()
 
     local searchQueries = {}
@@ -545,6 +580,10 @@ local function CreateAutoStoreWindow(id)
       if categoryFilter
         and not categoryFilter[itemInfo.category_id]
       then
+        return false
+      end
+
+      if grade ~= 0 and grade ~= itemInfo.itemGrade + 1 then
         return false
       end
 
@@ -664,12 +703,21 @@ local function CreateAutoStoreWindow(id)
   end
 
   window:SetHandler("OnEvent", function (self, event, ...)
-    progressTextbox:SetText(locale.addon.autoSortDetected)
+    if event == "COFFER_INTERACTION_END"
+      or event == "NPC_INTERACTION_END"
+    then
+      progressTextbox:SetText("")
+    else
+      progressTextbox:SetText(locale.addon.autoSortDetected)
+    end
   end)
 
   window:RegisterEvent("BAG_TAB_SORTED")
   window:RegisterEvent("COFFER_TAB_SORTED")
   window:RegisterEvent("BANK_TAB_SORTED")
+
+  window:RegisterEvent("COFFER_INTERACTION_END")
+  window:RegisterEvent("NPC_INTERACTION_END")
 
   window:SetHandler("OnHide", StopTransaction)
 
@@ -680,6 +728,7 @@ local function CreateAutoStoreWindow(id)
     filter.cancelFullInventoryCheckbutton:SetChecked(true)
     selectedCategoryFilter = 1
     filter.iconButton.icon:ClearAllTextures()
+    filter.gradeCombobox.dropdown:Select(0)
     filter.searchEditbox:SetText("")
     filter.startEditbox:SetText("")
     filter.endEditbox:SetText("")

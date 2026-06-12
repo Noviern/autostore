@@ -13,9 +13,9 @@ globals/components/create_background.lua
 globals/components/button/checkbutton.lua
 globals/components/button/common.lua
 globals/components/button/radio.lua
-# globals/components/combobox/combobox_view.lua
-# globals/components/combobox/combobox.lua
-# globals/components/combobox/gradecombobox.lua
+globals/components/combobox/combobox_view.lua
+globals/components/combobox/combobox.lua
+globals/components/combobox/gradecombobox.lua
 # globals/components/combobox/searchcombobox.lua
 globals/components/editbox/common.lua
 globals/components/editbox/editbox.lua
@@ -24,12 +24,12 @@ globals/components/editbox/editbox.lua
 globals/components/editbox/searcheditbox.lua
 # globals/components/editbox/spinner.lua
 globals/components/icongroup/icongroup.lua
-# globals/components/listbox/listbox.lua
-# globals/components/listbox/scrolllistbox.lua
+globals/components/listbox/listbox.lua
+globals/components/listbox/scrolllistbox.lua
 # globals/components/listctrl/listctrl.lua
 # globals/components/listctrl/scrolllistctrl.lua
 globals/components/module/module.lua
-# globals/components/scroll/scroll.lua
+globals/components/scroll/scroll.lua
 # globals/components/scroll/scrollwindow.lua
 globals/components/tooltip/tooltip.lua
 globals/components/window/window_view.lua

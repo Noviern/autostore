@@ -38,6 +38,7 @@ locale.addon = {
     transferBound                  = "Transfer bound items",
     autoCancel                     = "Cancel on full inventory",
     pocketChestFilter              = "Pocketchest\nFilter",
+    grade                          = X2Locale:LocalizeUiText(AUCTION_TEXT, "item_grade"),
     searchGuide                    = X2Locale:LocalizeUiText(COMMON_TEXT, "search_iteam"),
     startSlot                      = "Start: 1",
     endSlot                        = "End: 150",
