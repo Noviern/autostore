@@ -40,6 +40,10 @@ function CreateIconGroup(id, parent, initData)
 
   listCtrl:InsertRows(initData.rows, false)
 
+  local overImage = listCtrl:CreateDrawable(TEXTURE_PATH.HUD, "icon_button_ov", "overlay")
+  overImage:SetExtent(initData.iconSize, initData.iconSize)
+  overImage:AddAnchor("TOPLEFT", listCtrl, 0, 0)
+
   for row = 1, initData.rows do
     local rowButtons = listCtrl.items[row].subItems
 
@@ -48,6 +52,10 @@ function CreateIconGroup(id, parent, initData)
       button.background = CreateTextureBackground(button, TEXTURE_PATH.HUD, "action_slot_default_bg", "dimmed")
       button.background:AddAnchor("TOPLEFT", button, initData.gapSize, initData.gapSize)
       button.background:AddAnchor("BOTTOMRIGHT", button, -initData.gapSize, -initData.gapSize)
+
+      button:SetHandler("OnEnter", function (self)
+        overImage:AddAnchor("TOPLEFT", button, 0, 0)
+      end)
     end
   end
 
