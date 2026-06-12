@@ -25,9 +25,10 @@ function CreateIconGroup(id, parent, initData)
 
   frame.background = CreateTextureBackground(frame, TEXTURE_PATH.DEFAULT, "editbox_df")
   frame:SetExtent(
-    initData.iconSize * initData.columns + COMMON.SPACING * 2,
-    initData.iconSize * initData.rows + COMMON.SPACING * 2
+    (initData.iconSize + initData.gapSize * 2) * initData.columns + COMMON.SPACING * 2,
+    (initData.iconSize + initData.gapSize * 2) * initData.rows + COMMON.SPACING * 2
   )
+  ADDON:ChatLog(tostring((initData.iconSize + initData.gapSize * 2) * initData.rows + COMMON.SPACING * 2))
 
   local listCtrl = frame:CreateChildWidget("listctrl", "listCtrl", 0, true)
   listCtrl:AddAnchor("TOPLEFT", frame, COMMON.SPACING, COMMON.SPACING)
@@ -35,13 +36,13 @@ function CreateIconGroup(id, parent, initData)
   listCtrl:SetHeaderColumnHeight(0)
 
   for _ = 1, initData.columns do
-    listCtrl:InsertColumn(initData.iconSize, LCCIT_BUTTON)
+    listCtrl:InsertColumn(initData.iconSize + initData.gapSize * 2, LCCIT_BUTTON)
   end
 
   listCtrl:InsertRows(initData.rows, false)
 
   local overImage = listCtrl:CreateDrawable(TEXTURE_PATH.HUD, "icon_button_ov", "overlay")
-  overImage:SetExtent(initData.iconSize, initData.iconSize)
+  overImage:SetExtent(initData.iconSize + initData.gapSize * 2, initData.iconSize + initData.gapSize * 2)
   overImage:AddAnchor("TOPLEFT", listCtrl, 0, 0)
 
   for row = 1, initData.rows do
