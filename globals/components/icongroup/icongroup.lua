@@ -28,7 +28,6 @@ function CreateIconGroup(id, parent, initData)
     (initData.iconSize + initData.gapSize * 2) * initData.columns + COMMON.SPACING * 2,
     (initData.iconSize + initData.gapSize * 2) * initData.rows + COMMON.SPACING * 2
   )
-  ADDON:ChatLog(tostring((initData.iconSize + initData.gapSize * 2) * initData.rows + COMMON.SPACING * 2))
 
   local listCtrl = frame:CreateChildWidget("listctrl", "listCtrl", 0, true)
   listCtrl:AddAnchor("TOPLEFT", frame, COMMON.SPACING, COMMON.SPACING)
